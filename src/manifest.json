@@ -1,0 +1,25 @@
+{
+    "manifest_version": 2,
+    "name": "Kestrel",
+    "description": "",
+    "version": "0.0.0.1",
+
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": [
+                "contentscripts/front.js"
+            ],
+            "css": [
+                "contentscripts/cmdpalui.css"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+
+    "background": {
+        "scripts": [
+            "background/main.js"
+        ]
+    }
+}
