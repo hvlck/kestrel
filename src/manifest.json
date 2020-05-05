@@ -4,14 +4,22 @@
     "description": "",
     "version": "0.0.0.1",
 
+    "permissions": [
+        "alarms",
+        "idle",
+        "storage",
+        "tabs",
+        "search"
+    ],
+
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
             "js": [
-                "contentscripts/front.js"
+                "contentscripts/ui.js"
             ],
             "css": [
-                "contentscripts/cmdpalui.css"
+                "contentscripts/ui.css"
             ],
             "run_at": "document_start"
         }
