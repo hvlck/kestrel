@@ -9,25 +9,23 @@
         "idle",
         "storage",
         "tabs",
+        "activeTab",
         "search"
-    ],
-
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "js": [
-                "contentscripts/ui.js"
-            ],
-            "css": [
-                "contentscripts/ui.css"
-            ],
-            "run_at": "document_start"
-        }
     ],
 
     "background": {
         "scripts": [
             "background/main.js"
         ]
+    },
+
+    "commands": {
+        "activate": {
+            "suggested_key": {
+                "default": "Alt+Shift+Q",
+                "linux": "Ctrl+Shift+Q"
+            },
+            "description": "Open Kestrel command interface"
+        }
     }
 }
