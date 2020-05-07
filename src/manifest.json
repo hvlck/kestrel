@@ -27,5 +27,11 @@
             },
             "description": "Open Kestrel command interface"
         }
+    },
+
+    "options_ui": {
+        "page": "options/index.html",
+        "browser_style": false,
+        "open_in_tab": true
     }
 }
