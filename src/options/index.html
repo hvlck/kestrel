@@ -4,8 +4,28 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Kestrel Options</title>
+		<style>
+			:root {
+				--primary: #fafafa;
+				--secondary: #212121;
+
+				--heading-font: Arial, Helvetica, sans-serif;
+			}
+
+			@media (prefers-color-scheme:dark) {
+				:root {
+					--primary: #fafafa;
+					--secondary: #212121; /* Should be reversed */
+				}
+			}
+			body {
+				background: var(--primary);
+				color: var(--secondary);
+				font-family: var(--heading-font);
+			}
+		</style>
 	</head>
 	<body>
-		
+		<h1>Kestrel</h1>
 	</body>
 </html>

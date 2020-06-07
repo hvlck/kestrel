@@ -1,0 +1,79 @@
+:root {
+	--kestrel-primary: #212121;
+	--kestrel-secondary: #fafafa;
+	--kestrel-tertiary: #404040;
+	--kestrel-quaternary: #b9bec5;
+}
+
+body:not([class^="kestrel"]) {
+	background: rgba(0, 0, 0, 0.3);
+}
+
+*:not(*[class^="kestrel"]) {
+	background: rgba(0, 0, 0, 0.3);
+	pointer-events: none;
+}
+
+*[class^="kestrel"] {
+	animation: 100ms fadeIn linear;
+	transition: 100ms linear;
+}
+
+.kestrel {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	width: 100%;
+	max-width: 800px;
+	min-height: 400px;
+	max-height: 1000px;
+	margin: 0 auto;
+
+	position: fixed;
+	top: 10%;
+	left: 50%;
+	transform: translate(-50%, -10%);
+	z-index: 99999;
+}
+
+.kestrel-command-input {
+	background: var(--kestrel-primary);
+	color: var(--kestrel-secondary);
+
+	font-size: 20pt;
+	border: none;
+	border-bottom: 1px solid var(--kestrel-quaternary);
+	border-radius: 2px;
+	width: 100%;
+	padding: 1rem;
+	margin: 7.5% auto 0 auto;
+}
+
+.kestrel-commands-container {
+	border: none;
+	border-radius: 2px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.kestrel-command-item {
+	padding: 0.5rem 1rem;
+	margin: 0 auto;
+	font-size: 14pt;
+	font-weight: normal;
+	width: 100%;
+	background: var(--kestrel-primary);
+	color: var(--kestrel-secondary);
+}
+
+.kestrel-command-item-focused {
+	background: var(--kestrel-tertiary);
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
