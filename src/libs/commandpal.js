@@ -7,6 +7,14 @@ let commands = {
 	"toggleMiniMap": {
 		"name": "Toggle minimap",
 		"callback": "toggleMiniMap"
+	},
+	"toggleEditPage": {
+		"name": "Toggle Edit Page",
+		"callback": "editPage"
+	},
+	"disableLinks": {
+		"name": "Disable all links",
+		"callback": "disableLinks"
 	}
 };
 
@@ -122,7 +130,7 @@ class CommandPal {
 		if (this.options.items.sort) { this.matchedCommands.sort(this.options.items.sort) };
 	};
 
-	execute(command) { // Executes given command from one of its values (e.g. description, name, function name, etc.)
+	execute(command, obj) { // Executes given command from one of its values (e.g. description, name, function name, etc.)
 		let callback;
 		if (typeof command == 'function') {
 			command();
@@ -140,7 +148,8 @@ class CommandPal {
 					}
 				}
 			});
-			return callback;
+			if (!obj) { obj = window }
+			obj[callback](command);
 		}
 	};
 

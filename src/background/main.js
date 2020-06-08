@@ -26,21 +26,21 @@ browser.commands.onCommand.addListener(command => {
 });
 
 const injectScripts = () => {
-    injectStylesheet().then(() => {
+    injectStylesheet();
+
+    browser.tabs.executeScript({ // Injects main UI script
+        file: '../libs/commandpal.js'
+    }).then(() => {
         browser.tabs.executeScript({ // Injects main UI script
-            file: '../libs/commandpal.js'
-        }).then(() => {
-            browser.tabs.executeScript({ // Injects main UI script
-                file: '../contentscripts/ui.js'
-            });
-        }).catch(injectScripts).finally(() => { return });
-    }).catch(injectStylesheet).finally(() => { return });
+            file: '../contentscripts/ui.js'
+        });
+    }).catch(injectScripts).finally(() => { return });
 }
 
 const injectStylesheet = () => {
-    return browser.tabs.insertCSS({ // Injects UI stylesheet
+    browser.tabs.insertCSS({ // Injects UI stylesheet
         file: "../contentscripts/ui.css"
-    })
+    }).catch(injectStylesheet).finally(() => { return });
 }
 
 const removePalette = () => {

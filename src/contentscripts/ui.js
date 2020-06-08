@@ -54,21 +54,26 @@ function buildUI() {
 		if (event.keyCode == 13 && commandList) {
 			Object.values(commandList.children).forEach(child => {
 				if (child.classList.contains('kestrel-command-item-focused')) {
-					let callback = cpal.execute(child.innerText);
-					cmdFunctions[callback]();
+					cpal.execute(child.innerText, cmdFunctions);
 				}
 			});
 			commandInp.value = '';
 			cpal.listen('');
 			updateCommands();
 		} else if (event.keyCode == 38) {
-			if (commandIndex <= 0) { return }
 			commandList.children[commandIndex].classList.remove('kestrel-command-item-focused');
+			if (commandIndex <= 0) {
+				commandList.children[commandList.children.length - 1].classList.add('kestrel-command-item-focused')
+				return commandIndex += 1;
+			}
 			commandIndex -= 1;
 			commandList.children[commandIndex].classList.add('kestrel-command-item-focused');
 		} else if (event.keyCode == 40) {
-			if (commandIndex >= commandList.children.length - 1) { return }
 			commandList.children[commandIndex].classList.remove('kestrel-command-item-focused');
+			if (commandIndex >= commandList.children.length - 1) {
+				commandList.children[0].classList.add('kestrel-command-item-focused')
+				return commandIndex -= 1;
+			}
 			commandIndex += 1;
 			commandList.children[commandIndex].classList.add('kestrel-command-item-focused');
 		};
@@ -101,12 +106,11 @@ const updateCommands = () => {
 		});
 
 		commandItem.addEventListener('click', () => {
-			let callback = cpal.execute(commandItem.innerText);
-			cmdFunctions[callback]();
+			cpal.execute(commandItem.innerText, cmdFunctions);
 		});
 
 		commandItem.addEventListener('mouseover', () => {
-			Object.values(commandList.children).forEach(child => child.classList.remove('kestrel-command-item-focused') );
+			Object.values(commandList.children).forEach(child => child.classList.remove('kestrel-command-item-focused'));
 			commandItem.classList.add('kestrel-command-item-focused');
 		})
 
@@ -125,8 +129,7 @@ const connectPort = () => {
 		if (msg.kestrel == 'connection-success') {
 
 		} else if (msg.kestrel == 'hide') {
-			kestrel.classList.add('kestrel-hidden');
-			kestrel.remove();
+			hideKestrel();
 		} else if (msg.kestrel == 'show') {
 			document.body.insertBefore(kestrel, document.body.firstChild);
 			connectPort();
@@ -140,6 +143,11 @@ const connectPort = () => {
 	});
 }
 
+const hideKestrel = () => {
+	kestrel.classList.add('kestrel-hidden');
+	kestrel.remove();
+}
+
 const clearCommands = () => { if (commandList) { Object.values(commandList.children).forEach(child => child.remove()) } }
 
 buildUI();
@@ -151,11 +159,28 @@ const sendFnEvent = (msg) => {
 // Command Callbacks
 
 let cmdFunctions = {
-	openSettings: function() {
+	openSettings: function (ref) {
 		sendFnEvent({ fn: 'openSettings' });
 	},
 
-	toggleMiniMap: function() {
+	toggleMiniMap: function (ref) {
 		sendFnEvent({ injectSheet: 'minimap' })
+	},
+
+	editPage: function (ref) {
+		document.querySelectorAll('body > *').forEach(item => {
+			if (item.className.includes('kestrel')) { return }
+			else {
+				console.log(item.contentEditable)
+				if (item.contentEditable == 'inherit' || item.contentEditable == 'false') { item.contentEditable = 'true' }
+				else if (item.contentEditable == 'true') { item.contentEditable = 'false' }
+			};
+		})
+	},
+
+	disableLinks: function (ref) {
+		document.querySelectorAll('a[href]').forEach(item => item.style.pointerEvents = 'none');
 	}
 }
+
+// Functions that run automatically
