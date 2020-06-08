@@ -6,7 +6,7 @@ let commands = {
 	},
 	"toggleMiniMap": {
 		"name": "Toggle minimap",
-		"callback": "toggleMinimap"
+		"callback": "toggleMiniMap"
 	}
 };
 

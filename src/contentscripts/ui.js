@@ -12,18 +12,24 @@ const buildElement = (type, text, attributes) => {
 }
 
 // Command palette UI and control
+window.addEventListener('beforeunload', () => {
+	port.postMessage({ kestrel: 'not-injected' })
+}) // Since background script variables are saved between page states, this updates the status.injected variable in the injection controller within the background script
+
 let kestrel;
 let commandInp;
 let commandIndex = 0;
 
-const cpal = new CommandPal();
+const cpal = new CommandPal({
+	'sort': 'alphabetical'
+});
 let commandsChanged = cpal.matchedCommands.changed();
 
 let port;
 
 function buildUI() {
 	kestrel = buildElement('div', '', {
-		'className': 'kestrel'
+		'className': 'kestrel kestrel-hidden'
 	});
 
 	document.body.insertBefore(kestrel, document.body.firstChild);
@@ -68,7 +74,10 @@ function buildUI() {
 		};
 	});
 
+	connectPort();
+
 	kestrel.appendChild(commandInp);
+	kestrel.classList.remove('kestrel-hidden');
 
 	commandInp.focus();
 }
@@ -91,29 +100,62 @@ const updateCommands = () => {
 			'className': 'kestrel-command-item'
 		});
 
+		commandItem.addEventListener('click', () => {
+			let callback = cpal.execute(commandItem.innerText);
+			cmdFunctions[callback]();
+		});
+
+		commandItem.addEventListener('mouseover', () => {
+			Object.values(commandList.children).forEach(child => child.classList.remove('kestrel-command-item-focused') );
+			commandItem.classList.add('kestrel-command-item-focused');
+		})
+
 		commandList.appendChild(commandItem);
 	});
 
 	commandList.firstChild.classList.add('kestrel-command-item-focused');
 }
 
+const connectPort = () => {
+	port = browser.runtime.connect({ // Establish initial connection to background script (background/main.js)
+		name: 'kestrel'
+	});
+
+	port.onMessage.addListener(msg => { // Messages from background script
+		if (msg.kestrel == 'connection-success') {
+
+		} else if (msg.kestrel == 'hide') {
+			kestrel.classList.add('kestrel-hidden');
+			kestrel.remove();
+		} else if (msg.kestrel == 'show') {
+			document.body.insertBefore(kestrel, document.body.firstChild);
+			connectPort();
+			kestrel.classList.remove('kestrel-hidden');
+			kestrel.focus();
+		}
+	});
+
+	port.onDisconnect.addListener(msg => {
+		port = null;
+	});
+}
+
 const clearCommands = () => { if (commandList) { Object.values(commandList.children).forEach(child => child.remove()) } }
 
 buildUI();
+
+const sendFnEvent = (msg) => {
+	port.postMessage(msg);
+}
 
 // Command Callbacks
 
 let cmdFunctions = {
 	openSettings: function() {
-		return 'e'
-		browser.tabs.create({
-			active: true,
-			url: 'https://google.com'
-		}).catch(err => console.error(err));
+		sendFnEvent({ fn: 'openSettings' });
 	},
 
-	togleMiniMap: function() {
-		alert('e')
+	toggleMiniMap: function() {
+		sendFnEvent({ injectSheet: 'minimap' })
 	}
 }
-
