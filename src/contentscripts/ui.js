@@ -12,10 +12,6 @@ const buildElement = (type, text, attributes) => {
 }
 
 // Command palette UI and control
-window.addEventListener('beforeunload', () => {
-	port.postMessage({ kestrel: 'not-injected' })
-}) // Since background script variables are saved between page states, this updates the status.injected variable in the injection controller within the background script
-
 let kestrel;
 let commandInp;
 let commandIndex = 0;
@@ -88,6 +84,7 @@ function buildUI() {
 
 let commandList;
 const updateCommands = () => {
+	commandInp.focus();
 	cpal.listen(commandInp.value);
 	commandIndex = 0;
 	if (commandList && commandsChanged) {
@@ -134,7 +131,7 @@ const connectPort = () => {
 			document.body.insertBefore(kestrel, document.body.firstChild);
 			connectPort();
 			kestrel.classList.remove('kestrel-hidden');
-			kestrel.focus();
+			commandInp.focus();
 		}
 	});
 
@@ -144,7 +141,6 @@ const connectPort = () => {
 }
 
 const hideKestrel = () => {
-	kestrel.classList.add('kestrel-hidden');
 	kestrel.remove();
 }
 
