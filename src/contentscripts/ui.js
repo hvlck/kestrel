@@ -20,7 +20,7 @@ let kestrel;
 let commandInp;
 let commandIndex = 0;
 
-const cpal = new CommandPal({
+const cpal = new CommandPal(commands, {
 	'sort': 'alphabetical'
 });
 let commandsChanged = cpal.matchedCommands.changed();
@@ -41,12 +41,10 @@ function buildUI() {
 	});
 
 	commandInp.addEventListener('input', () => {
-		cpal.listen(commandInp.value);
 		updateCommands();
 	});
 
 	commandInp.addEventListener('focus', () => {
-		cpal.listen(commandInp.value);
 		updateCommands();
 	});
 
@@ -58,24 +56,25 @@ function buildUI() {
 				}
 			});
 			commandInp.value = '';
-			cpal.listen('');
 			updateCommands();
 		} else if (event.keyCode == 38) {
-			commandList.children[commandIndex].classList.remove('kestrel-command-item-focused');
+			Object.values(commandList.children).forEach(child => child.classList.remove('kestrel-command-item-focused'));
 			if (commandIndex <= 0) {
 				commandList.children[commandList.children.length - 1].classList.add('kestrel-command-item-focused')
-				return commandIndex += 1;
+				commandIndex = commandList.children.length - 1;
+			} else {
+				commandIndex -= 1;
+				commandList.children[commandIndex].classList.add('kestrel-command-item-focused');				
 			}
-			commandIndex -= 1;
-			commandList.children[commandIndex].classList.add('kestrel-command-item-focused');
 		} else if (event.keyCode == 40) {
-			commandList.children[commandIndex].classList.remove('kestrel-command-item-focused');
+			Object.values(commandList.children).forEach(child => child.classList.remove('kestrel-command-item-focused'));
 			if (commandIndex >= commandList.children.length - 1) {
 				commandList.children[0].classList.add('kestrel-command-item-focused')
-				return commandIndex -= 1;
+				commandIndex = 0;
+			} else {
+				commandIndex += 1;
+				commandList.children[commandIndex].classList.add('kestrel-command-item-focused');
 			}
-			commandIndex += 1;
-			commandList.children[commandIndex].classList.add('kestrel-command-item-focused');
 		};
 	});
 
@@ -89,6 +88,7 @@ function buildUI() {
 
 let commandList;
 const updateCommands = () => {
+	cpal.listen(commandInp.value);
 	commandIndex = 0;
 	if (commandList && commandsChanged) {
 		clearCommands();
@@ -155,32 +155,3 @@ buildUI();
 const sendFnEvent = (msg) => {
 	port.postMessage(msg);
 }
-
-// Command Callbacks
-
-let cmdFunctions = {
-	openSettings: function (ref) {
-		sendFnEvent({ fn: 'openSettings' });
-	},
-
-	toggleMiniMap: function (ref) {
-		sendFnEvent({ injectSheet: 'minimap' })
-	},
-
-	editPage: function (ref) {
-		document.querySelectorAll('body > *').forEach(item => {
-			if (item.className.includes('kestrel')) { return }
-			else {
-				console.log(item.contentEditable)
-				if (item.contentEditable == 'inherit' || item.contentEditable == 'false') { item.contentEditable = 'true' }
-				else if (item.contentEditable == 'true') { item.contentEditable = 'false' }
-			};
-		})
-	},
-
-	disableLinks: function (ref) {
-		document.querySelectorAll('a[href]').forEach(item => item.style.pointerEvents = 'none');
-	}
-}
-
-// Functions that run automatically

@@ -14,3 +14,5 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 + Performance Testing with **about:performance*
 + Use arrays to control ports in background scripts, in order ot have multiple connections open simultaneously
++ Better folder naming
++ Variables for CSS class names, for future-proofing

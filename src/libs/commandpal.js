@@ -1,26 +1,7 @@
-// Command palette processor
-let commands = {
-	"openSettings": {
-		"name": "Settings",
-		"callback": "openSettings"
-	},
-	"toggleMiniMap": {
-		"name": "Toggle minimap",
-		"callback": "toggleMiniMap"
-	},
-	"toggleEditPage": {
-		"name": "Toggle Edit Page",
-		"callback": "editPage"
-	},
-	"disableLinks": {
-		"name": "Disable all links",
-		"callback": "disableLinks"
-	}
-};
-
+// CommandPal - Powers command processor
 class CommandPal {
-	constructor(options) {
-		this.file = commands; // Commands variable or JSON file
+	constructor(source, options) {
+		this.source = source; // JSON file with commands
 
 		this.matchedCommands = {
 			_oldCommands: this.commands,
@@ -86,13 +67,19 @@ class CommandPal {
 	}
 
 	getCommands() {
-		this.commands = Object.assign(this.commands, this.file);
+		if (typeof this.source == 'string' && this.source.endsWith('.json')) {
+			fetch(this.source).then(res => { return res.json() }).then(data => { // Fetches commands from JSON file or uses specified JS object
+				this.commands = Object.assign(this.commands, data);
+			}).catch(err => { this._generateError(err, `Failed to load commands from source ${this.source}.`) });
+		} else {
+			this.commands = Object.assign(this.commands, this.source)
+		}
 	}
 
-	updateCommands(file) {
-		if (file == this.file) { return false }
+	updateCommands(source) {
+		if (source == this.source) { return false }
 		else {
-			this.file = file;
+			this.source = source;
 			this.getCommands();
 		}
 	}
