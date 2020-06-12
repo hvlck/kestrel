@@ -19,6 +19,7 @@ let commandIndex = 0;
 const cpal = new CommandPal(commands, {
 	'sort': 'alphabetical'
 });
+
 let commandsChanged = cpal.matchedCommands.changed();
 
 let port;
@@ -27,8 +28,6 @@ function buildUI() {
 	kestrel = buildElement('div', '', {
 		'className': 'kestrel kestrel-hidden'
 	});
-
-	document.body.insertBefore(kestrel, document.body.firstChild);
 
 	commandInp = buildElement('input', '', {
 		'type': 'text',
@@ -77,13 +76,13 @@ function buildUI() {
 	connectPort();
 
 	kestrel.appendChild(commandInp);
-	kestrel.classList.remove('kestrel-hidden');
+	showKestrel()
 
 	commandInp.focus();
 }
 
 let commandList;
-const updateCommands = () => {
+const updateCommands = () => { // Updates list of commands, adds event listeners to command elements
 	commandInp.focus();
 	cpal.listen(commandInp.value);
 	commandIndex = 0;
@@ -128,9 +127,8 @@ const connectPort = () => {
 		} else if (msg.kestrel == 'hide') {
 			hideKestrel();
 		} else if (msg.kestrel == 'show') {
-			document.body.insertBefore(kestrel, document.body.firstChild);
 			connectPort();
-			kestrel.classList.remove('kestrel-hidden');
+			showKestrel();
 			commandInp.focus();
 		}
 	});
@@ -141,8 +139,14 @@ const connectPort = () => {
 }
 
 const hideKestrel = () => {
+	kestrel.classList.add('kestrel-hidden');
 	kestrel.remove();
 }
+
+const showKestrel = () => {
+	document.body.insertBefore(kestrel, document.body.firstChild);
+	kestrel.classList.remove('kestrel-hidden')
+};
 
 const clearCommands = () => { if (commandList) { Object.values(commandList.children).forEach(child => child.remove()) } }
 

@@ -4,6 +4,11 @@
     "description": "",
     "version": "0.0.0.1",
 
+    "icons": {
+        "48": "icons/icon.png",
+        "96": "icons/icon@2x.png"
+    },
+
     "permissions": [
         "alarms",
         "idle",
