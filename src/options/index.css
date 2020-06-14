@@ -1,0 +1,58 @@
+:root {
+	--highlight: #16c581;
+
+	--primary: #fafafa;
+	--secondary: #212121;
+
+	--heading-font: Arial, Helvetica, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--primary: #212121;
+		--secondary: #fafafa;
+		--tertiary: #404040;
+	}
+}
+
+body {
+	background: var(--primary);
+	color: var(--secondary);
+	font-family: var(--heading-font);
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 10px;
+	font-size: 115%;
+}
+
+* {
+	transition: 0.2s cubic-bezier(.54,.39,.37,.98);
+}
+
+.nav {
+	margin: 2% auto 2% 0;
+	padding: 3px 3px 3px 0;
+	width: 100%;
+}
+
+.nav a,
+.nav a:visited {
+	color: var(--highlight);
+	margin: 0.5% 2% 0.5% 0%;
+	padding: 1px;
+	opacity: 0.7;
+	width: auto;
+	border: none;
+}
+
+.nav a:hover {
+	opacity: 1;
+}
+
+select, select > * {
+	padding: 5px;
+	font-size: 12pt;
+	background-color: var(--primary);
+	color: var(--secondary);
+	border: 2px solid var(--tertiary);
+}

@@ -1,5 +1,7 @@
 # kestrel
 
+UPDATE MANIFEST VERSION
+
 ## How Permissions are Used
 
 ### Search

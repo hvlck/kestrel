@@ -50,6 +50,10 @@ const injectScripts = () => {
             file: '../contentscripts/kestrel.js'
         });
     }).then(() => {
+        browser.tabs.executeScript({
+            file: '../libs/utils.js'
+        })
+    }).then(() => {
         browser.tabs.executeScript({ // Injects main UI script
             file: '../contentscripts/ui.js'
         });
