@@ -1,8 +1,17 @@
 :root {
-	--kestrel-primary: #212121;
-	--kestrel-secondary: #fafafa;
-	--kestrel-tertiary: #404040;
-	--kestrel-quaternary: #b9bec5;
+	--kestrel-primary: #fafafa;
+	--kestrel-secondary: #404040;
+	--kestrel-tertiary: #f1f2f3;
+	--kestrel-quaternary: #212121;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--kestrel-primary: #212121;
+		--kestrel-secondary: #fafafa;
+		--kestrel-tertiary: #404040;
+		--kestrel-quaternary: #b9bec5;
+	}
 }
 
 body > *:not(.kestrel) {
@@ -12,6 +21,7 @@ body > *:not(.kestrel) {
 
 .kestrel {
 	font-family: Arial, Helvetica, sans-serif;
+	background-color: transparent;
 	font-weight: normal;
 	width: 100%;
 	max-width: 800px;
@@ -35,7 +45,7 @@ body > *:not(.kestrel) {
 	font-size: 20pt;
 	border: none;
 	border-bottom: 1px solid var(--kestrel-quaternary);
-	border-radius: 2px;
+	border-radius: 0px;
 	width: 100%;
 	padding: 1rem;
 	margin: 7.5% auto 0 auto;

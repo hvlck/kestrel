@@ -100,7 +100,7 @@ const updateCommands = () => { // Updates list of commands, adds event listeners
 		commandList.appendChild(commandItem);
 	});
 
-	commandList.firstChild.classList.add('kestrel-command-item-focused');
+	if (commandList.firstChild) { commandList.firstChild.classList.add('kestrel-command-item-focused') };
 }
 
 const connectPort = () => {

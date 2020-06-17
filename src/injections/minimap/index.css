@@ -1,1 +1,45 @@
-body { background-color: red }
+:root {
+	--primary: #fafafa;
+	--secondary: #404040;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--primary: #212121;
+		--secondary: #fafafa;
+	}
+}
+
+#kestrel-mini-map-container {
+	width: 80%;
+}
+
+#kestrel-mini-map {
+	border: 2px solid var(--primary);
+	width: 20%;
+	height: auto;
+	min-height: 95%;
+	position: fixed;
+	right: 0.5%;
+	top: 5%;
+	opacity: 0.7;
+	background: -moz-element(#kestrel-mini-map-container) no-repeat top / contain;
+}
+
+#kestrel-mini-map:hover { opacity: 1 }
+
+#kestrel-mini-map-slider {
+	width: 100%;
+	height: 20px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 0;
+	background: var(--secondary);
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+#kestrel-mini-map-slider:hover {
+	opacity: 0.9;
+}

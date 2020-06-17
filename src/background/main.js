@@ -91,7 +91,8 @@ browser.runtime.onConnect.addListener(port => { // Initial port connection to co
                 browser.runtime.openOptionsPage().catch(err => console.error(err));
             } else if (msg.injectSheet) {
                 browser.tabs.insertCSS({
-                    file: `../injections/${msg.injectSheet}/index.css`
+                    file: `../injections/${msg.injectSheet}/index.css`,
+                    cssOrigin: "user"
                 });
             };
         });
