@@ -62,7 +62,6 @@ let cmdFunctions = {
 			minimap.appendChild(selection);
 
 			document.body.appendChild(minimap);
-
 		}
 	},
 
