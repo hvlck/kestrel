@@ -25,7 +25,7 @@ browser.commands.onCommand.addListener(command => {
             removePalette();
             status[data].active = false;
         } else if (status[data].injected == true && status[data].active == false) {
-            contentPort.postMessage({ kestrel: 'show' })
+            sendMessage({ kestrel: 'show' })
             injectStylesheet();
             status[data].active = true;
         }
@@ -72,7 +72,7 @@ const removePalette = () => {
     }).catch(err => console.error(`Failed to remove stylesheet: ${err}`))
 
     if (contentPort) {
-        contentPort.postMessage({ kestrel: 'hide' });
+        sendMessage({ kestrel: 'hide' });
     }
 }
 
@@ -84,17 +84,10 @@ browser.runtime.onConnect.addListener(port => { // Initial port connection to co
         active: true,
         injected: true
     }
-    if (contentPort) { contentPort.postMessage({ kestrel: 'connection-success' }) };
+    if (contentPort) { sendMessage({ kestrel: 'connection-success' }) };
     if (port.name === 'kestrel') {
         port.onMessage.addListener(msg => {
-            if (msg.fn == 'openSettings') {
-                browser.runtime.openOptionsPage().catch(err => console.error(err));
-            } else if (msg.injectSheet) {
-                browser.tabs.insertCSS({
-                    file: `../injections/${msg.injectSheet}/index.css`,
-                    cssOrigin: "user"
-                });
-            };
+
         });
     };
 
@@ -104,4 +97,21 @@ browser.runtime.onConnect.addListener(port => { // Initial port connection to co
             injected: false
         };
     });
-})
+});
+
+browser.runtime.onMessage.addListener((msg, sender, response) => {
+    if (msg.fn == 'openSettings') {
+        browser.runtime.openOptionsPage().catch(err => console.error(err));
+    } else if (msg.injectSheet) {
+        browser.tabs.insertCSS({
+            file: `../injections/${msg.injectSheet}/index.css`,
+            cssOrigin: "user"
+        });
+    } else if (msg.fn === 'tabs') {
+        browser.tabs.query({}).then(tabs => tabs.forEach(tab => browser.tabs.reload(tab.id, msg.args)));
+    }
+});
+
+const sendMessage = (msg) => {
+    contentPort.postMessage(msg);
+}

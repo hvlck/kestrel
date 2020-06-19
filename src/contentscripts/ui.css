@@ -58,6 +58,8 @@ body > *:not(.kestrel) {
 	border-radius: 2px;
 	width: 100%;
 	margin: 0 auto;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 .kestrel-command-item {

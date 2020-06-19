@@ -8,6 +8,13 @@ const commands = {
 		"name": "Settings",
 		"callback": "openSettings"
 	},
+	"refreshTabs": {
+		"name": "Refresh all tabs: soft",
+		"callback": "refreshTabs",
+		"aliases": [
+			"Refresh all tabs: hard"
+		]
+	},
 	"scrollTo": {
 		"name": "Scroll to top of the page",
 		"callback": "scrollTo",
@@ -43,6 +50,20 @@ let cmdFunctions = {
 		sendFnEvent({ fn: 'openSettings' });
 	},
 
+	refreshTabs: function (ref) {
+		if (ref.includes('soft')) {
+			sendFnEvent({
+				fn: 'tabs',
+				args: { bypassCache: false }
+			})
+		} else if (ref.includes('hard')) {
+			sendFnEvent({
+				fn: 'tabs',
+				args: { bypassCache: true }
+			});
+		}
+	},
+
 	scrollTo: function (ref) {
 		if (ref.includes('top')) { window.scrollTo(0, 0) }
 		else if (ref.includes('middle')) { window.scrollTo(0, document.body.scrollHeight / 2) }
@@ -64,7 +85,6 @@ let cmdFunctions = {
 			let container = buildElement('div', '', {
 				id: "kestrel-mini-map-container"
 			});
-
 
 			Object.values(document.body.children).forEach(item => {
 				if (!item.className.includes('kestrel')) { container.appendChild(item) }

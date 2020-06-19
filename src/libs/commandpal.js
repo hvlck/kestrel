@@ -141,7 +141,6 @@ class CommandPal {
 				this.commands = data;
 			}).catch(err => { this._generateError(err, `Failed to load commands from source ${this.source}.`) });
 		} else if (typeof this.source == 'object') {
-			console.log(this.source)
 			this.commands = this.source;
 		} else { this._generateError('', 'Invalid source type provided.') }
 	}
@@ -150,7 +149,6 @@ class CommandPal {
 		if (!source) { this._generateError('', 'No source provided when calling CommandPal.updateCommandList()') }
 		else {
 			this.source = source;
-			console.error(this.source);
 			this._fetchCommands();
 		}
 	}

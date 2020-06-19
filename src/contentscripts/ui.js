@@ -123,6 +123,11 @@ const connectPort = () => {
 	});
 }
 
+let messager;
+const sendFnEvent = (msg) => {
+	return browser.runtime.sendMessage(msg);
+}
+
 const hideKestrel = () => {
 	kestrel.classList.add('kestrel-hidden');
 	kestrel.remove();
@@ -136,7 +141,3 @@ const showKestrel = () => {
 function clearCommands() { if (commandList) { Object.values(commandList.children).forEach(child => child.remove()) } }
 
 buildUI();
-
-const sendFnEvent = (msg) => {
-	port.postMessage(msg);
-}
