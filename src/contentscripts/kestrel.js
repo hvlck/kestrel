@@ -1,8 +1,21 @@
 // Command palette variables
-let commands = {
+const commands = {
+	"disableLinks": {
+		"name": "Disable all links",
+		"callback": "disableLinks"
 	"openSettings": {
 		"name": "Settings",
 		"callback": "openSettings"
+	},
+	"scrollTo": {
+		"name": "Scroll to top of the page",
+		"callback": "scrollTo",
+		"aliases": [
+			"Scroll to 1/4 of the page",
+			"Scroll to middle of the page",
+			"Scroll to 3/4 of the page",
+			"Scroll to bottom of the page"
+		]
 	},
 	"toggleMiniMap": {
 		"name": "Toggle Minimap",
@@ -11,10 +24,6 @@ let commands = {
 	"toggleEditPage": {
 		"name": "Toggle Edit Page",
 		"callback": "editPage"
-	},
-	"disableLinks": {
-		"name": "Disable all links",
-		"callback": "disableLinks"
 	},
 	"toggleAnimations": {
 		"name": "Toggle animations: off",
@@ -25,8 +34,20 @@ let commands = {
 // Command Callbacks
 
 let cmdFunctions = {
+	disableLinks: function (ref) {
+		document.querySelectorAll('a[href]').forEach(item => item.style.pointerEvents = 'none');
+	},
+
 	openSettings: function (ref) {
 		sendFnEvent({ fn: 'openSettings' });
+	},
+
+	scrollTo: function (ref) {
+		if (ref.includes('top')) { window.scrollTo(0, 0) }
+		else if (ref.includes('middle')) { window.scrollTo(0, document.body.scrollHeight / 2) }
+		else if (ref.includes('bottom')) { window.scrollTo(0, document.body.scrollHeight) }
+		else if (ref.includes('1/4')) { window.scrollTo(0, document.body.scrollHeight * 0.25) }
+		else if (ref.includes('3/4')) { window.scrollTo(0, document.body.scrollHeight * 0.75) }
 	},
 
 	toggleMiniMap: function (ref) {
@@ -75,16 +96,12 @@ let cmdFunctions = {
 		})
 	},
 
-	disableLinks: function (ref) {
-		document.querySelectorAll('a[href]').forEach(item => item.style.pointerEvents = 'none');
-	},
-
 	toggleAnimations: function (ref) {
 		if (ref.includes('off')) {
 			Object.values(document.body.querySelectorAll('*')).forEach(item => {
 				if (item.className.includes('kestrel') || item.getAnimations().length == 0) { return }
 				else {
-					item.getAnimations().forEach(animation =>  animation.pause());
+					item.getAnimations().forEach(animation => animation.pause());
 				}
 			});
 

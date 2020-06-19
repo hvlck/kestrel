@@ -138,17 +138,19 @@ class CommandPal {
 	_fetchCommands() { // Assigns/Fetches list of commands
 		if (typeof this.source == 'string' && this.source.endsWith('.json')) {
 			fetch(this.source).then(res => { return res.json() }).then(data => { // Fetches commands from JSON file and inputs them into various variables
-				this.commands = Object.assign(this.commands, data);
+				this.commands = data;
 			}).catch(err => { this._generateError(err, `Failed to load commands from source ${this.source}.`) });
-		} else {
-			this.commands = Object.assign(this.commands, this.source)
-		}
+		} else if (typeof this.source == 'object') {
+			console.log(this.source)
+			this.commands = this.source;
+		} else { this._generateError('', 'Invalid source type provided.') }
 	}
 
 	updateCommandList(source) { // Updates list of commands
-		if (source == this.source) { return false }
+		if (!source) { this._generateError('', 'No source provided when calling CommandPal.updateCommandList()') }
 		else {
 			this.source = source;
+			console.error(this.source);
 			this._fetchCommands();
 		}
 	}

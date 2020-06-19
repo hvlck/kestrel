@@ -4,7 +4,7 @@ let commandInp;
 let commandIndex = 0;
 
 const cpal = new CommandPal(commands, {
-	'sort': 'alphabetical'
+	sort: 'alphabetical'
 });
 
 let commandsChanged = cpal.matchedCommands.changed();
@@ -22,43 +22,11 @@ function buildUI() {
 		'className': 'kestrel-command-input'
 	});
 
-	commandInp.addEventListener('input', () => {
-		updateCommands();
-	});
+	commandInp.addEventListener('input', updateCommands);
 
-	commandInp.addEventListener('focus', () => {
-		updateCommands();
-	});
+	commandInp.addEventListener('focus', updateCommands);
 
-	commandInp.addEventListener('keydown', event => {
-		if (event.keyCode == 13 && commandList) {
-			Object.values(commandList.children).forEach(child => {
-				if (child.classList.contains('kestrel-command-item-focused')) {
-					cpal.execute(child.innerText, cmdFunctions);
-				}
-			});
-			commandInp.value = '';
-			updateCommands();
-		} else if (event.keyCode == 38) {
-			Object.values(commandList.children).forEach(child => child.classList.remove('kestrel-command-item-focused'));
-			if (commandIndex <= 0) {
-				commandList.children[commandList.children.length - 1].classList.add('kestrel-command-item-focused')
-				commandIndex = commandList.children.length - 1;
-			} else {
-				commandIndex -= 1;
-				commandList.children[commandIndex].classList.add('kestrel-command-item-focused');				
-			}
-		} else if (event.keyCode == 40) {
-			Object.values(commandList.children).forEach(child => child.classList.remove('kestrel-command-item-focused'));
-			if (commandIndex >= commandList.children.length - 1) {
-				commandList.children[0].classList.add('kestrel-command-item-focused')
-				commandIndex = 0;
-			} else {
-				commandIndex += 1;
-				commandList.children[commandIndex].classList.add('kestrel-command-item-focused');
-			}
-		};
-	});
+	commandInp.addEventListener('keydown', listen);
 
 	connectPort();
 
@@ -103,6 +71,36 @@ const updateCommands = () => { // Updates list of commands, adds event listeners
 	if (commandList.firstChild) { commandList.firstChild.classList.add('kestrel-command-item-focused') };
 }
 
+function listen(event) {
+	if (event.keyCode == 13 && commandList) {
+		Object.values(commandList.children).forEach(child => {
+			if (child.classList.contains('kestrel-command-item-focused')) {
+				cpal.execute(child.innerText, cmdFunctions);
+			}
+		});
+		commandInp.value = '';
+		updateCommands();
+	} else if (event.keyCode == 38) {
+		Object.values(commandList.children).forEach(child => child.classList.remove('kestrel-command-item-focused'));
+		if (commandIndex <= 0) {
+			commandList.children[commandList.children.length - 1].classList.add('kestrel-command-item-focused')
+			commandIndex = commandList.children.length - 1;
+		} else {
+			commandIndex -= 1;
+			commandList.children[commandIndex].classList.add('kestrel-command-item-focused');
+		}
+	} else if (event.keyCode == 40) {
+		Object.values(commandList.children).forEach(child => child.classList.remove('kestrel-command-item-focused'));
+		if (commandIndex >= commandList.children.length - 1) {
+			commandList.children[0].classList.add('kestrel-command-item-focused')
+			commandIndex = 0;
+		} else {
+			commandIndex += 1;
+			commandList.children[commandIndex].classList.add('kestrel-command-item-focused');
+		}
+	};
+}
+
 const connectPort = () => {
 	port = browser.runtime.connect({ // Establish initial connection to background script (background/main.js)
 		name: 'kestrel'
@@ -135,7 +133,7 @@ const showKestrel = () => {
 	kestrel.classList.remove('kestrel-hidden')
 };
 
-const clearCommands = () => { if (commandList) { Object.values(commandList.children).forEach(child => child.remove()) } }
+function clearCommands() { if (commandList) { Object.values(commandList.children).forEach(child => child.remove()) } }
 
 buildUI();
 
