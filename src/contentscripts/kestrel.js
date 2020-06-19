@@ -3,6 +3,7 @@ const commands = {
 	"disableLinks": {
 		"name": "Disable all links",
 		"callback": "disableLinks"
+	},
 	"openSettings": {
 		"name": "Settings",
 		"callback": "openSettings"
