@@ -26,7 +26,7 @@ body {
 }
 
 * {
-	transition: 0.2s cubic-bezier(.54,.39,.37,.98);
+	transition: 0.2s cubic-bezier(0.54, 0.39, 0.37, 0.98);
 }
 
 .nav {
@@ -49,10 +49,80 @@ body {
 	opacity: 1;
 }
 
-select, select > * {
+select,
+select > * {
 	padding: 5px;
 	font-size: 12pt;
 	background-color: var(--primary);
 	color: var(--secondary);
 	border: 2px solid var(--tertiary);
+}
+
+table {
+	border: 2px solid var(--tertiary);
+	width: 100%;
+	padding: 3px 10px;
+	border-collapse: collapse;
+}
+
+thead {
+	border: none;
+}
+
+th {
+	border: none;
+	background-color: var(--tertiary);
+	padding: 8px 20px;
+	text-align: left;
+	font-size: 16pt;
+	font-weight: bold;
+}
+
+th:first-of-type {
+	border-right: 2px solid var(--primary);
+}
+
+tr {
+	border-bottom: 2px solid var(--tertiary);
+}
+
+tr td:first-of-type {
+	width: 70%;
+}
+
+tr td:last-of-type {
+	width: 30%;
+}
+
+td {
+	padding: 0px 10px;
+}
+
+td > * {
+	margin: 0.2% 0;
+	padding: 10px;
+	font-size: 14pt;
+}
+
+td > input[type="checkbox"] {
+	width: 2px;
+	height: 2px;
+	position: relative;
+	background-color: var(--tertiary);
+	box-sizing: content-box;
+	appearance: none;
+	-webkit-appearance: none;
+	cursor: pointer;
+}
+
+td > input[type="checkbox"]:checked {
+	background-color: var(--highlight);
+}
+
+td > input[type="checkbox"]:checked::after {
+	content: "✓";
+	position: absolute;
+	left: 0%;
+	top: 0%;
+	transform: translate(25%, -10%);
 }

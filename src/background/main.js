@@ -46,6 +46,10 @@ const injectScripts = () => {
     browser.tabs.executeScript({ // Injects main UI script
         file: '../libs/commandpal.js'
     }).then(() => {
+        browser.tabs.executeScript({
+            file: '../contentscripts/commands.js'
+        });
+    }).then(() => {
         browser.tabs.executeScript({ // Injects main UI script
             file: '../contentscripts/kestrel.js'
         });
