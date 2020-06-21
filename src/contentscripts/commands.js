@@ -4,6 +4,14 @@ const commands = {
 		"name": "Disable all links",
 		"callback": "disableLinks"
 	},
+	"hideMedia": {
+		"name": "Hide media",
+		"callback": "hideMedia",
+		"aliases": [
+			"Hide images",
+			"Hide video"
+		]
+	},
 	"openSettings": {
 		"name": "Settings",
 		"callback": "openSettings"
@@ -25,16 +33,16 @@ const commands = {
 			"Scroll to bottom of the page"
 		]
 	},
-	"toggleMiniMap": {
-		"name": "Toggle Minimap",
-		"callback": "toggleMiniMap"
+	"toggleAnimations": {
+		"name": "Toggle animations: off",
+		"callback": "toggleAnimations"
 	},
 	"toggleEditPage": {
 		"name": "Toggle Edit Page",
 		"callback": "editPage"
 	},
-	"toggleAnimations": {
-		"name": "Toggle animations: off",
-		"callback": "toggleAnimations"
+	"toggleMiniMap": {
+		"name": "Toggle Minimap",
+		"callback": "toggleMiniMap"
 	}
 };
