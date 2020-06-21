@@ -33,6 +33,14 @@ const commands = {
 			"Scroll to bottom of the page"
 		]
 	},
+	"showMedia": {
+		"name": "Show media",
+		"callback": "showMedia",
+		"aliases": [
+			"Show images",
+			"Show video"
+		]
+	},
 	"toggleAnimations": {
 		"name": "Toggle animations: off",
 		"callback": "toggleAnimations"

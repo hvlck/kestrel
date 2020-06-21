@@ -47,6 +47,12 @@ let cmdFunctions = {
 		else if (ref.includes('3/4')) { window.scrollTo(0, document.body.scrollHeight * 0.75) }
 	},
 
+	showMedia: function (ref) {
+		if (ref.includes('media')) { document.querySelectorAll('img,video').forEach(item => item.style.display = '') }
+		else if (ref.includes('video')) { document.querySelectorAll('video').forEach(item => item.style.display = '') }
+		else if (ref.includes('image')) { document.querySelectorAll('img').forEach(item => item.style.display = '') }
+	},
+
 	toggleAnimations: function (ref) {
 		if (ref.includes('off')) {
 			Object.values(document.body.querySelectorAll('*')).forEach(item => {
