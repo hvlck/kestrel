@@ -53,6 +53,12 @@ const settings = [
 			"Name",
 			"On/Off"
 		]
+	},
+	{
+		name: "Reset settings",
+		description: "Reset all settings to default",
+		type: "special",
+		fn: "reset"
 	}
 ]
 
@@ -144,6 +150,15 @@ const build = () => {
 			});
 
 			div.appendChild(container);
+		} else if (item.type == 'special') {
+			let btn = buildElement('input', '', {
+				type: 'reset',
+				value: 'Reset settings'
+			});
+
+			btn.addEventListener('click', () => window[item.fn]());
+
+			div.appendChild(btn);
 		}
 
 		main.appendChild(div);
@@ -156,4 +171,12 @@ function updateSettings(key, value) {
 	key = key.toLowerCase().replace(' ', '-');
 	value = value.toLowerCase().replace(' ', '-');
 	//browser.storage.local.set({ key: value }).catch(err => { return err });
+};
+
+// Special functions
+
+function reset() {
+	if (confirm('Are you sure?')) {
+		browser.storage.local.clear();
+	}
 }
