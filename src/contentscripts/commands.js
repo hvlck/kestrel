@@ -12,6 +12,10 @@ const commands = {
 			"Hide video"
 		]
 	},
+	"openInSameTab": {
+		"name": "Open all links in the current tab",
+		"callback": "openInSameTab"
+	},
 	"openSettings": {
 		"name": "Settings",
 		"callback": "openSettings"

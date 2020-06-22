@@ -25,6 +25,10 @@ let cmdFunctions = {
 		sendFnEvent({ fn: 'openSettings' });
 	},
 
+	openInSameTab: function (ref) {
+		document.body.querySelectorAll('a[href]').forEach(link => link.setAttribute('target', '_self'));
+	},
+
 	refreshTabs: function (ref) {
 		if (ref.includes('soft')) {
 			sendFnEvent({
