@@ -3,7 +3,7 @@ let kestrel;
 let commandInp;
 let commandIndex = 0;
 
-const cpal = new CommandPal(commands, {
+const cpal = new Taita(commands, {
 	sort: 'alphabetical'
 });
 

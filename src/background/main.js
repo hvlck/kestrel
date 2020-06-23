@@ -44,7 +44,7 @@ const injectScripts = () => {
     injectStylesheet();
 
     browser.tabs.executeScript({ // Injects main UI script
-        file: '../libs/commandpal.js'
+        file: '../libs/taita.js'
     }).then(() => {
         browser.tabs.executeScript({
             file: '../contentscripts/commands.js'

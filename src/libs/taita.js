@@ -1,5 +1,4 @@
-// CommandPal - Powers command processor
-class CommandPal {
+class Taita {
 	constructor(source, options) {
 		this.source = source; // JSON file with commands
 
@@ -61,15 +60,15 @@ class CommandPal {
 		this.rankings = {
 			getRankings: (...commands) => {
 				if (commands.length == 0) { this._generateError('', 'No commands specified when calling rankings.getRanking().') }
-				else { return commands.map(command => { return this.commands[command].rank || 0 }) }
+				else { return commands.map(command => { return this.commands[this._commandContains(command)].rank || 0 }) }
 			},
 
 			resetRankings: (...commands) => {
 				if (commands.length == 0) { this._generateError('', 'No command specified when calling rankings.resetRanking().') }
 				else {
 					return commands.map(command => {
-						this.commands[command] = Object.assign(this.commands[command], { rank: 0 });
-						return this.commands[command];
+						this.commands[this._commandContains(command)].rank = 0;
+						return this.commands[this._commandContains(command)];
 					});
 				}
 			},
@@ -146,7 +145,7 @@ class CommandPal {
 	}
 
 	updateCommandList(source) { // Updates list of commands
-		if (!source) { this._generateError('', 'No source provided when calling CommandPal.updateCommandList()') }
+		if (!source) { this._generateError('', 'No source provided when calling Taita.updateCommandList()') }
 		else {
 			this.source = source;
 			this._fetchCommands();
@@ -155,7 +154,7 @@ class CommandPal {
 
 	_commandContains(item) {
 		if (!item) {
-			this._generateError('', 'No item specified when calling CommandPal._commandContains()');
+			this._generateError('', 'No item specified when calling Taita._commandContains()');
 			return;
 		}
 		let key = false;
@@ -254,6 +253,6 @@ class CommandPal {
 	};
 
 	_generateError(error, msg) { // Developer mode erorr reporting
-		console.error(`CommandPal error${this.options.items.dev ? `: ${msg}` : '.'}${error ? `  Error: ${error}` : ''}`);
+		console.error(`Taita error${this.options.items.dev ? `: ${msg}` : '.'}${error ? `  Error: ${error}` : ''}`);
 	};
 }
