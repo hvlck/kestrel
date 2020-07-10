@@ -8,9 +8,20 @@ The extension hasn't been submitted to FireFox addons just yet, but once some of
 
 ## How Permissions are Used
 
-### Search
+See [Features](#features)
 
-### Tabs
+## Features
+
++ Disable all links [none]
++ Hide media (images/video) [none]
++ Open all links in the same tab [none]
++ Settings [none]
++ Refresh tabs [tabs]
++ Scroll to *x* [none]
++ Show media (images/video) [none]
++ Toggle animations [none]
++ Edit page [none] {in-progress}
++ Minimap [none] {in-progress}
 
 ## Usage
 
@@ -18,9 +29,11 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 ## Roadmap
 
-+ Performance Testing with **about:performance*
-+ Use arrays to control ports in background scripts, in order ot have multiple connections open simultaneously
-+ Better folder naming
-+ Variables for CSS class names, for future-proofing
-+ Fix injection styling inconsistencies
-+ Options page and browser storage for settings
++ Performance Testing with *about:performance* [meta]
++ Use arrays to control ports in background scripts, in order to have multiple connections open simultaneously [bug]
++ Better folder naming [meta]
++ Variables for CSS class names, for future-proofing [bug]
++ Fix injection styling inconsistencies [bug]
++ Options page and browser storage for settings [feature]
+
+I also have a list of other features I'm working on that I'll port over when I can.

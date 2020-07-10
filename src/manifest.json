@@ -3,12 +3,10 @@
     "name": "Kestrel",
     "description": "",
     "version": "0.11.0",
-
     "icons": {
         "48": "icons/icon.png",
         "96": "icons/icon@2x.png"
     },
-
     "permissions": [
         "alarms",
         "idle",
@@ -17,20 +15,21 @@
         "activeTab",
         "search"
     ],
-
     "background": {
         "scripts": [
             "background/main.js"
         ]
     },
-
     "content_scripts": [
         {
-            "matches": ["<all_urls>"],
-            "js": ["contentscripts/auto.js"]
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "contentscripts/auto.js"
+            ]
         }
     ],
-
     "commands": {
         "activate": {
             "suggested_key": {
@@ -40,7 +39,6 @@
             "description": "Open Kestrel command interface"
         }
     },
-
     "options_ui": {
         "page": "options/index.html",
         "browser_style": false,
