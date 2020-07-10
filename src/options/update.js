@@ -43,17 +43,13 @@ const settings = [
 			"Dark",
 			"Light",
 			"Operating System Default"
-		]
+		],
+		default: browser.storage.local.get('default_theme')
 	},
 	{
 		name: "Utilities",
 		description: "Settings for Kestrel utilities",
 		type: "divider"
-	},
-	{
-		name: "Page Minimap",
-		description: "Automatically insert a page minimap.",
-		type: "bool"
 	},
 	{
 		name: "Commands",
@@ -105,7 +101,16 @@ const build = () => {
 				select.appendChild(element);
 			});
 
-			select.addEventListener('change', updateSettings(item.name, select.value));
+			item.default.then(data => {
+				data = Object.values(data)[0].replace(new RegExp(' ', 'g'), '_').replace(new RegExp('-', 'g'), '_').toLowerCase() || 'dark';
+
+				let matches = Object.values(select.querySelectorAll('*')).filter(child => child.innerText.replace(new RegExp(' ', 'g'), '_').replace(new RegExp('-', 'g'), '_').toLowerCase() == data)[0];
+				if (matches) matches.setAttribute('selected', '');
+			});
+
+			select.addEventListener('input', () => {
+				updateSettings(item.name, select.value)
+			});
 
 			div.appendChild(select);
 		} else if (item.type == 'bool') {
@@ -202,11 +207,10 @@ function buildToggleHtml(iter, container, original) {
 }
 
 function updateSettings(key, value) {
-	if (key && typeof key !== 'object') key = key.toLowerCase().replace(' ', '_');
+	if (key && typeof key !== 'object') key = key.replace(new RegExp(' ', 'g'), '_').replace(new RegExp('-', 'g'), '_').toLowerCase();
 	if (value && typeof value !== 'object' && typeof value !== 'boolean') value = value.toLowerCase().replace(' ', '-');
 
-	if (typeof key == 'object') browser.storage.local.set({ [key]: value }).catch(err => { console.error(`Failed to save data: ${err}`) });
-	else browser.storage.local.set({ [key]: value }).catch(err => { console.error(`Failed to save data: ${err}`) });
+	browser.storage.local.set({ [key]: value }).catch(err => { console.error(`Failed to save data: ${err}`) });
 };
 
 // Special functions
