@@ -70,7 +70,7 @@ const build = () => {
 
 		let title = buildElement(`${item.type == 'divider' ? 'h2' : 'h3'}`, item.name, {
 			className: 'settings-item-header',
-			id: `${item.type == 'divider' ? item.name.toLowerCase() : '' }`
+			id: `${item.type == 'divider' ? item.name.toLowerCase() : ''}`
 		});
 
 		div.appendChild(title);
@@ -125,7 +125,7 @@ const build = () => {
 				let headerCell = buildElement('th', header);
 				headerRow.appendChild(headerCell);
 			});
-			
+
 			head.appendChild(headerRow);
 
 			container.appendChild(head);

@@ -4,7 +4,8 @@
 	--primary: #fafafa;
 	--secondary: #212121;
 
-	--heading-font: Arial, Helvetica, sans-serif;
+	--heading-font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	--text-font: Arial, Helvetica, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,11 +16,13 @@
 	}
 }
 
+html { border-top: 2px solid var(--highlight) }
+
 body {
 	background: var(--primary);
 	color: var(--secondary);
-	font-family: var(--heading-font);
-	max-width: 800px;
+	font-family: var(--text-font);
+	max-width: 850px;
 	margin: 0 auto;
 	padding: 10px;
 	font-size: 115%;
@@ -27,6 +30,13 @@ body {
 
 * {
 	transition: 0.2s cubic-bezier(0.54, 0.39, 0.37, 0.98);
+}
+
+h1 { margin: 1% auto }
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: lighter;
+	font-family: var(--heading-font);
 }
 
 .nav {
@@ -125,4 +135,17 @@ td > input[type="checkbox"]:checked::after {
 	left: 0%;
 	top: 0%;
 	transform: translate(25%, -10%);
+}
+
+input[type="reset"] {
+	background-color: var(--tertiary);
+	color: var(--secondary);
+	padding: 5px 10px;
+	font-size: 12pt;
+	border: none;
+	cursor: pointer;
+}
+
+input[type="reset"]:hover, input[type="reset"]:focus {
+	background-color: var(--highlight);
 }
