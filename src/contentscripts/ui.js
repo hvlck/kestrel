@@ -69,6 +69,12 @@ let settings;
 const importSettings = () => {
 	browser.storage.local.get(null).then(data => {
 		settings = data;
+
+		Object.entries(settings.commands).forEach(item => {
+			if (item[1].on === false) {
+				cpal.removeCommands(item[0])
+			}
+		});
 	});
 }
 
