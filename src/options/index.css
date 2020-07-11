@@ -150,3 +150,13 @@ input[type="reset"] {
 input[type="reset"]:hover, input[type="reset"]:focus {
 	background-color: var(--highlight);
 }
+
+.hidden {
+	display: none;
+	animation: 300ms fadeIn linear;
+}
+
+@keyframes fadeIn {
+	0% { opacity: 0 }
+	100% { opacity: 1 }
+}

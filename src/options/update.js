@@ -21,13 +21,7 @@ sections.forEach(item => {
 	}));
 })
 
-document.body.appendChild(nav);
-
-const main = buildElement('div', '', {
-	className: 'main'
-});
-
-document.body.appendChild(main);
+document.body.querySelector('.hidden').appendChild(nav);
 
 const settings = [
 	{
@@ -70,6 +64,12 @@ const settings = [
 ]
 
 const build = () => {
+	const main = buildElement('div', '', {
+		className: 'main'
+	});
+
+	document.body.querySelector('.hidden').appendChild(main);
+
 	settings.forEach(item => {
 		let div = buildElement('div', '', {
 			className: 'settings-item-container'
@@ -159,6 +159,8 @@ const build = () => {
 
 		main.appendChild(div);
 	});
+
+	document.body.querySelector('.hidden').classList.remove('hidden');
 }
 
 function buildToggle(item, customData, container) {
@@ -221,7 +223,7 @@ function updateSettings(key, value) {
 function reset() {
 	if (confirm('Are you sure?')) {
 		browser.storage.local.clear();
-		window.location.reload();
+		initStorage();
 	}
 }
 
@@ -241,6 +243,7 @@ const initStorage = () => {
 		commands[command] = Object.assign({ on: true }, commands[command]);
 	});
 	updateSettings('commands', commands);
+	window.location.reload();
 }
 
 // other
