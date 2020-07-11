@@ -230,10 +230,33 @@ function updateSettings(key, value) {
 
 // resets all storage
 function reset() {
-	if (confirm('Are you sure?')) {
-		browser.storage.local.clear();
-		initStorage();
-	}
+	let container = buildElement('nav', '', { className: 'confirm-reset' });
+
+	let confirmBtn = buildElement('input', '', {
+		'type': 'button',
+		'value': 'Confirm'
+	});
+
+	confirmBtn.addEventListener('click', () => resetAll());
+
+	let cancelBtn = buildElement('input', '', {
+		'type': 'button',
+		'value': 'Cancel'
+	});
+
+	cancelBtn.addEventListener('click', () => {
+		container.remove();
+	});
+
+	container.appendChild(cancelBtn);
+	container.appendChild(confirmBtn);
+
+	document.querySelector(`input[value="Reset settings"]`).parentElement.appendChild(container);
+}
+
+function resetAll() {
+	browser.storage.local.clear();
+	initStorage();
 }
 
 // updates all commands in storage, based on all configurable settings

@@ -138,7 +138,7 @@ td > input[type="checkbox"]:checked::after {
 	transform: translate(25%, -10%);
 }
 
-input[type="reset"] {
+input[type="reset"], input[type="button"] {
 	background-color: var(--tertiary);
 	color: var(--secondary);
 	padding: 5px 10px;
@@ -147,8 +147,12 @@ input[type="reset"] {
 	cursor: pointer;
 }
 
-input[type="reset"]:hover, input[type="reset"]:focus {
+input[type="reset"]:hover, input[type="reset"]:focus, input[type="button"]:hover, input[type="button"]:focus {
 	background-color: var(--highlight);
+}
+
+.confirm-reset > * {
+	margin: 2% 2% 2% 0;
 }
 
 .hidden {
