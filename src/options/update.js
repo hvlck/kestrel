@@ -6,6 +6,7 @@
 			initStorage();
 		} else {
 			history.replaceState('', document.title, window.location.pathname);
+			browser.storage.local.get('theme').then(theme => toggleTheme(theme.theme));
 		}
 	}).then(() => build());
 }());
@@ -42,7 +43,7 @@ const settings = [
 			"Light",
 			"Operating System Default"
 		],
-		default: browser.storage.local.get('default_theme')
+		default: browser.storage.local.get('theme')
 	},
 	{
 		name: "Utilities",
@@ -107,7 +108,7 @@ const build = () => {
 			});
 
 			item.default.then(data => {
-				data = 'operating-system-default' || Object.values(data)[0].replace(new RegExp(' ', 'g'), '_').replace(new RegExp('-', 'g'), '_').toLowerCase();
+				data = Object.values(data)[0].replace(new RegExp(' ', 'g'), '-').toLowerCase() || 'operating-system-default';
 
 				let matches = Object.values(select.querySelectorAll('option')).filter(child => child.innerText.replace(new RegExp(' ', 'g'), '-').toLowerCase() == data)[0];
 				if (matches) matches.setAttribute('selected', 'true');
@@ -230,6 +231,8 @@ function updateSettings(key, value) {
 
 // resets all storage
 function reset() {
+	document.querySelector(`input[value="Reset settings"]`).setAttribute('disabled', 'true');
+
 	let container = buildElement('nav', '', { className: 'confirm-reset' });
 
 	let confirmBtn = buildElement('input', '', {
@@ -246,6 +249,7 @@ function reset() {
 
 	cancelBtn.addEventListener('click', () => {
 		container.remove();
+		document.querySelector(`input[value="Reset settings"]`).removeAttribute('disabled');
 	});
 
 	container.appendChild(cancelBtn);
@@ -273,7 +277,7 @@ const updateCommands = () => {
 
 // default settings
 const defaults = {
-	theme: "light"
+	theme: "operating-system-default"
 };
 
 // creates initial storage data
