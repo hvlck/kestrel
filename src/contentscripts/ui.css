@@ -54,21 +54,22 @@ body > *:not(.kestrel) {
 }
 
 .kestrel-commands-container {
+	width: 104%;
+	max-height: 400px;
 	border: none;
 	border-radius: 2px;
-	width: 100%;
 	margin: 0 auto;
 	overflow-x: hidden;
-	overflow-y: auto;
+	overflow-y: scroll;
 }
 
 .kestrel-command-item {
+	display: block;
 	padding: 0.5rem 1rem;
 	margin: 0 auto;
 	font-size: 14pt;
 	font-family: Arial, Helvetica, sans-serif;
 	font-weight: normal;
-	width: 100%;
 	background: var(--kestrel-primary);
 	color: var(--kestrel-secondary);
 	cursor: pointer;
