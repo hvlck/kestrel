@@ -4,14 +4,6 @@ const commands = {
 		"name": "Disable all links",
 		"callback": "disableLinks"
 	},
-	"hideMedia": {
-		"name": "Hide media",
-		"callback": "hideMedia",
-		"aliases": [
-			"Hide images",
-			"Hide video"
-		]
-	},
 	"openInSameTab": {
 		"name": "Open all links in the current tab",
 		"callback": "openInSameTab"
@@ -37,14 +29,6 @@ const commands = {
 			"Scroll to bottom of the page"
 		]
 	},
-	"showMedia": {
-		"name": "Show media",
-		"callback": "showMedia",
-		"aliases": [
-			"Show images",
-			"Show video"
-		]
-	},
 	"toggleAnimations": {
 		"name": "Toggle animations: off",
 		"callback": "toggleAnimations"
@@ -52,6 +36,14 @@ const commands = {
 	"toggleEditPage": {
 		"name": "Toggle Edit Page",
 		"callback": "editPage"
+	},
+	"toggleMedia": {
+		"name": "Toggle media",
+		"callback": "toggleMedia",
+		"aliases": [
+			"Toggle images",
+			"Toggle video"
+		]
 	},
 	"toggleMiniMap": {
 		"name": "Toggle Minimap",

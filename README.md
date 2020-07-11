@@ -39,7 +39,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Variables for CSS class names, for future-proofing [bug]
 + Fix injection styling inconsistencies [bug]
 + Options page and browser storage for settings [feature]
-+ Refactor `Hide/Show Media` commands into `Toggle Media` [meta]
++ ~~Refactor `Hide/Show Media` commands into `Toggle Media`~~ [meta]
 
 I also have a list of other features I'm working on that I'll port over when I can.
 

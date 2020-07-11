@@ -19,11 +19,22 @@ let cmdFunctions = {
 		})
 	},
 
-	// hides images and video
-	hideMedia: function (ref) {
-		if (ref.includes('media')) { document.querySelectorAll('img,video').forEach(item => item.style.display = 'none') }
-		else if (ref.includes('video')) { document.querySelectorAll('video').forEach(item => item.style.display = 'none') }
-		else if (ref.includes('image')) { document.querySelectorAll('img').forEach(item => item.style.display = 'none') }
+	// hides/shows images and video
+	mediaToggled: false,
+	toggleMedia: function (ref) {
+		if (!this.mediaToggled) {
+			this.mediaToggled = true;
+
+			if (ref.includes('media')) { document.querySelectorAll('img,video').forEach(item => item.style.display = 'none') }
+			else if (ref.includes('video')) { document.querySelectorAll('video').forEach(item => item.style.display = 'none') }
+			else if (ref.includes('image')) { document.querySelectorAll('img').forEach(item => item.style.display = 'none') }
+		} else if (this.mediaToggled) {
+			this.mediaToggled = false;
+
+			if (ref.includes('media')) { document.querySelectorAll('img,video').forEach(item => item.style.display = '') }
+			else if (ref.includes('video')) { document.querySelectorAll('video').forEach(item => item.style.display = '') }
+			else if (ref.includes('image')) { document.querySelectorAll('img').forEach(item => item.style.display = '') }
+		}
 	},
 
 	// opens Kestrel's settings/options page
@@ -60,13 +71,6 @@ let cmdFunctions = {
 		else if (ref.includes('bottom')) { window.scrollTo(0, document.body.scrollHeight) }
 		else if (ref.includes('1/4')) { window.scrollTo(0, document.body.scrollHeight * 0.25) }
 		else if (ref.includes('3/4')) { window.scrollTo(0, document.body.scrollHeight * 0.75) }
-	},
-
-	// opposite of hideMedia
-	showMedia: function (ref) {
-		if (ref.includes('media')) { document.querySelectorAll('img,video').forEach(item => item.style.display = '') }
-		else if (ref.includes('video')) { document.querySelectorAll('video').forEach(item => item.style.display = '') }
-		else if (ref.includes('image')) { document.querySelectorAll('img').forEach(item => item.style.display = '') }
 	},
 
 	// disables/enables animations
