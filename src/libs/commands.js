@@ -1,6 +1,4 @@
 // Command palette variables
-
-// todo - move to /libs and relink everything
 const commands = {
 	"disableLinks": {
 		"name": "Disable all links",

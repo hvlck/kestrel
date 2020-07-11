@@ -47,7 +47,7 @@ const injectScripts = () => {
         file: '../libs/taita.js'
     }).then(() => {
         browser.tabs.executeScript({
-            file: '../contentscripts/commands.js'
+            file: '../libs/commands.js'
         });
     }).then(() => {
         browser.tabs.executeScript({ // Injects main UI script
