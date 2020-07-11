@@ -34,8 +34,8 @@ const settings = [
 		type: "divider"
 	},
 	{
-		name: "Default Theme",
-		description: "Set the default theme Kestrel uses.",
+		name: "Theme",
+		description: "Set the theme Kestrel uses.",
 		type: "select",
 		options: [
 			"Dark",
@@ -109,8 +109,8 @@ const build = () => {
 			item.default.then(data => {
 				data = 'operating-system-default' || Object.values(data)[0].replace(new RegExp(' ', 'g'), '_').replace(new RegExp('-', 'g'), '_').toLowerCase();
 
-				let matches = Object.values(select.querySelectorAll('*')).filter(child => child.innerText.replace(new RegExp(' ', 'g'), '_').replace(new RegExp('-', 'g'), '_').toLowerCase() == data)[0];
-				if (matches) matches.setAttribute('selected', '');
+				let matches = Object.values(select.querySelectorAll('option')).filter(child => child.innerText.replace(new RegExp(' ', 'g'), '-').toLowerCase() == data)[0];
+				if (matches) matches.setAttribute('selected', 'true');
 
 				toggleTheme(data);
 			});
@@ -221,9 +221,9 @@ function buildToggleHtml(iter, container, original) {
 // updates settings
 function updateSettings(key, value) {
 	if (key && typeof key !== 'object') key = key.replace(new RegExp(' ', 'g'), '_').replace(new RegExp('-', 'g'), '_').toLowerCase();
-	if (value && typeof value !== 'object' && typeof value !== 'boolean') value = value.toLowerCase().replace(' ', '-');
+	if (value && typeof value !== 'object' && typeof value !== 'boolean') value = value.replace(new RegExp(' ', 'g'), '-').toLowerCase();
 
-	browser.storage.local.set({ [key]: value }).catch(err => { console.error(`Failed to save data: ${err}`) });
+	return browser.storage.local.set({ [key]: value }).catch(err => { console.error(`Failed to save data: ${err}`) });
 };
 
 // Special functions
@@ -248,13 +248,20 @@ const updateCommands = () => {
 
 // fresh install
 
+// default settings
+const defaults = {
+	theme: "light"
+};
+
 // creates initial storage data
 const initStorage = () => {
+	Object.entries(defaults).forEach(item => updateSettings(item[0], item[1]));
+
 	Object.keys(commands).forEach(command => {
 		commands[command] = Object.assign({ on: true }, commands[command]);
 	});
-	updateSettings('commands', commands);
-	window.location.reload();
+
+	updateSettings('commands', commands).then(() => window.location.reload());
 }
 
 // other

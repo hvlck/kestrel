@@ -2,7 +2,7 @@
 	Global variables not changed by colour theme
 */
 
-:root {
+.kestrel {
 	--transition-primary: 100ms linear;
 }
 
@@ -10,7 +10,7 @@
 	Fallback if user hasn't set a colour theme preference
 */
 
-:root {
+.kestrel {
 	--kestrel-primary: #fafafa;
 	--kestrel-secondary: #404040;
 	--kestrel-tertiary: #f1f2f3;
@@ -18,7 +18,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-	:root {
+	.kestrel {
 		--kestrel-primary: #212121;
 		--kestrel-secondary: #fafafa;
 		--kestrel-tertiary: #404040;

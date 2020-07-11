@@ -14,11 +14,22 @@ browser.runtime.onInstalled.addListener(() => {
 
 let status = {};
 
+let settings;
+
 // Listens for commands
 browser.commands.onCommand.addListener(command => {
     let actTab = getActiveTab();
 
     actTab.then(data => {
+        browser.storage.local.get(null).then(userSettings => {
+            settings = userSettings;
+
+            if (settings.theme == undefined) settings.theme = 'light';
+            if (settings.theme != 'operating-system-default') {
+                injectStylesheet(`/themes/${settings.theme}.css`);
+            }
+        }).catch(err => console.error(`Failed to load settings: ${err}`));
+
         data = data.id;
         if (!status[data]) {
             status[data] = {
@@ -34,11 +45,12 @@ browser.commands.onCommand.addListener(command => {
                 active: true
             }
         } else if (status[data].injected == true && status[data].active == true) {
-            removePalette();
+            removePalette(`/contentscripts/ui.css`);
+            removePalette(`/themes/${settings.theme}.css`)
             status[data].active = false;
         } else if (status[data].injected == true && status[data].active == false) {
             sendMessage({ kestrel: 'show' })
-            injectStylesheet();
+            injectStylesheet(`/contentscripts/ui.css`);
             status[data].active = true;
         }
     });
@@ -59,7 +71,7 @@ const getActiveTab = () => {
 
 // note: needs better error handling
 const injectScripts = () => {
-    injectStylesheet();
+    injectStylesheet(`/contentscripts/ui.css`);
 
     browser.tabs.executeScript({ // Injects main UI script
         file: '../libs/taita.js'
@@ -84,17 +96,17 @@ const injectScripts = () => {
 
 // controls injection of needed stylesheets
 // for now this is just contentscripts/ui.css
-const injectStylesheet = () => {
+const injectStylesheet = (sheet) => {
     browser.tabs.insertCSS({ // Injects UI stylesheet
-        file: "../contentscripts/ui.css"
-    }).catch(injectStylesheet).finally(() => { return });
+        file: sheet
+    }).catch((err) => { return err });
 }
 
 // removes needed stylesheets from page
 // scripts cannot be removed
-const removePalette = () => {
+const removePalette = (sheet) => {
     browser.tabs.removeCSS({
-        file: "../contentscripts/ui.css"
+        file: sheet
     }).catch(err => console.error(`Failed to remove stylesheet: ${err}`))
 
     if (contentPort) {

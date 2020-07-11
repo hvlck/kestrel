@@ -39,6 +39,8 @@ let port;
 
 // generates command palette and logic
 function buildUI() {
+	importSettings();
+
 	kestrel = buildElement('div', '', {
 		'className': 'kestrel kestrel-hidden'
 	});
@@ -61,6 +63,13 @@ function buildUI() {
 	showKestrel()
 
 	commandInp.focus();
+}
+
+let settings;
+const importSettings = () => {
+	browser.storage.local.get(null).then(data => {
+		settings = data;
+	});
 }
 
 // updates list of commands and corresponding html

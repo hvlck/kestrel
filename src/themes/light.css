@@ -7,3 +7,10 @@
 	--secondary: #212121;
 	--tertiary: #e1e1e1;
 }
+
+.kestrel {
+	--kestrel-primary: #fafafa;
+	--kestrel-secondary: #404040;
+	--kestrel-tertiary: #f1f2f3;
+	--kestrel-quaternary: #212121;
+}
