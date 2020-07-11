@@ -1,3 +1,4 @@
+// checks if this is a fresh install, acts if it is
 (function () {
 	browser.storage.local.get(null).then(data => {
 		if (Object.keys(data).length === 0 && !window.location.search) {
@@ -13,6 +14,7 @@ const nav = buildElement('div', '', {
 	className: 'nav'
 });
 
+// organization of settings
 const sections = ['Meta', 'Utilities'];
 
 sections.forEach(item => {
@@ -21,8 +23,10 @@ sections.forEach(item => {
 	}));
 })
 
+// prevent content flashing
 document.body.querySelector('.hidden').appendChild(nav);
 
+// available settings, converted into html
 const settings = [
 	{
 		name: "Meta",
@@ -63,6 +67,7 @@ const settings = [
 	}
 ]
 
+// generates setting html
 const build = () => {
 	const main = buildElement('div', '', {
 		className: 'main'
@@ -163,6 +168,7 @@ const build = () => {
 	document.body.querySelector('.hidden').classList.remove('hidden');
 }
 
+// toggle type html structure
 function buildToggle(item, customData, container) {
 	let head = buildElement('thead');
 	let headerRow = buildElement('tr');
@@ -182,6 +188,7 @@ function buildToggle(item, customData, container) {
 	});
 }
 
+// toggle type content html
 function buildToggleHtml(iter, container, original) {
 	iter.forEach((option, index) => {
 		let row = buildElement('tr');
@@ -211,6 +218,7 @@ function buildToggleHtml(iter, container, original) {
 	});
 }
 
+// updates settings
 function updateSettings(key, value) {
 	if (key && typeof key !== 'object') key = key.replace(new RegExp(' ', 'g'), '_').replace(new RegExp('-', 'g'), '_').toLowerCase();
 	if (value && typeof value !== 'object' && typeof value !== 'boolean') value = value.toLowerCase().replace(' ', '-');
@@ -220,6 +228,7 @@ function updateSettings(key, value) {
 
 // Special functions
 
+// resets all storage
 function reset() {
 	if (confirm('Are you sure?')) {
 		browser.storage.local.clear();
@@ -227,6 +236,7 @@ function reset() {
 	}
 }
 
+// updates all commands in storage, based on all configurable settings
 const updateCommands = () => {
 	document.querySelectorAll('input[data-command]').forEach(item => {
 		let name = item.dataset.command;
@@ -238,6 +248,7 @@ const updateCommands = () => {
 
 // fresh install
 
+// creates initial storage data
 const initStorage = () => {
 	Object.keys(commands).forEach(command => {
 		commands[command] = Object.assign({ on: true }, commands[command]);
@@ -248,6 +259,7 @@ const initStorage = () => {
 
 // other
 
+// changes theme
 const toggleTheme = (data) => {
 	document.querySelectorAll('link[class="custom-theme"]').forEach(item => item.remove());
 	data = data.replace(new RegExp(' ', 'g'), '-').toLowerCase();

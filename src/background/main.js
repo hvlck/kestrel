@@ -1,12 +1,23 @@
+// opens option page once user has installed extension
 browser.runtime.onInstalled.addListener(() => {
     browser.runtime.openOptionsPage();
 });
 
-let status = {}; // If Kestrel is active already
+/*
+    If Kestrel is active already, contains ids of tabs and their injection status
+
+    status[tab.id] {
+        injected: bool, // determines if needed scripts are injected, so they aren't injected again
+        active: bool // determines if kestrel is shown or not
+    }
+*/
+
+let status = {};
 
 // Listens for commands
 browser.commands.onCommand.addListener(command => {
     let actTab = getActiveTab();
+
     actTab.then(data => {
         data = data.id;
         if (!status[data]) {
@@ -15,6 +26,7 @@ browser.commands.onCommand.addListener(command => {
                 active: true
             }
         }
+
         if (command === 'activate' && !status[data].injected) { // Open UI command
             injectScripts();
             status[data] = {
@@ -32,6 +44,7 @@ browser.commands.onCommand.addListener(command => {
     });
 });
 
+// returns the currently active tab
 const getActiveTab = () => {
     return browser.tabs.query({
         currentWindow: true, active: true
@@ -40,6 +53,11 @@ const getActiveTab = () => {
     }).catch(err => console.error(err));
 }
 
+// critical js
+// injected in order of dependence
+// if one fails, kestrel cannot work
+
+// note: needs better error handling
 const injectScripts = () => {
     injectStylesheet();
 
@@ -64,12 +82,16 @@ const injectScripts = () => {
     }).catch(injectScripts).finally(() => { return });
 }
 
+// controls injection of needed stylesheets
+// for now this is just contentscripts/ui.css
 const injectStylesheet = () => {
     browser.tabs.insertCSS({ // Injects UI stylesheet
         file: "../contentscripts/ui.css"
     }).catch(injectStylesheet).finally(() => { return });
 }
 
+// removes needed stylesheets from page
+// scripts cannot be removed
 const removePalette = () => {
     browser.tabs.removeCSS({
         file: "../contentscripts/ui.css"
@@ -95,7 +117,7 @@ browser.runtime.onConnect.addListener(port => { // Initial port connection to co
         });
     };
 
-    contentPort.onDisconnect.addListener(msg => {
+    contentPort.onDisconnect.addListener(msg => { // tab is closed, removes tab status
         status[msg.sender.tab.id] = {
             active: false,
             injected: false
@@ -103,6 +125,7 @@ browser.runtime.onConnect.addListener(port => { // Initial port connection to co
     });
 });
 
+// executes functions that require background script apis
 browser.runtime.onMessage.addListener((msg, sender, response) => {
     if (msg.fn == 'openSettings') {
         browser.runtime.openOptionsPage().catch(err => console.error(err));
@@ -116,6 +139,7 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
     }
 });
 
+// sends message to currently active page
 const sendMessage = (msg) => {
     contentPort.postMessage(msg);
 }

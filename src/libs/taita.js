@@ -1,3 +1,5 @@
+// See https://github.com/EthanJustice/taita/
+
 class Taita {
 	constructor(source, options) {
 		this.source = source; // JSON file with commands

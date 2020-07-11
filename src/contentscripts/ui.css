@@ -1,3 +1,15 @@
+/*
+	Global variables not changed by colour theme
+*/
+
+:root {
+	--transition-primary: 100ms linear;
+}
+
+/*
+	Fallback if user hasn't set a colour theme preference
+*/
+
 :root {
 	--kestrel-primary: #fafafa;
 	--kestrel-secondary: #404040;
@@ -14,10 +26,18 @@
 	}
 }
 
+/*
+	Dims background
+*/
+
 body > *:not(.kestrel) {
 	opacity: 0.2;
 	pointer-events: none;
 }
+
+/*
+	Container for all kestrel-related things
+*/
 
 .kestrel {
 	font-family: Arial, Helvetica, sans-serif;
@@ -38,6 +58,10 @@ body > *:not(.kestrel) {
 	z-index: 99999;
 }
 
+/*
+	Command input, where user types to filter commands
+*/
+
 .kestrel-command-input {
 	background: var(--kestrel-primary);
 	color: var(--kestrel-secondary) !important;
@@ -53,6 +77,10 @@ body > *:not(.kestrel) {
 	animation: none;
 }
 
+/*
+	Container for commands
+*/
+
 .kestrel-commands-container {
 	width: 104%;
 	max-height: 400px;
@@ -62,6 +90,10 @@ body > *:not(.kestrel) {
 	overflow-x: hidden;
 	overflow-y: scroll;
 }
+
+/*
+	Commands
+*/
 
 .kestrel-command-item {
 	display: block;
@@ -73,25 +105,27 @@ body > *:not(.kestrel) {
 	background: var(--kestrel-primary);
 	color: var(--kestrel-secondary);
 	cursor: pointer;
-	transition: 100ms linear;
+	transition: none;
 }
+
+/*
+	Currently focused command
+	Background is lighter than others
+*/
 
 .kestrel-command-item-focused {
 	background: var(--kestrel-tertiary);
-	transition: 100ms linear;
+	transition: var(--transition-primary);
 }
+
+/*
+	Hides item from view
+	In practice this is used in the main container (`kestrel` class)
+	to prevent it from showing until its children are built
+*/
 
 .kestrel-hidden {
 	display: none !important;
 	animation: none !important;
 	transition: none !important;
-}
-
-@keyframes fadeIn {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
 }

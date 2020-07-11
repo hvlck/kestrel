@@ -1,8 +1,34 @@
 // Command palette UI and control
+
+/* OVERVIEW OF HTML STRUCTURE
+
+All class names begin with kestrel- to prevent conflict with existing class names.
+This may be rendered moot by changing the type of stylesheet injection in the /background/main.js file
+See CSSOrigin property in https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/insertCSS for more information.
+
+Structure
+
+<body>
+	// container
+	<div class="kestrel"> // always first child
+		<input type="text" class="kestrel-command-input" /> // text field to input commands
+		<div class="kestrel-commands-container"> // container for all matched commands; any excess children will be wrapped/scrolled
+			// Focused is the command with lighter background; this will be set when a command is hovered
+			// or navigated to with arrow keys.  The default is the first command.  There can only be one
+			// focused command at a time.
+			<p class="kestrel-command-item kestrel-command-item-focused">FOCUSED COMMAND NAME</p>
+			<p class="kestrel-command-item">COMMAND NAME</p>
+			... // more commands
+		</div>
+	</div>
+</body>
+*/
+
 let kestrel;
 let commandInp;
 let commandIndex = 0;
 
+// taita instance
 const cpal = new Taita(commands, {
 	sort: 'alphabetical'
 });
@@ -11,6 +37,7 @@ let commandsChanged = cpal.matchedCommands.changed();
 
 let port;
 
+// generates command palette and logic
 function buildUI() {
 	kestrel = buildElement('div', '', {
 		'className': 'kestrel kestrel-hidden'
@@ -36,6 +63,7 @@ function buildUI() {
 	commandInp.focus();
 }
 
+// updates list of commands and corresponding html
 let commandList;
 const updateCommands = () => { // Updates list of commands, adds event listeners to command elements
 	commandInp.focus();

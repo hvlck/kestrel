@@ -1,4 +1,6 @@
 // Utilities
+
+// scaffolding for easily creating an element
 const buildElement = (type, text, attributes) => {
 	let element = document.createElement(type);
 	element.innerText = text || '';
