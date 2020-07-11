@@ -102,14 +102,17 @@ const build = () => {
 			});
 
 			item.default.then(data => {
-				data = Object.values(data)[0].replace(new RegExp(' ', 'g'), '_').replace(new RegExp('-', 'g'), '_').toLowerCase() || 'dark';
+				data = 'operating-system-default' || Object.values(data)[0].replace(new RegExp(' ', 'g'), '_').replace(new RegExp('-', 'g'), '_').toLowerCase();
 
 				let matches = Object.values(select.querySelectorAll('*')).filter(child => child.innerText.replace(new RegExp(' ', 'g'), '_').replace(new RegExp('-', 'g'), '_').toLowerCase() == data)[0];
 				if (matches) matches.setAttribute('selected', '');
+
+				toggleTheme(data);
 			});
 
 			select.addEventListener('input', () => {
-				updateSettings(item.name, select.value)
+				updateSettings(item.name, select.value);
+				toggleTheme(select.value);
 			});
 
 			div.appendChild(select);
@@ -238,4 +241,21 @@ const initStorage = () => {
 		commands[command] = Object.assign({ on: true }, commands[command]);
 	});
 	updateSettings('commands', commands);
+}
+
+// other
+
+const toggleTheme = (data) => {
+	document.querySelectorAll('link[class="custom-theme"]').forEach(item => item.remove());
+	data = data.replace(new RegExp(' ', 'g'), '-').toLowerCase();
+	if (data != 'operating-system-default') {
+		document.head.appendChild(buildElement('link', '', {
+			href: `../themes/${data.toLowerCase()}.css`,
+			rel: 'stylesheet',
+			type: 'text/css',
+			className: 'custom-theme'
+		}));
+	} else if (document.querySelector(`link[href$="../themes"]`)) {
+		document.querySelector(`link[href$="../themes"]`).remove();
+	}
 }
