@@ -267,7 +267,7 @@ function resetAll() {
 const updateCommands = () => {
 	document.querySelectorAll('input[data-command]').forEach(item => {
 		let name = item.dataset.command;
-		commands[name] = Object.assign({ on: item.checked }, commands[name]);
+		commands[name] = Object.assign(commands[name], { on: item.checked });
 	});
 
 	updateSettings('commands', commands);

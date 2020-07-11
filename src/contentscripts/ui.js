@@ -39,7 +39,18 @@ let port;
 
 // generates command palette and logic
 function buildUI() {
-	importSettings();
+	importSettings().then(data => {
+		settings = data;
+
+		Object.entries(settings.commands).forEach(item => {
+			console.log(item[1]);
+			if (item[1].on === false) {
+				cpal.removeCommands(item[0])
+			}
+		});
+
+		updateCommands();
+	});
 
 	kestrel = buildElement('div', '', {
 		'className': 'kestrel kestrel-hidden'
@@ -66,16 +77,8 @@ function buildUI() {
 }
 
 let settings;
-const importSettings = () => {
-	browser.storage.local.get(null).then(data => {
-		settings = data;
-
-		Object.entries(settings.commands).forEach(item => {
-			if (item[1].on === false) {
-				cpal.removeCommands(item[0])
-			}
-		});
-	});
+const importSettings = async () => {
+	return await browser.storage.local.get(null);
 }
 
 // updates list of commands and corresponding html
