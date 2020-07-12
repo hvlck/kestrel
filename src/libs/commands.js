@@ -2,7 +2,8 @@
 const commands = {
 	"disableLinks": {
 		"name": "Disable all links",
-		"callback": "disableLinks"
+		"callback": "disableLinks",
+		"on": false
 	},
 	"openInSameTab": {
 		"name": "Open all links in the current tab",
@@ -10,7 +11,8 @@ const commands = {
 	},
 	"openSettings": {
 		"name": "Settings",
-		"callback": "openSettings"
+		"callback": "openSettings",
+		"on": false
 	},
 	"refreshTabs": {
 		"name": "Refresh all tabs: soft",
@@ -27,7 +29,7 @@ const commands = {
 			"Scroll to middle of the page",
 			"Scroll to 3/4 of the page",
 			"Scroll to bottom of the page"
-		]
+		],
 	},
 	"toggleAnimations": {
 		"name": "Toggle animations: off",
@@ -35,7 +37,8 @@ const commands = {
 	},
 	"toggleEditPage": {
 		"name": "Toggle Edit Page",
-		"callback": "editPage"
+		"callback": "editPage",
+		"on": false
 	},
 	"toggleMedia": {
 		"name": "Toggle media",

@@ -43,7 +43,6 @@ function buildUI() {
 		settings = data;
 
 		Object.entries(settings.commands).forEach(item => {
-			console.log(item[1]);
 			if (item[1].on === false) {
 				cpal.removeCommands(item[0])
 			}
