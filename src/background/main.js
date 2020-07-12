@@ -148,6 +148,11 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
         });
     } else if (msg.fn === 'tabs') {
         browser.tabs.query({}).then(tabs => tabs.forEach(tab => browser.tabs.reload(tab.id, msg.args)));
+    } else if (msg.automatic) {
+        browser.tabs.executeScript({
+            file: `../contentscripts/automatic/${msg.fn}.js`,
+            runAt: "document_start"
+        }).catch(err => console.error(`Failed to inject script: ${err}`));
     }
 });
 

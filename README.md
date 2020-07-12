@@ -40,6 +40,10 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Fix injection styling inconsistencies [bug]
 + Options page and browser storage for settings [feature]
 + ~~Refactor `Hide/Show Media` commands into `Toggle Media`~~ [meta]
++ Refactor list of commands/background
++ Dynamic permission requests
++ Debugging/error centre
++ User-set activation/close command
 
 I also have a list of other features I'm working on that I'll port over when I can.
 

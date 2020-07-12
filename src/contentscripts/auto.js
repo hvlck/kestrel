@@ -15,38 +15,15 @@ let settings;
 
 if (!settings) {
 	browser.storage.local.get(null).then(data => {
-		settings = data;
-	});
-}
+		settings = data.automatic;
 
-loader();
-
-function loader() {
-	let loader = buildElement('div', '', {
-		style: `
-			width: 0%;
-			height: 2px;
-
-			position: fixed;
-			top: 0;
-			left: 0;
-			background: ${'#16c581' || settings.loader.colour};
-			transition: 300ms linear;
-			z-index: 999999999;
-		`
-	});
-
-	window.addEventListener('DOMContentLoaded', () => {
-		document.body.appendChild(loader);
-		loader.style.display = '';
-		loader.style.width = '66%';
-	});
-
-	window.addEventListener('load', () => {
-		loader.style.display = '';
-		loader.style.width = '100%';
-		setTimeout(() => {
-			loader.style.display = 'none';
-		}, 2000);
+		if (settings) {
+			Object.entries(data.automatic).filter(item => item[1] == true).forEach(fn => {
+				browser.runtime.sendMessage({
+					automatic: true,
+					fn: fn[0],
+				});
+			});
+		}
 	});
 }

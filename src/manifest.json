@@ -13,7 +13,8 @@
         "storage",
         "tabs",
         "activeTab",
-        "search"
+        "search",
+        "<all_urls>"
     ],
     "background": {
         "scripts": [
@@ -26,7 +27,8 @@
                 "<all_urls>"
             ],
             "js": [
-                "contentscripts/auto.js"
+                "contentscripts/auto.js",
+                "libs/commands.js"
             ],
             "run_at": "document_start"
         }

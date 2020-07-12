@@ -61,6 +61,16 @@ const settings = [
 		]
 	},
 	{
+		name: "Background",
+		description: "Select ",
+		type: "toggle",
+		options: browser.storage.local.get('automatic'),
+		headers: [
+			"Name",
+			"On/Off"
+		]
+	},
+	{
 		name: "Reset settings",
 		description: "Reset all settings to default",
 		type: "special",
@@ -182,35 +192,60 @@ function buildToggle(item, customData, container) {
 
 	container.appendChild(head);
 
-	Object.values(customData).forEach(option => { // needs to be refactored
-		if (Array.isArray(option)) {
-			buildToggleHtml(Object.values(option[0]), container, Object.values(customData)[0]);
-		} else { buildToggleHtml(Object.values(option), container, Object.values(customData)[0]) }
-	});
+	if (item.name == 'Commands') {
+		Object.values(customData).forEach(option => { // needs to be refactored
+			if (Array.isArray(option)) {
+				buildToggleHtml(Object.values(option[0]), container, Object.values(customData)[0], 'commands');
+			} else { buildToggleHtml(Object.values(option), container, Object.values(customData)[0], 'commands') }
+		});
+	} else if (item.name == 'Background') {
+		buildToggleHtml(Object.keys(customData.automatic), container, '', 'background');
+	}
 }
 
 // toggle type content html
-function buildToggleHtml(iter, container, original) {
+function buildToggleHtml(iter, container, original, ref) {
 	iter.forEach((option, index) => {
 		let row = buildElement('tr');
 
 		let toggleCell = buildElement('td');
 
-		let toggle = buildElement('input', '', {
-			type: 'checkbox',
-			checked: option.on,
-			data_command: Object.entries(original)[index][0]
-		});
+		if (ref == 'commands') {
+			let toggle = buildElement('input', '', {
+				type: 'checkbox',
+				checked: option.on,
+				data_command: Object.entries(original)[index][0]
+			});
 
-		toggle.addEventListener('change', () => {
-			updateCommands();
-		});
+			toggle.addEventListener('change', () => {
+				updateCommands();
+			});
 
-		toggleCell.appendChild(toggle);
+			toggleCell.appendChild(toggle);
+		} else if (ref == 'background') {
+			browser.storage.local.get('automatic').then(status => {
+				status = status.automatic;
+				let toggle = buildElement('input', '', {
+					type: 'checkbox',
+					checked: status[option] || false,
+					data_background: Object.keys(automaticCommandsList)[index]
+				});
+				toggle.addEventListener('change', () => {
+					updateAutomaticFunctions();
+				});
+
+				toggleCell.appendChild(toggle);
+			});
+		}
 
 		let descriptionCell = buildElement('td');
-		let description = buildElement('p', option.name.split(':')[0]);
-		descriptionCell.appendChild(description);
+		if (ref == 'commands') {
+			let description = buildElement('p', option.name.split(':')[0]);
+			descriptionCell.appendChild(description);
+		} else if (ref == 'background') {
+			let description = buildElement('p', automaticDescriptions[option]);
+			descriptionCell.appendChild(description);
+		}
 
 		row.appendChild(descriptionCell);
 		row.appendChild(toggleCell);
@@ -273,11 +308,21 @@ const updateCommands = () => {
 	updateSettings('commands', commands);
 }
 
+const updateAutomaticFunctions = () => {
+	document.querySelectorAll('input[data-background]').forEach(item => {
+		let name = item.dataset.background;
+		automaticCommandsList[name] = item.checked;
+	});
+
+	updateSettings('automatic', automaticCommandsList);
+}
+
 // fresh install
 
 // default settings
 const defaults = {
-	theme: "operating-system-default"
+	theme: "operating-system-default",
+	automatic: automaticCommandsList
 };
 
 // creates initial storage data
@@ -307,4 +352,8 @@ const toggleTheme = (data) => {
 	} else if (document.querySelector(`link[href$="../themes"]`)) {
 		document.querySelector(`link[href$="../themes"]`).remove();
 	}
+}
+
+const automaticDescriptions = {
+	'loader': 'Enable a loading bar.'
 }

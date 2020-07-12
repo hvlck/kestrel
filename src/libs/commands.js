@@ -53,3 +53,7 @@ const commands = {
 		"callback": "toggleMiniMap"
 	}
 };
+
+const automaticCommandsList = {
+	'loader': false
+}
