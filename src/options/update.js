@@ -255,12 +255,46 @@ function buildToggleHtml(iter, container, original, ref) {
 }
 
 // updates settings
-function updateSettings(key, value) {
+function updateSettings(key, value, original) {
+	let originalKey = original || key;
 	if (key && typeof key !== 'object') key = key.replace(new RegExp(' ', 'g'), '_').replace(new RegExp('-', 'g'), '_').toLowerCase();
 	if (value && typeof value !== 'object' && typeof value !== 'boolean') value = value.replace(new RegExp(' ', 'g'), '-').toLowerCase();
 
-	return browser.storage.local.set({ [key]: value }).catch(err => { console.error(`Failed to save data: ${err}`) });
+	return browser.storage.local.set({ [key]: value }).then(() => {
+		success(originalKey);
+	}).catch(err => {
+		failure(originalKey);
+		console.error(`Failed to save data: ${err}`)
+	});
 };
+
+const success = (key) => {
+	if (document.querySelector('.success')) { document.querySelectorAll('.success').forEach(item => item.remove()) }
+
+	let notification = buildElement('p', `Successfully updated ${key}.`, {
+		className: 'success'
+	});
+
+	document.body.insertBefore(notification, document.body.lastChild);
+
+	setTimeout(() => {
+		notification.remove();
+	}, 1000);
+}
+
+const failure = (key) => {
+	if (document.querySelector('.failure')) { document.querySelectorAll('.failure').forEach(item => item.remove()) }
+
+	let notification = buildElement('p', `Successfully updated ${key}.`, {
+		className: 'success'
+	});
+
+	document.body.insertBefore(notification, document.body.lastChild);
+
+	setTimeout(() => {
+		notification.remove();
+	}, 1000);
+}
 
 // Special functions
 
@@ -300,8 +334,9 @@ function resetAll() {
 
 // updates all commands in storage, based on all configurable settings
 const updateCommands = () => {
+	let name;
 	document.querySelectorAll('input[data-command]').forEach(item => {
-		let name = item.dataset.command;
+		name = item.dataset.command;
 		commands[name] = Object.assign(commands[name], { on: item.checked });
 	});
 
@@ -309,12 +344,13 @@ const updateCommands = () => {
 }
 
 const updateAutomaticFunctions = () => {
+	let name;
 	document.querySelectorAll('input[data-background]').forEach(item => {
-		let name = item.dataset.background;
+		name = item.dataset.background;
 		automaticCommandsList[name] = item.checked;
 	});
 
-	updateSettings('automatic', automaticCommandsList);
+	updateSettings('automatic', automaticCommandsList, name);
 }
 
 // fresh install

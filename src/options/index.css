@@ -155,6 +155,27 @@ input[type="reset"]:hover, input[type="reset"]:focus, input[type="button"]:hover
 	margin: 2% 2% 2% 0;
 }
 
+.success, .failure {
+	padding: 10px 20px;
+	width: 25%;
+	font-size: 14pt;
+
+	position: fixed;
+	bottom: 2%;
+	right: 2%;
+	transition: none !important;
+}
+
+.success {
+	background-color: rgba(22, 197, 129, 0.5);
+	border: 2px solid rgba(22, 197, 129, 1);
+}
+
+.failure {
+	background-color: rgba(153, 0, 0, 0.5);
+	border: 2px solid rgba(153, 0, 0, 0.5);
+}
+
 .hidden {
 	display: none;
 	animation: 300ms fadeIn linear;
