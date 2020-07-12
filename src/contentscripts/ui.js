@@ -75,7 +75,6 @@ function buildUI() {
 	commandInp.focus();
 }
 
-let settings;
 const importSettings = async () => {
 	return await browser.storage.local.get(null);
 }
