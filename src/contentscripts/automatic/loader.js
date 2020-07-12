@@ -1,5 +1,8 @@
+// generates a loading bar
+// may use webRequest API in future for a more responsive loader
+// see https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest
 (function () {
-	let num = Math.floor(Math.random() * 999999);
+	let num = Math.floor(Math.random() * 999999); // prevent page script interaction for the most part
 	if (document.querySelector(`kestrel-loading-bar-${num}`)) { return };
 
 	let loader = buildElement('div', '', {

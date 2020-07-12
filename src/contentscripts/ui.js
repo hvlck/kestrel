@@ -75,6 +75,7 @@ function buildUI() {
 	commandInp.focus();
 }
 
+// gets settings
 const importSettings = async () => {
 	return await browser.storage.local.get(null);
 }
@@ -115,6 +116,7 @@ const updateCommands = () => { // Updates list of commands, adds event listeners
 	if (commandList.firstChild) { commandList.firstChild.classList.add('kestrel-command-item-focused') };
 }
 
+// updates command list html
 function listen(event) {
 	if (event.keyCode == 13 && commandList) {
 		Object.values(commandList.children).forEach(child => {
@@ -168,20 +170,26 @@ const connectPort = () => {
 }
 
 let messager;
+
+// sends a message to the background script
+// this is for commands that require an API that can only be accessed in a background script
 const sendFnEvent = (msg) => {
 	return browser.runtime.sendMessage(msg);
 }
 
+// hides kestrel ui
 const hideKestrel = () => {
 	kestrel.classList.add('kestrel-hidden');
 	kestrel.remove();
 }
 
+// shows kestrel ui
 const showKestrel = () => {
 	document.body.insertBefore(kestrel, document.body.firstChild);
 	kestrel.classList.remove('kestrel-hidden')
 };
 
+// removes all command html
 function clearCommands() { if (commandList) { Object.values(commandList.children).forEach(child => child.remove()) } }
 
 buildUI();

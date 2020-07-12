@@ -13,9 +13,10 @@ const buildElement = (type, text, attributes) => {
 
 let settings;
 
+// injects automatic scripts if enabled
 if (!settings) {
-	browser.storage.local.get(null).then(data => {
-		settings = data.automatic;
+	browser.storage.local.get('automatic').then(data => {
+		settings = data;
 
 		if (settings) {
 			Object.entries(data.automatic).filter(item => item[1] == true).forEach(fn => {

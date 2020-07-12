@@ -11,6 +11,7 @@
 	}).then(() => build());
 }());
 
+// nav bar
 const nav = buildElement('div', '', {
 	className: 'nav'
 });
@@ -268,6 +269,7 @@ function updateSettings(key, value, original) {
 	});
 };
 
+// generates success notification
 const success = (key) => {
 	if (document.querySelector('.success')) { document.querySelectorAll('.success').forEach(item => item.remove()) }
 
@@ -282,6 +284,7 @@ const success = (key) => {
 	}, 1000);
 }
 
+// generates failure notification
 const failure = (key) => {
 	if (document.querySelector('.failure')) { document.querySelectorAll('.failure').forEach(item => item.remove()) }
 
@@ -298,7 +301,7 @@ const failure = (key) => {
 
 // Special functions
 
-// resets all storage
+// generates storage reset confirmation
 function reset() {
 	document.querySelector(`input[value="Reset settings"]`).setAttribute('disabled', 'true');
 
@@ -327,6 +330,7 @@ function reset() {
 	document.querySelector(`input[value="Reset settings"]`).parentElement.appendChild(container);
 }
 
+// resets all storage, and initializes it again with default values
 function resetAll() {
 	browser.storage.local.clear();
 	initStorage();
@@ -343,6 +347,7 @@ const updateCommands = () => {
 	updateSettings('commands', commands);
 }
 
+// updates all automatic functions, in memory and storage
 const updateAutomaticFunctions = () => {
 	let name;
 	document.querySelectorAll('input[data-background]').forEach(item => {
@@ -390,6 +395,7 @@ const toggleTheme = (data) => {
 	}
 }
 
+// descriptions of automatic functions
 const automaticDescriptions = {
 	'loader': 'Enable a loading bar.'
 }

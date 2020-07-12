@@ -40,12 +40,17 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Fix injection styling inconsistencies [bug]
 + Options page and browser storage for settings [feature]
 + ~~Refactor `Hide/Show Media` commands into `Toggle Media`~~ [meta]
-+ Refactor list of commands/background
-+ Dynamic permission requests
-+ Debugging/error centre
-+ User-set activation/close command
++ Refactoring [bug]
++ Dynamic permission requests [feature]
++ Debugging/error centre [feature]
++ User-set activation/close command [feature]
++ Security [bug]
 
 I also have a list of other features I'm working on that I'll port over when I can.
+
+## Docs
+
+File structure
 
 ```plaintext
 readme.md - meta information
@@ -58,6 +63,7 @@ license - MIT
         /background - background scripts
             main.js - primary background script, controls injection logic
         /contentscripts - content scripts
+            /automatic - automatic content scripts, injected at page load
             auto.js - things that run automatically
             kestrel.js - logic for commands
             ui.css - styling for command palette
@@ -76,6 +82,22 @@ license - MIT
         /themes - reusable themes
             dark.css - dark theme variables
             light.css - light theme variables
+```
+
+Messaging between extension parts
+
+```plaintext
+background -> ui.js/kestrel.js
++ Showing/hiding UI (because Kestrel uses the Command API, rather than a DOM event)
++ Initial handshake (needs to be expanded on in the future)
+
+ui.js/kestrel.js -> background
++ (kestrel.js) Settings command - open settings
++ (kestrel.js) Hard/soft refresh command - has to query and refresh all tabs
++ (kestrel.js) Minimap command - injects minimap styles and scripts
+
+auto.js -> background
++ Injects scripts that run automatically
 ```
 
 ## License

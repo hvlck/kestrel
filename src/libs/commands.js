@@ -54,6 +54,7 @@ const commands = {
 	}
 };
 
+// list of automatic commands, where keys are names of command functions
 const automaticCommandsList = {
 	'loader': false
 }
