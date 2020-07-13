@@ -102,6 +102,18 @@ auto.js -> background
 + Injects scripts that run automatically
 ```
 
+Extension storage
+
+```plaintext
+automatic - automatic tasks, and whether they're enabled
+
+automaticsettings - settings for automatic tasks
+
+commands - all commands, and whether they're enabled
+
+theme - string - kestrel's theme (light, dark, or operating-system-default, which uses the (prefers-color-scheme) media query)
+```
+
 ## License
 
 MIT

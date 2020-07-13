@@ -115,7 +115,7 @@ const build = () => {
 
 		div.appendChild(description);
 
-		if (item.type == 'select') {
+		if (item.type == 'select') { // select element
 			let select = buildElement('select', '', {
 				className: 'settings-item-select'
 			});
@@ -143,24 +143,7 @@ const build = () => {
 			});
 
 			div.appendChild(select);
-		} else if (item.type == 'bool') {
-			let select = buildElement('select', '', {
-				className: 'settings-item-select'
-			});
-
-			let vals = ['True', 'False'];
-			vals.forEach(val => {
-				let element = buildElement('option', val, {
-					className: 'setting-item-select-option'
-				});
-
-				select.appendChild(element);
-			});
-
-			select.addEventListener('change', updateSettings(item.name, select.value));
-
-			div.appendChild(select);
-		} else if (item.type == 'toggle') {
+		} else if (item.type == 'toggle') { // checkbox elements
 			let container = buildElement('table', '', {
 				className: 'settings-item-toggle-container'
 			});
@@ -173,7 +156,7 @@ const build = () => {
 
 
 			div.appendChild(container);
-		} else if (item.type == 'special') {
+		} else if (item.type == 'special') { // various special resets/buttons
 			let btn = buildElement('input', '', {
 				type: 'reset',
 				value: 'Reset settings'
@@ -182,7 +165,7 @@ const build = () => {
 			btn.addEventListener('click', () => window[item.fn]());
 
 			div.appendChild(btn);
-		} else if (item.type == 'text') {
+		} else if (item.type == 'text') { // text input
 			let text = buildElement('input', '', {
 				type: 'text',
 				placeholder: item.placeholder,
@@ -390,6 +373,7 @@ const updateAutomaticFunctions = () => {
 	updateSettings('automatic', automaticCommandsList, name);
 }
 
+// updates all automatic task settings
 const updateAutomaticSettings = () => {
 	let name;
 	document.querySelectorAll('input[data-automatic-setting]').forEach(item => {
@@ -422,6 +406,8 @@ const initStorage = () => {
 
 	updateSettings('commands', commands).then(() => window.location.reload());
 }
+
+browser.storage.local.get(null).then(data => console.warn(data));
 
 // other
 
