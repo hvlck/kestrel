@@ -50,6 +50,8 @@ I also have a list of other features I'm working on that I'll port over when I c
 
 ## Docs
 
+TODO: settings diagram
+
 File structure
 
 ```plaintext

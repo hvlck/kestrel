@@ -14,7 +14,7 @@
 			position: fixed;
 			top: 0;
 			left: 0;
-			background: ${'#16c581' || settings.loader.colour};
+			background: ${settings.automaticsettings.loader || '#16c581'};
 			transition: 300ms linear !important;
 			z-index: 999999999;
 		`

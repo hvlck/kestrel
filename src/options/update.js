@@ -53,7 +53,7 @@ const settings = [
 	},
 	{
 		name: "Commands",
-		description: "Select commands that you want to use",
+		description: "Select commands that you want to use.",
 		type: "toggle",
 		options: browser.storage.local.get('commands'),
 		headers: [
@@ -63,13 +63,23 @@ const settings = [
 	},
 	{
 		name: "Background",
-		description: "Select ",
+		description: "Select background tasks that you want to use.",
 		type: "toggle",
 		options: browser.storage.local.get('automatic'),
 		headers: [
 			"Name",
 			"On/Off"
 		]
+	},
+	{
+		name: "Loader Bar Colour",
+		description: "Customise the loader bar's colour.",
+		type: "text",
+		dependsOnKey: "automatic",
+		dependsOn: "loader",
+		setting: "automaticsettings",
+		placeholder: "#",
+		default: "#16c581"
 	},
 	{
 		name: "Reset settings",
@@ -172,6 +182,26 @@ const build = () => {
 			btn.addEventListener('click', () => window[item.fn]());
 
 			div.appendChild(btn);
+		} else if (item.type == 'text') {
+			let text = buildElement('input', '', {
+				type: 'text',
+				placeholder: item.placeholder,
+				maxLength: 7,
+				disabled: false,
+				value: item.default,
+				data_automatic_setting: item.dependsOn
+			});
+
+			browser.storage.local.get(item.setting).then(data => { text.value = data[item.setting][item.dependsOn] || item.default });
+			browser.storage.local.get(item.dependsOnKey).then(data => { text.disabled = !data[item.dependsOnKey][item.dependsOn] });
+
+			text.addEventListener('input', () => {
+				if (text.value.length == 7) {
+					updateAutomaticSettings();
+				}
+			});
+
+			div.appendChild(text);
 		}
 
 		main.appendChild(div);
@@ -231,8 +261,10 @@ function buildToggleHtml(iter, container, original, ref) {
 					checked: status[option] || false,
 					data_background: Object.keys(automaticCommandsList)[index]
 				});
+
 				toggle.addEventListener('change', () => {
 					updateAutomaticFunctions();
+					document.querySelector(`*[data-automatic-setting="${toggle.dataset.background}"]`).disabled = !toggle.checked;
 				});
 
 				toggleCell.appendChild(toggle);
@@ -358,12 +390,26 @@ const updateAutomaticFunctions = () => {
 	updateSettings('automatic', automaticCommandsList, name);
 }
 
+const updateAutomaticSettings = () => {
+	let name;
+	document.querySelectorAll('input[data-automatic-setting]').forEach(item => {
+		name = item.parentElement.querySelector('h3').innerText.toLowerCase();
+		let key = item.dataset.automaticSetting;
+		automaticSettings[key] = item.value;
+	});
+
+	browser.storage.local.get(null).then(data => console.warn(data));
+
+	updateSettings('automaticsettings', automaticSettings, name);
+}
+
 // fresh install
 
 // default settings
 const defaults = {
-	theme: "operating-system-default",
-	automatic: automaticCommandsList
+	'theme': "operating-system-default",
+	'automatic': automaticCommandsList,
+	'automaticsettings': automaticSettings
 };
 
 // creates initial storage data

@@ -15,7 +15,7 @@ let settings;
 
 // injects automatic scripts if enabled
 if (!settings) {
-	browser.storage.local.get('automatic').then(data => {
+	browser.storage.local.get(['automatic', 'automaticsettings']).then(data => {
 		settings = data;
 
 		if (settings) {

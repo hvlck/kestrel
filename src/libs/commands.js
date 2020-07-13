@@ -54,7 +54,12 @@ const commands = {
 	}
 };
 
-// list of automatic commands, where keys are names of command functions
+// list of automatic tasks, where keys are names of command functions
 const automaticCommandsList = {
 	'loader': false
+}
+
+// settings for automatic tasks
+const automaticSettings = {
+	'loader': '#16c581'
 }
