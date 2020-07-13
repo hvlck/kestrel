@@ -2,10 +2,8 @@
 (function () {
 	browser.storage.local.get(null).then(data => {
 		if (Object.keys(data).length === 0 && !window.location.search) {
-			history.replaceState('', document.title, `${window.location}?install=new`);
 			initStorage();
 		} else {
-			history.replaceState('', document.title, window.location.pathname);
 			browser.storage.local.get('theme').then(theme => toggleTheme(theme.theme));
 		}
 	}).then(() => build());
