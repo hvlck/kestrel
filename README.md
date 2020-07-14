@@ -35,17 +35,16 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Use arrays to control ports in background scripts, in order to have multiple connections open simultaneously [bug]
 + Refactor options page, and split files [meta]
 + [Possible] Move `/themes` into `/libs` [meta]
-+ Better folder naming [meta]
-+ Variables for CSS class names, for future-proofing [bug]
-+ Fix injection styling inconsistencies [bug]
-+ Options page and browser storage for settings [feature]
++ Better folder naming [meta] {in-progress}
++ Fix injection styling inconsistencies [bug] {in-progress}
++ ~~Options page and browser storage for settings~~ [feature]
 + ~~Refactor `Hide/Show Media` commands into `Toggle Media`~~ [meta]
-+ Refactoring [bug]
++ Refactoring [meta]
 + Dynamic permission requests [feature]
 + Debugging/error centre [feature]
 + User-set activation/close command [feature]
 + Security [bug]
-+ Better onboarding/user-friendly docs [meta]
++ Better onboarding/user-friendly docs [meta] {in-progress}
 + Colour preview for loader bar [feature/bug]
 
 I also have a list of other features I'm working on that I'll port over when I can.
@@ -79,10 +78,10 @@ license - MIT
             commands.js - list of commands, aliases, and callbacks
             taita.js - command palette logic processor
             utils.js - utility
-        /options - extension options page
-            index.css - option page styling
-            index.html - option page
-            update.js - option page logic
+        /settings - extension settings page
+            index.css - settings page styling
+            index.html - settings page
+            update.js - settings page logic
         /themes - reusable themes
             dark.css - dark theme variables
             light.css - light theme variables

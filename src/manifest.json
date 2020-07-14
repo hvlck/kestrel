@@ -43,7 +43,7 @@
         }
     },
     "options_ui": {
-        "page": "options/index.html",
+        "page": "settings/index.html",
         "browser_style": false,
         "open_in_tab": true
     }

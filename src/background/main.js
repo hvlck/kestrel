@@ -1,4 +1,4 @@
-// opens option page once user has installed extension
+// opens settings page once user has installed extension
 browser.runtime.onInstalled.addListener(() => {
     browser.runtime.openOptionsPage();
     browser.runtime.setUninstallURL("https://ethanjustice.github.io/kestrel/meta/uninstall");
