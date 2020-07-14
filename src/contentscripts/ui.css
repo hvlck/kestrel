@@ -54,7 +54,7 @@ body > *:not(.kestrel) {
 	position: fixed;
 	top: 10%;
 	left: 50%;
-	transform: translate(-50%, -10%);
+	transform: translate(-50%, 0%);
 	z-index: 99999;
 }
 
@@ -62,17 +62,20 @@ body > *:not(.kestrel) {
 	Command input, where user types to filter commands
 */
 
-.kestrel-command-input {
+input[type="text"].kestrel-command-input {
 	background: var(--kestrel-primary);
-	color: var(--kestrel-secondary) !important;
+	color: var(--kestrel-secondary) ;
 
-	font-size: 20pt;
+	box-sizing: border-box;
+	font-size: 18pt !important;
 	border: none;
 	border-bottom: 1px solid var(--kestrel-quaternary);
 	border-radius: 0px;
 	width: 100%;
-	padding: 1rem;
-	margin: 7.5% auto 0 auto;
+	height: 60px !important;
+	padding: 20px !important;
+	max-width: 800px;
+	margin: 0;
 	transition: none;
 	animation: none;
 }
@@ -82,7 +85,7 @@ body > *:not(.kestrel) {
 */
 
 .kestrel-commands-container {
-	width: 104%;
+	width: 100%;
 	max-height: 400px;
 	border: none;
 	border-radius: 2px;
@@ -96,8 +99,9 @@ body > *:not(.kestrel) {
 */
 
 .kestrel-command-item {
+	width: 100%;
 	display: block;
-	padding: 0.5rem 1rem;
+	padding: 10px 20px !important;
 	margin: 0 auto;
 	font-size: 14pt;
 	font-family: Arial, Helvetica, sans-serif;
@@ -125,7 +129,7 @@ body > *:not(.kestrel) {
 */
 
 .kestrel-hidden {
-	display: none !important;
-	animation: none !important;
-	transition: none !important;
+	display: none ;
+	animation: none ;
+	transition: none ;
 }

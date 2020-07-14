@@ -17,6 +17,8 @@ let status = {};
 
 let settings;
 
+let injections = [];
+
 // Listens for commands
 browser.commands.onCommand.addListener(command => {
     let actTab = getActiveTab();
@@ -27,7 +29,7 @@ browser.commands.onCommand.addListener(command => {
 
             if (settings.theme == undefined) settings.theme = 'light';
             if (settings.theme != 'operating-system-default') {
-                injectStylesheet(`/themes/${settings.theme}.css`);
+                injectStylesheet(`../themes/${settings.theme}.css`);
             }
         }).catch(err => console.error(`Failed to load settings: ${err}`));
 
@@ -46,12 +48,14 @@ browser.commands.onCommand.addListener(command => {
                 active: true
             }
         } else if (status[data].injected == true && status[data].active == true) {
-            removePalette(`/contentscripts/ui.css`);
-            removePalette(`/themes/${settings.theme}.css`)
+            removePalette(`../contentscripts/ui.css`);
+            if (settings.theme !== 'operating-system-default') {
+                removePalette(`../themes/${settings.theme}.css`)
+            }
             status[data].active = false;
         } else if (status[data].injected == true && status[data].active == false) {
             sendMessage({ kestrel: 'show' })
-            injectStylesheet(`/contentscripts/ui.css`);
+            injectStylesheet(`../contentscripts/ui.css`);
             status[data].active = true;
         }
     });
@@ -72,7 +76,7 @@ const getActiveTab = () => {
 
 // note: needs better error handling
 const injectScripts = () => {
-    injectStylesheet(`/contentscripts/ui.css`);
+    injectStylesheet(`../contentscripts/ui.css`);
 
     browser.tabs.executeScript({ // Injects main UI script
         file: '../libs/taita.js'
@@ -98,14 +102,20 @@ const injectScripts = () => {
 // controls injection of needed stylesheets
 // for now this is just contentscripts/ui.css
 const injectStylesheet = (sheet) => {
+    if (!sheet || injections[sheet]) { return }
+    injections.push(sheet);
     browser.tabs.insertCSS({ // Injects UI stylesheet
         file: sheet
-    }).catch((err) => { return err });
+    }).catch((err) => {
+        console.error(`Failed to inject sheet (${sheet}): ${err}`);
+        return err;
+    });
 }
 
 // removes needed stylesheets from page
 // scripts cannot be removed
 const removePalette = (sheet) => {
+    injections.splice(injections.indexOf(sheet), 1);
     browser.tabs.removeCSS({
         file: sheet
     }).catch(err => console.error(`Failed to remove stylesheet: ${err}`))
@@ -143,10 +153,7 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
     if (msg.fn == 'openSettings') {
         browser.runtime.openOptionsPage().catch(err => console.error(err));
     } else if (msg.injectSheet) {
-        browser.tabs.insertCSS({
-            file: `../injections/${msg.injectSheet}/index.css`,
-            cssOrigin: "user"
-        });
+        injectStylesheet(`../injections/${msg.injectSheet}/index.css`);
     } else if (msg.fn === 'tabs') {
         browser.tabs.query({}).then(tabs => tabs.forEach(tab => browser.tabs.reload(tab.id, msg.args)));
     } else if (msg.automatic) {

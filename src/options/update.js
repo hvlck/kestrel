@@ -380,8 +380,6 @@ const updateAutomaticSettings = () => {
 		automaticSettings[key] = item.value;
 	});
 
-	browser.storage.local.get(null).then(data => console.warn(data));
-
 	updateSettings('automaticsettings', automaticSettings, name);
 }
 
@@ -404,8 +402,6 @@ const initStorage = () => {
 
 	updateSettings('commands', commands).then(() => window.location.reload());
 }
-
-browser.storage.local.get(null).then(data => console.warn(data));
 
 // other
 
