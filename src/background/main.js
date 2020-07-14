@@ -48,14 +48,14 @@ browser.commands.onCommand.addListener(command => {
                 active: true
             }
         } else if (status[data].injected == true && status[data].active == true) {
-            removePalette(`../contentscripts/ui.css`);
+            removePalette(`../cs/ui.css`);
             if (settings.theme !== 'operating-system-default') {
                 removePalette(`../themes/${settings.theme}.css`)
             }
             status[data].active = false;
         } else if (status[data].injected == true && status[data].active == false) {
             sendMessage({ kestrel: 'show' })
-            injectStylesheet(`../contentscripts/ui.css`);
+            injectStylesheet(`../cs/ui.css`);
             status[data].active = true;
         }
     });
@@ -76,7 +76,7 @@ const getActiveTab = () => {
 
 // note: needs better error handling
 const injectScripts = () => {
-    injectStylesheet(`../contentscripts/ui.css`);
+    injectStylesheet(`../cs/ui.css`);
 
     browser.tabs.executeScript({ // Injects main UI script
         file: '../libs/taita.js'
@@ -86,7 +86,7 @@ const injectScripts = () => {
         });
     }).then(() => {
         browser.tabs.executeScript({ // Injects main UI script
-            file: '../contentscripts/kestrel.js'
+            file: '../cs/kestrel.js'
         });
     }).then(() => {
         browser.tabs.executeScript({
@@ -94,13 +94,13 @@ const injectScripts = () => {
         })
     }).then(() => {
         browser.tabs.executeScript({ // Injects main UI script
-            file: '../contentscripts/ui.js'
+            file: '../cs/ui.js'
         });
     }).catch(injectScripts).finally(() => { return });
 }
 
 // controls injection of needed stylesheets
-// for now this is just contentscripts/ui.css
+// for now this is just cs/ui.css
 const injectStylesheet = (sheet) => {
     if (!sheet || injections[sheet]) { return }
     injections.push(sheet);
@@ -158,7 +158,7 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
         browser.tabs.query({}).then(tabs => tabs.forEach(tab => browser.tabs.reload(tab.id, msg.args)));
     } else if (msg.automatic) {
         browser.tabs.executeScript({
-            file: `../contentscripts/automatic/${msg.fn}.js`,
+            file: `../cs/automatic/${msg.fn}.js`,
             runAt: "document_start"
         }).catch(err => console.error(`Failed to inject script: ${err}`));
     }

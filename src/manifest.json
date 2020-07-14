@@ -27,7 +27,7 @@
                 "<all_urls>"
             ],
             "js": [
-                "contentscripts/auto.js",
+                "cs/auto.js",
                 "libs/commands.js"
             ],
             "run_at": "document_start"

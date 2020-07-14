@@ -35,10 +35,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Use arrays to control ports in background scripts, in order to have multiple connections open simultaneously [bug]
 + Refactor options page, and split files [meta]
 + [Possible] Move `/themes` into `/libs` [meta]
-+ Better folder naming [meta] {in-progress}
 + Fix injection styling inconsistencies [bug] {in-progress}
-+ ~~Options page and browser storage for settings~~ [feature]
-+ ~~Refactor `Hide/Show Media` commands into `Toggle Media`~~ [meta]
 + Refactoring [meta]
 + Dynamic permission requests [feature]
 + Debugging/error centre [feature]
@@ -46,6 +43,12 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Security [bug]
 + Better onboarding/user-friendly docs [meta] {in-progress}
 + Colour preview for loader bar [feature/bug]
+
+### Completed
+
++ ~~Options page and browser storage for settings~~ [feature]
++ ~~Better folder naming~~ [meta]
++ ~~Refactor `Hide/Show Media` commands into `Toggle Media`~~ [meta]
 
 I also have a list of other features I'm working on that I'll port over when I can.
 
@@ -65,7 +68,7 @@ license - MIT
         manifest.json - WebExtension manifest
         /background - background scripts
             main.js - primary background script, controls injection logic
-        /contentscripts - content scripts
+        /cs - content scripts
             /automatic - automatic content scripts, injected at page load
             auto.js - things that run automatically
             kestrel.js - logic for commands
