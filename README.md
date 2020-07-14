@@ -27,7 +27,7 @@ See [Features](#features).
 
 ## Usage
 
-There's not much to see right now.  The main part is activated with `Alt+Shift+Q` on everything but Linux, which is `Cmd+Shift+Q`.  Why Q?  All the keys can be hit with one hand.
+There's not much to see right now.  The main part is activated with `Alt+Shift+Q` on everything but Linux, which is `Alt+Shift+Q`.  Why Q?  All the keys can be hit with one hand.
 
 ## Roadmap
 
@@ -45,8 +45,8 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Debugging/error centre [feature]
 + User-set activation/close command [feature]
 + Security [bug]
-+ Better onboarding/user-friendly docs
-+ Colour preview for loader bar
++ Better onboarding/user-friendly docs [meta]
++ Colour preview for loader bar [feature/bug]
 
 I also have a list of other features I'm working on that I'll port over when I can.
 

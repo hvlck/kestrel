@@ -27,6 +27,7 @@ body {
 	margin: 0 auto;
 	padding: 10px;
 	font-size: 115%;
+	line-height: 1.6;
 }
 
 * {
@@ -46,18 +47,23 @@ h1, h2, h3, h4, h5, h6 {
 	width: 100%;
 }
 
-.nav a,
-.nav a:visited {
+a,
+a:visited {
 	color: var(--highlight);
-	margin: 0.5% 2% 0.5% 0%;
 	padding: 1px;
 	opacity: 0.7;
 	width: auto;
 	border: none;
 }
 
-.nav a:hover {
+.nav a { margin: 0.5% 2% 0.5% 0% }
+
+a:hover {
 	opacity: 1;
+}
+
+p {
+	font-size: 12pt;
 }
 
 select,
