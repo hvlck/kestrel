@@ -2,7 +2,7 @@
 (function () {
 	browser.storage.local.get(null).then(data => {
 		if (Object.keys(data).length === 0 && !window.location.search) {
-			initStorage();
+			initStorage().then(() => window.location.assign('../fresh/index.html'));
 		} else {
 			browser.storage.local.get('theme').then(theme => toggleTheme(theme.theme));
 		}
@@ -346,7 +346,7 @@ function reset() {
 // resets all storage, and initializes it again with default values
 function resetAll() {
 	browser.storage.local.clear();
-	initStorage();
+	initStorage().then(() => window.location.reload());
 }
 
 // updates all commands in storage, based on all configurable settings
@@ -400,7 +400,7 @@ const initStorage = () => {
 		commands[command] = Object.assign({ on: true }, commands[command]);
 	});
 
-	updateSettings('commands', commands).then(() => window.location.reload());
+	return updateSettings('commands', commands);
 }
 
 // other

@@ -45,6 +45,8 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Debugging/error centre [feature]
 + User-set activation/close command [feature]
 + Security [bug]
++ Better onboarding/user-friendly docs
++ Colour preview for loader bar
 
 I also have a list of other features I'm working on that I'll port over when I can.
 
