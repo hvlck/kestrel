@@ -28,6 +28,7 @@ body {
 	padding: 10px;
 	font-size: 115%;
 	line-height: 1.6;
+	animation: fadeIn 300ms;
 }
 
 * {

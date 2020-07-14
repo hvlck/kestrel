@@ -1,8 +1,11 @@
 // checks if this is a fresh install, acts if it is
 (function () {
 	browser.storage.local.get(null).then(data => {
-		if (Object.keys(data).length === 0 && !window.location.search) {
+		if (Object.keys(data).length === 0 && !window.location.hash) {
 			initStorage().then(() => window.location.assign('../fresh/index.html'));
+		} else if (window.location.hash) {
+			history.replaceState('', 'Kestrel | Settings', window.location.href.split(window.location.hash)[0]);
+			initStorage().then(() => window.location.reload());
 		} else {
 			browser.storage.local.get('theme').then(theme => toggleTheme(theme.theme));
 		}
@@ -26,7 +29,7 @@ sections.forEach(item => {
 // prevent content flashing
 document.body.querySelector('.hidden').appendChild(nav);
 
-// generates setting html
+// generates settings html
 const build = () => {
 	const main = buildElement('div', '', {
 		className: 'main'
@@ -289,7 +292,8 @@ function reset() {
 // resets all storage, and initializes it again with default values
 function resetAll() {
 	browser.storage.local.clear();
-	initStorage().then(() => window.location.reload());
+	history.replaceState('', 'Kestrel | Settings', `${window.location.href}#reset`)
+	window.location.reload();
 }
 
 // updates all commands in storage, based on all configurable settings
