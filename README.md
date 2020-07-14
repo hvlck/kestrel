@@ -42,6 +42,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 ## Medium
 
 + Refactoring [meta]
++ Move "Open all links in the current tab," command to automatic functions [bug]
 + User-set activation/close command [feature]
 + Better onboarding/user-friendly docs [meta] {in-progress}
 
@@ -49,6 +50,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 + Debugging/error centre [feature] (further down the road, more for user error reports)
 + [Possible] Move `/themes` into `/libs` [meta]
++ Disable links when `design mode` command is active
 
 ### Completed
 
@@ -87,10 +89,14 @@ license - MIT
             commands.js - list of commands, aliases, and callbacks
             taita.js - command palette logic processor
             utils.js - utility
-        /settings - extension settings page
-            index.css - settings page styling
-            index.html - settings page
-            update.js - settings page logic
+        /pages
+            /settings - extension settings page
+                index.css - settings page styling
+                index.html - settings page
+                update.js - settings page logic
+            /media - images
+            /fresh - kestrel guide
+            /reference - kestrel reference
         /themes - reusable themes
             dark.css - dark theme variables
             light.css - light theme variables

@@ -38,6 +38,15 @@
                 max-width: 100%;
                 animation: 300ms fadeIn linear;
             }
+
+            td {
+                border-right: 2px solid var(--tertiary)
+            }
+
+            li {
+                font-size: 12pt;
+                font-family: var(--heading-font);
+            }
         </style>
     </head>
 
@@ -47,7 +56,111 @@
             <a href="../fresh/index.html">Guide</a>
             <a href="../settings/index.html">Settings</a>
         </nav>
-        <h1>Command Reference</h1>
+        <!--Welcome to the Commandinomicon!-->
+        <h1>Kestrel Reference</h1>
+        <h2></h2>
+        <h3>Disable all links</h3>
+        <table>
+            <tr>
+                <td>Enabled by Default?</td>
+                <td>No</td>
+            </tr>
+        </table>
+        <p>Disables all links on the current page. Note: this command doesn't stop JavaScript-based navigation, so it
+            may not work on all "links."</p>
+        <p>This command is not a toggle as it is made to lessen distractions.</p>
+        <h3>Open settings page</h3>
+        <table>
+            <tr>
+                <td>Enabled by Default?</td>
+                <td>No</td>
+            </tr>
+        </table>
+        <p>Opens Kestrel's settings page</p>
+        <h3>Refresh all tabs: soft</h3>
+        <table>
+            <tr>
+                <td>Enabled by Default?</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+        <p>Aliases: </p>
+        <ul>
+            <li>Refresh all tabs: hard</li>
+        </ul>
+        <p>Refreshes all tabs in every window. If the "hard," variant is chosen, the cache is bypassed when refreshing
+            the tabs.</p>
+        <h3>Scroll to top of page</h3>
+        <table>
+            <tr>
+                <td>Enabled by Default?</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+        <p>Aliases: </p>
+        <ul>
+            <li>Scroll to 1/4 of the page</li>
+            <li>Scroll to middle of the page</li>
+            <li>Scroll to 3/4 of the page</li>
+            <li>Scroll to bottom of the page</li>
+        </ul>
+        <p>Scrolls to the given distance in the currently active tab.</p>
+        <h3>Toggle animations: off</h3>
+        <table>
+            <tr>
+                <td>Enabled by Default?</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+        <p>Aliases: </p>
+        <ul>
+            <li>Toggle animations: on (after animations are toggled off)</li>
+        </ul>
+        <p>Turns the currently active tab's animations on or off.</p>
+        <h3>Toggle page editing</h3>
+        <table>
+            <tr>
+                <td>Enabled by Default?</td>
+                <td>No</td>
+            </tr>
+        </table>
+        <p>Enables or disables editing the currently active page.</p>
+        <h3>Toggle media</h3>
+        <table>
+            <tr>
+                <td>Enabled by Default?</td>
+                <td>Yes</td>
+            </tr>
+        </table>
+        <p>Aliases: </p>
+        <ul>
+            <li>Toggle images</li>
+            <li>Toggle video</li>
+        </ul>
+        <p>Shows or hides the selected media. If the "media," variant is chosen, then both videos and images are hidden.
+        </p>
+        <h3>Toggle minimap</h3>
+        <p><b>NOTE: This command is currently non-functional.</b></p>
+        <table>
+            <tr>
+                <td>Enabled by Default?</td>
+                <td>No</td>
+            </tr>
+        </table>
+        <p>Toggles an interactive minimap of the page.</p>
+        <h2>Background</h2>
+        <p>Background tasks aren't enabled by default.</p>
+        <p>Due to enabled tasks being chosen by the user, it is not always guaranteed that tasks that start at page load
+            will be completed successfully. For example, the page loader will not always work if a site loads
+            exceptionally fast,
+            because it must first be injected.</p>
+        <p>These tasks may also slow down performance. Keep this in mind when choosing which tasks to enable.</p>
+        <h3>Page Loader</h3>
+        <p>Enables a loading bar at the top of each page, representing the loading status of the page. The colour can be
+            customized in the Loading Bar Colour section of the Settings page.</p>
+        <p>Please note that the loader is not always guaranteed to work. Since it must be injected into a page first, it
+            is not always
+            able to begin once the page is first navigated to.</p>
         <nav>
             <a href="https://github.com/EthanJustice/kestrel">Repository</a>
             <a href="https://github.com/EthanJustice/kestrel/issues">Report an Issue</a>

@@ -43,7 +43,7 @@ const settings = [
     },
     {
         name: "Loader Bar Colour",
-        description: "Customise the loader bar's colour.  Note: this may not work on all websites.  See the Command Reference for more.",
+        description: "Customise the loader bar's colour.  Note: this may not work on all websites.  See the Reference for more.",
         type: "text",
         dependsOnKey: "automatic",
         dependsOn: "loader",

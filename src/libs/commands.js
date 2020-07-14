@@ -10,7 +10,7 @@ const commands = {
 		"callback": "openInSameTab"
 	},
 	"openSettings": {
-		"name": "Settings",
+		"name": "Open settings page",
 		"callback": "openSettings",
 		"on": false
 	},
@@ -36,7 +36,7 @@ const commands = {
 		"callback": "toggleAnimations"
 	},
 	"toggleEditPage": {
-		"name": "Toggle Edit Page",
+		"name": "Toggle page editing",
 		"callback": "editPage",
 		"on": false
 	},
@@ -49,8 +49,9 @@ const commands = {
 		]
 	},
 	"toggleMiniMap": {
-		"name": "Toggle Minimap",
-		"callback": "toggleMiniMap"
+		"name": "Toggle minimap",
+		"callback": "toggleMiniMap",
+		"on": false
 	}
 };
 
