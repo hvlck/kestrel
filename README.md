@@ -54,8 +54,6 @@ I also have a list of other features I'm working on that I'll port over when I c
 
 ## Docs
 
-TODO: settings diagram
-
 File structure
 
 ```plaintext
@@ -106,7 +104,7 @@ auto.js -> background
 + Injects scripts that run automatically
 ```
 
-Extension storage
+Extension storage (all are customised in the options page)
 
 ```plaintext
 automatic - automatic tasks, and whether they're enabled
