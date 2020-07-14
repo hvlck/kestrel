@@ -45,12 +45,14 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Move "Open all links in the current tab," command to automatic functions [bug]
 + User-set activation/close command [feature]
 + Better onboarding/user-friendly docs [meta] {in-progress}
++ Homepage [meta]
 
 ## Low
 
 + Debugging/error centre [feature] (further down the road, more for user error reports)
 + [Possible] Move `/themes` into `/libs` [meta]
-+ Disable links when `design mode` command is active
++ Styling updates to loader [bug]
++ Disable links when `design mode` command is active [bug]
 
 ### Completed
 

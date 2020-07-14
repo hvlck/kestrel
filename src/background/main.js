@@ -29,7 +29,7 @@ browser.commands.onCommand.addListener(command => {
 
             if (settings.theme == undefined) settings.theme = 'light';
             if (settings.theme != 'operating-system-default') {
-                injectStylesheet(`../themes/${settings.theme}.css`);
+                injectStylesheet(`../../libs/themes/${settings.theme}.css`);
             }
         }).catch(err => console.error(`Failed to load settings: ${err}`));
 
@@ -50,7 +50,7 @@ browser.commands.onCommand.addListener(command => {
         } else if (status[data].injected == true && status[data].active == true) {
             removePalette(`../cs/ui.css`);
             if (settings.theme !== 'operating-system-default') {
-                removePalette(`../themes/${settings.theme}.css`)
+                removePalette(`../../libs/themes/${settings.theme}.css`)
             }
             status[data].active = false;
         } else if (status[data].injected == true && status[data].active == false) {

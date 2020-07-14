@@ -373,13 +373,13 @@ const toggleTheme = (data) => {
 	data = data.replace(new RegExp(' ', 'g'), '-').toLowerCase();
 	if (data != 'operating-system-default') {
 		document.head.appendChild(buildElement('link', '', {
-			href: `../themes/${data.toLowerCase()}.css`,
+			href: `../../libs/themes/${data.toLowerCase()}.css`,
 			rel: 'stylesheet',
 			type: 'text/css',
 			className: 'custom-theme'
 		}));
-	} else if (document.querySelector(`link[href$="../themes"]`)) {
-		document.querySelector(`link[href$="../themes"]`).remove();
+	} else if (document.querySelector(`link[href$="../../libs/themes"]`)) {
+		document.querySelector(`link[href$="../../libs/themes"]`).remove();
 	}
 }
 
