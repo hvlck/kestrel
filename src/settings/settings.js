@@ -43,13 +43,14 @@ const settings = [
     },
     {
         name: "Loader Bar Colour",
-        description: "Customise the loader bar's colour.",
+        description: "Customise the loader bar's colour.  Note: this may not work on all websites.  See the Command Reference for more.",
         type: "text",
         dependsOnKey: "automatic",
         dependsOn: "loader",
         setting: "automaticsettings",
         placeholder: "#",
-        default: "#16c581"
+        default: "#16c581",
+        callback: "setColour"
     },
     {
         name: "Reset settings",

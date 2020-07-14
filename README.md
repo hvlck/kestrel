@@ -23,7 +23,7 @@ See [Features](#features).
 + Show media (images/video) [none]
 + Toggle animations [none]
 + Edit page [none] {in-progress}
-+ Minimap [none] {in-progress}
++ Mini-map [none] {in-progress}
 
 ## Usage
 
@@ -32,23 +32,31 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 ## Roadmap
 
 + Performance Testing with *about:performance* [meta]
-+ Use arrays to control ports in background scripts, in order to have multiple connections open simultaneously [bug]
-+ Refactor options page, and split files [meta]
-+ [Possible] Move `/themes` into `/libs` [meta]
+
+## High
+
 + Fix injection styling inconsistencies [bug] {in-progress}
-+ Refactoring [meta]
 + Dynamic permission requests [feature]
-+ Debugging/error centre [feature]
-+ User-set activation/close command [feature]
 + Security [bug]
+
+## Medium
+
++ Refactoring [meta]
++ User-set activation/close command [feature]
 + Better onboarding/user-friendly docs [meta] {in-progress}
-+ Colour preview for loader bar [feature/bug]
+
+## Low
+
++ Debugging/error centre [feature] (further down the road, more for user error reports)
++ [Possible] Move `/themes` into `/libs` [meta]
 
 ### Completed
 
 + ~~Options page and browser storage for settings~~ [feature]
++ ~~Split settings page files~~ [meta]
 + ~~Better folder naming~~ [meta]
 + ~~Refactor `Hide/Show Media` commands into `Toggle Media`~~ [meta]
++ ~~Colour preview for loader bar~~ [feature/bug]
 
 I also have a list of other features I'm working on that I'll port over when I can.
 

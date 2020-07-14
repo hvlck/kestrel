@@ -112,12 +112,16 @@ const build = () => {
 				data_automatic_setting: item.dependsOn
 			});
 
-			browser.storage.local.get(item.setting).then(data => { text.value = data[item.setting][item.dependsOn] || item.default });
+			browser.storage.local.get(item.setting).then(data => {
+				text.value = data[item.setting][item.dependsOn] || item.default;
+				window[item.callback](text);
+			});
 			browser.storage.local.get(item.dependsOnKey).then(data => { text.disabled = !data[item.dependsOnKey][item.dependsOn] });
 
 			text.addEventListener('input', () => {
-				if (text.value.length == 7) {
+				if (text.value.length == 7 && text.value.startsWith('#')) {
 					updateAutomaticSettings();
+					window[item.callback](text);
 				}
 			});
 
@@ -297,6 +301,25 @@ const updateCommands = () => {
 	});
 
 	updateSettings('commands', commands);
+}
+
+function setColour(item) {
+	let previous = document.querySelector(`span[id="${item.dataset.automaticSetting}-colour-swatch"]`);
+	if (previous) { previous.remove() }
+	let preview = buildElement('span', '', {
+		style: `
+			background: ${item.value};
+			content: '';
+			padding: 5px 10px;
+			font-size: 13pt;
+			border-bottom: 2px solid ${item.value};
+			height: 30px;
+			margin: 0 0.5%;
+		`,
+		id: `${item.dataset.automaticSetting}-colour-swatch`
+	});
+
+	item.parentElement.appendChild(preview);
 }
 
 // updates all automatic functions, in memory and storage
