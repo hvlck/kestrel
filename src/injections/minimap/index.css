@@ -1,45 +1,61 @@
-:root {
-	--primary: #fafafa;
-	--secondary: #404040;
-}
-
 @media (prefers-color-scheme: dark) {
-	:root {
+	#kestrel-mini-map {
 		--primary: #212121;
 		--secondary: #fafafa;
 	}
 }
 
-#kestrel-mini-map-container {
-	width: 80%;
+#kestrel-mini-map {
+	--highlight: #16c581;
+	--primary: #fafafa;
+	--secondary: #212121;
 }
 
 #kestrel-mini-map {
-	border: 2px solid var(--primary);
-	width: 20%;
+	display: none;
+	border: 1px solid var(--highlight); /* colour should be primary */
+	width: 10vw;
 	height: auto;
-	min-height: 95%;
+	max-height: 95vh;
+	
 	position: fixed;
-	right: 0.5%;
-	top: 5%;
+	right: 3%;
+	top: 2%;
+
 	opacity: 0.7;
-	background: -moz-element(#kestrel-mini-map-container) no-repeat top / contain;
+	background: rgba(64, 64, 64, 0.2) -moz-element(#kestrel-mini-map-container) no-repeat top / contain;
 }
 
 #kestrel-mini-map:hover { opacity: 1 }
 
 #kestrel-mini-map-slider {
-	width: 100%;
-	height: 20px;
-	position: absolute;
-	top: 0;
-	left: 0;
+	max-width: 95vh;
+	height: 10vw;
+	margin: 0;
+	padding: 0;
+	
 	border-radius: 0;
-	background: var(--secondary);
+	background: transparent;
 	cursor: pointer;
 	opacity: 0.7;
+
+	transform: translate(0, -100%) rotate(90deg);
+	transform-origin: bottom left;
+}
+
+#kestrel-mini-map-slider::-moz-range-track {
+	background: transparent;
+}
+
+#kestrel-mini-map-slider::-moz-range-thumb {
+	width: 30px;
+	height: 10vw;
+	cursor: pointer;
+	background-color: var(--highlight);
+	border-radius: 0;
+	border: none;
 }
 
 #kestrel-mini-map-slider:hover {
-	opacity: 0.9;
+	opacity: 1;
 }
