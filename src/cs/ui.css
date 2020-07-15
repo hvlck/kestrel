@@ -72,9 +72,11 @@ input[type="text"].kestrel-command-input {
 	border-bottom: 1px solid var(--kestrel-quaternary);
 	border-radius: 0px;
 	width: 100%;
-	height: 60px !important;
-	padding: 20px !important;
+
 	max-width: 800px;
+	height: 60px !important;
+
+	padding: 30px 20px !important;
 	margin: 0;
 	transition: none;
 	animation: none;
@@ -101,7 +103,7 @@ input[type="text"].kestrel-command-input {
 .kestrel-command-item {
 	width: 100%;
 	display: block;
-	padding: 10px 20px !important;
+	padding: 5px 10px !important;
 	margin: 0 auto;
 	font-size: 14pt;
 	font-family: Arial, Helvetica, sans-serif;

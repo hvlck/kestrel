@@ -2,7 +2,7 @@
 const settings = [
     {
         name: "Meta",
-        description: "Meta settings",
+        description: "Meta settings for Kestrel",
         type: "divider"
     },
     {
