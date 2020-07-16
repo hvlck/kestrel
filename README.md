@@ -2,6 +2,8 @@
 
 General browser utilities.
 
+UPDATE KESTREL VERSION IN MANIFEST
+
 ![Kestrel's Icon](https://raw.githubusercontent.com/EthanJustice/kestrel/master/src/icons/icon.png)
 
 There's not much implemented right now, and what is is somewhat simplistic.  More complicated features are coming.
@@ -41,6 +43,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 ## Medium
 
++ Add mini-map as an automatic task and command [feature/bug]
 + Refactoring [meta]
 + Move "Open all links in the current tab," command to automatic functions [bug]
 + User-set activation/close command [feature]
