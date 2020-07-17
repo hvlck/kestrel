@@ -55,6 +55,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Styling updates to loader [bug]
 + Disable links when `design mode` command is active [bug]
 + Fix injection styling inconsistencies [bug] {in-progress}
++ Mini-map customisation
 
 ### Completed
 
