@@ -43,7 +43,6 @@ let cmdFunctions = {
 	},
 
 	// opens all links in the same tab
-	// note: may be made into an automatic function
 	openInSameTab: function (ref) {
 		document.body.querySelectorAll('a[href]').forEach(link => link.setAttribute('target', '_self'));
 	},

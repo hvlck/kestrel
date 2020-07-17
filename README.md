@@ -41,7 +41,6 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 ## Medium
 
 + Refactoring [meta]
-+ Move "Open all links in the current tab," command to automatic functions [bug]
 + User-set activation/close command [feature]
 + Better onboarding/user-friendly docs [meta] {in-progress}
 + Homepage [meta]
@@ -59,6 +58,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 ### Completed
 
++ ~~Move "Open all links in the current tab," command to automatic functions [bug]~~
 + ~~Add mini-map as an automatic task and command [feature/bug]~~
 + ~~Loader height setting~~ [feature]
 + ~~Options page and browser storage for settings~~ [feature]

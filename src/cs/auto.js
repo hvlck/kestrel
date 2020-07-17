@@ -20,5 +20,6 @@ if (!settings) {
 
 let runtimes = {
 	loader: "document_start",
-	minimap: "document_idle"
+	minimap: "document_idle",
+	linksInSameTab: "document_end"
 }
