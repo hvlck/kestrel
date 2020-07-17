@@ -59,13 +59,12 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 ## Low
 
 + Debugging/error centre [feature] (further down the road, more for user error reports)
-+ Styling updates to loader [bug]
-+ Disable links when `design mode` command is active [bug]
 + Fix injection styling inconsistencies [bug] {in-progress}
 + Mini-map customisation
 
 ### Completed
 
++ ~~Disable links when `design mode` command is active~~ [bug]
 + ~~Rename `/src/pages/fresh` to `guide`~~ [meta]
 + ~~Move `/themes` into `/libs`~~ [meta]
 + ~~Move "Open all links in the current tab," command to automatic functions [bug]~~

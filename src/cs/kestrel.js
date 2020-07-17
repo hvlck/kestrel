@@ -13,8 +13,13 @@ let cmdFunctions = {
 		document.querySelectorAll('body > *').forEach(item => {
 			if (item.className.includes('kestrel')) { return }
 			else {
-				if (item.contentEditable == 'inherit' || item.contentEditable == 'false') { item.contentEditable = 'true' }
-				else if (item.contentEditable == 'true') { item.contentEditable = 'false' }
+				if (item.contentEditable == 'inherit' || item.contentEditable == 'false') {
+					item.contentEditable = 'true';
+					document.body.querySelectorAll('a[href]').forEach(item => item.setAttribute('disabled', 'true'));
+				} else if (item.contentEditable == 'true') {
+					item.contentEditable = 'false';
+					document.body.querySelectorAll('a[href]').forEach(item => item.removeAttribute('disabled'));
+				}
 			};
 		})
 	},
