@@ -126,23 +126,27 @@ function listen(event) {
 		});
 		commandInp.value = '';
 		updateCommands();
-	} else if (event.keyCode == 38) {
+	} else if (event.keyCode == 38) { // up arrow key
 		Object.values(commandList.children).forEach(child => child.classList.remove('kestrel-command-item-focused'));
 		if (commandIndex <= 0) {
 			commandList.children[commandList.children.length - 1].classList.add('kestrel-command-item-focused')
 			commandIndex = commandList.children.length - 1;
+			commandList.scrollTo(0, commandList.clientHeight);
 		} else {
 			commandIndex -= 1;
 			commandList.children[commandIndex].classList.add('kestrel-command-item-focused');
+			commandList.scrollTo(0, parseInt(getComputedStyle(commandList.children[commandIndex]).height) * commandIndex);
 		}
-	} else if (event.keyCode == 40) {
+	} else if (event.keyCode == 40) { // down arrow key
 		Object.values(commandList.children).forEach(child => child.classList.remove('kestrel-command-item-focused'));
 		if (commandIndex >= commandList.children.length - 1) {
 			commandList.children[0].classList.add('kestrel-command-item-focused')
 			commandIndex = 0;
+			commandList.scrollTo(0, 0);
 		} else {
 			commandIndex += 1;
 			commandList.children[commandIndex].classList.add('kestrel-command-item-focused');
+			commandList.scrollTo(0, parseInt(getComputedStyle(commandList.children[commandIndex]).height) * commandIndex);
 		}
 	};
 }
