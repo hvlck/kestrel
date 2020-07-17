@@ -52,12 +52,13 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Refactoring [meta]
 + User-set activation/close command [feature]
 + Better onboarding/user-friendly docs [meta] {in-progress}
-+ Homepage [meta]
++ Homepage [meta] {in-prog}
 + Changelog notification [feature]
 + Config exporter [feature]
 
 ## Low
 
++ Rename `/src/pages/fresh` to `guide`
 + Debugging/error centre [feature] (further down the road, more for user error reports)
 + [Possible] Move `/themes` into `/libs` [meta]
 + Styling updates to loader [bug]
