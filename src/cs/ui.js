@@ -3,8 +3,6 @@
 /* OVERVIEW OF HTML STRUCTURE
 
 All class names begin with kestrel- to prevent conflict with existing class names.
-This may be rendered moot by changing the type of stylesheet injection in the /background/main.js file
-See CSSOrigin property in https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/insertCSS for more information.
 
 Structure
 
@@ -57,7 +55,7 @@ function buildUI() {
 
 	commandInp = buildElement('input', '', {
 		'type': 'text',
-		'placeholder': 'Search Kestrel commands...',
+		'placeholder': 'Search commands...',
 		'className': 'kestrel-command-input'
 	});
 
@@ -70,7 +68,7 @@ function buildUI() {
 	connectPort();
 
 	kestrel.appendChild(commandInp);
-	showKestrel()
+	showKestrel();
 
 	commandInp.focus();
 }
@@ -192,7 +190,7 @@ const hideKestrel = () => {
 // shows kestrel ui
 const showKestrel = () => {
 	document.body.insertBefore(kestrel, document.body.firstChild);
-	kestrel.classList.remove('kestrel-hidden')
+	kestrel.classList.remove('kestrel-hidden');
 };
 
 // removes all command html

@@ -47,6 +47,8 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + User-set activation/close command [feature]
 + Better onboarding/user-friendly docs [meta] {in-progress}
 + Homepage [meta]
++ Changelog notification [feature]
++ Config exporter [feature]
 
 ## Low
 
@@ -57,6 +59,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 ### Completed
 
++ ~~Loader height setting~~ [feature]
 + ~~Options page and browser storage for settings~~ [feature]
 + ~~Split settings page files~~ [meta]
 + ~~Better folder naming~~ [meta]

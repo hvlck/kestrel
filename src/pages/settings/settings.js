@@ -13,6 +13,7 @@ general (required)
         text - text input (<input type="text" /> element)
             dependsOnKey - object that it depends on to be enabled (this and dependsOn are backwards)
             dependsOn - key that it depends on to be enabled
+            keyName - name of key to save
             setting - setting object to update
             placeholder - placeholder attribute
             matches - regex string, pattern attribute
@@ -74,17 +75,37 @@ const settings = [
 
         dependsOnKey: "automatic",
         dependsOn: "loader",
-
+        keyName: "colour",
         setting: "automaticsettings",
+
         placeholder: "#",
 
         matches: "^#\\S{6}",
         matchDescription: "Enter a valid <a href='https://en.wikipedia.org/wiki/Web_colors'>HEX</a> colour code, consisting of 6 characters and starting with a '#.'  If you need assistance choosing a colour, <a href='https://github.com/EthanJustice/uls#design'>this</a> is a list of websites that can help.",
-        minLength: 7,
-        maxLength: 7,
+        min: 7,
+        max: 7,
 
         default: "#16c581",
         callback: "setColour"
+    },
+    {
+        name: "Loader Bar Height",
+        description: "Customise the loader bar's height.  Note: this may not work on all websites.  See the Reference for more.",
+        type: "number",
+
+        dependsOnKey: "automatic",
+        dependsOn: "loader",
+        keyName: "height",
+        setting: "automaticsettings",
+
+        placeholder: "2",
+
+        min: 2,
+        max: 20,
+
+        matchDescription: "Enter a length (in pixels) between 1 and 20.  The unit is not needed, so just a number will suffice.",
+
+        default: "2"
     },
     {
         name: "Reset settings",

@@ -107,29 +107,30 @@ const build = () => {
 			btn.addEventListener('click', () => window[item.fn]());
 
 			div.appendChild(btn);
-		} else if (item.type == 'text') { // text input
+		} else if (item.type == 'text' || item.type == 'number') { // text/number input
 			let text = buildElement('input', '', {
-				type: 'text',
+				type: item.type,
 				placeholder: item.placeholder,
-				maxLength: item.maxLength,
-				minLength: item.minLength,
+				[item.type == 'text' ? 'maxLength' : 'max']: item.max || '9999999',
+				[item.type == 'text' ? 'minLength' : 'min']: item.min || '1',
 				disabled: false,
 				value: item.default,
 				data_automatic_setting: item.dependsOn,
-				pattern: item.matches
+				data_key: item.keyName,
+				pattern: item.matches || ''
 			});
 
 			browser.storage.local.get(item.setting).then(data => {
-				text.value = data[item.setting][item.dependsOn] || item.default;
-				window[item.callback](text);
+				text.value = data[item.setting][item.dependsOn][item.keyName] || item.default;
+				item.callback ? window[item.callback](text) : '';
 			});
 
 			browser.storage.local.get(item.dependsOnKey).then(data => { text.disabled = !data[item.dependsOnKey][item.dependsOn] });
 
 			text.addEventListener('input', () => {
-				if (new RegExp(item.matches).test(text.value)) {
+				if (new RegExp(item.matches).test(text.value) || text.length <= item.max && text.length >= item.min) {
 					updateAutomaticSettings();
-					window[item.callback](text);
+					item.callback ? window[item.callback](text) : '';
 				}
 			});
 
@@ -199,7 +200,7 @@ function buildToggleHtml(iter, container, original, ref) {
 
 				toggle.addEventListener('change', () => {
 					updateAutomaticFunctions();
-					document.querySelector(`*[data-automatic-setting="${toggle.dataset.background}"]`).disabled = !toggle.checked;
+					document.querySelectorAll(`*[data-automatic-setting="${toggle.dataset.background}"]`).forEach(item => item.disabled = !toggle.checked);
 				});
 
 				toggleCell.appendChild(toggle);
@@ -350,8 +351,9 @@ const updateAutomaticSettings = () => {
 	let name;
 	document.querySelectorAll('input[data-automatic-setting]').forEach(item => {
 		name = item.parentElement.querySelector('h3').innerText.toLowerCase();
-		let key = item.dataset.automaticSetting;
-		automaticSettings[key] = item.value;
+		let key = item.dataset.key;
+		let parent = item.dataset.automaticSetting;
+		automaticSettings[parent][key] = item.value;
 	});
 
 	updateSettings('automaticsettings', automaticSettings, name);

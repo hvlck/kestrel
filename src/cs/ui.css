@@ -43,10 +43,12 @@ body > *:not(.kestrel) {
 	font-family: Arial, Helvetica, sans-serif;
 	background-color: transparent;
 	font-weight: normal;
+
 	width: 100%;
 	max-width: 800px;
 	min-height: 400px;
 	max-height: 1000px;
+
 	margin: 0 auto;
 	animation: none;
 	transition: none;
@@ -58,13 +60,18 @@ body > *:not(.kestrel) {
 	z-index: 99999;
 }
 
+.kestrel > * {
+	transition: none !important;
+	animation: none !important;
+}
+
 /*
 	Command input, where user types to filter commands
 */
 
 input[type="text"].kestrel-command-input {
 	background: var(--kestrel-primary);
-	color: var(--kestrel-secondary) ;
+	color: var(--kestrel-secondary);
 
 	box-sizing: border-box;
 	font-size: 18pt !important;
@@ -111,6 +118,7 @@ input[type="text"].kestrel-command-input {
 	background: var(--kestrel-primary);
 	color: var(--kestrel-secondary);
 	cursor: pointer;
+	animation: none;
 	transition: none;
 }
 
@@ -131,7 +139,7 @@ input[type="text"].kestrel-command-input {
 */
 
 .kestrel-hidden {
-	display: none ;
-	animation: none ;
-	transition: none ;
+	display: none;
+	animation: none;
+	transition: none;
 }
