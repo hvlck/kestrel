@@ -57,7 +57,8 @@ const commands = {
 
 // list of automatic tasks, where keys are names of command functions
 const automaticCommandsList = {
-	'loader': false
+	loader: false,
+	minimap: false
 }
 
 // settings for automatic tasks

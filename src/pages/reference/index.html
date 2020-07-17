@@ -140,14 +140,15 @@
         </ul>
         <p>Shows or hides the selected media. If the "media," variant is chosen, then both videos and images are hidden.
         </p>
-        <h3>Toggle minimap</h3>
+        <h3 id="toggle-minimap">Toggle minimap</h3>
         <table>
             <tr>
                 <td>Enabled by Default?</td>
                 <td>No</td>
             </tr>
         </table>
-        <p>Toggles an interactive minimap of the page. Note: this may be slow and "zoomed-out," on larger pages.</p>
+        <p>Toggles an interactive minimap of the page. There is also a background task version of this command. Note:
+            this may be slow and "zoomed-out," on larger pages.</p>
         <h2>Background</h2>
         <p>Background tasks aren't enabled by default.</p>
         <p>Due to enabled tasks being chosen by the user, it is not always guaranteed that tasks that start at page load
@@ -161,6 +162,8 @@
         <p>Please note that the loader is not always guaranteed to work. Since it must be injected into a page first, it
             is not always
             able to begin once the page is first navigated to.</p>
+        <h3>Minimap</h3>
+        <p>See the <a href="#toggle-minimap">Toggle Minimap</a> command.</p>
         <nav>
             <a href="https://github.com/EthanJustice/kestrel">Repository</a>
             <a href="https://github.com/EthanJustice/kestrel/issues">Report an Issue</a>

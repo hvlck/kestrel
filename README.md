@@ -35,13 +35,11 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 ## High
 
-+ Fix injection styling inconsistencies [bug] {in-progress}
 + Dynamic permission requests [feature]
 + Security [bug]
 
 ## Medium
 
-+ Add mini-map as an automatic task and command [feature/bug]
 + Refactoring [meta]
 + Move "Open all links in the current tab," command to automatic functions [bug]
 + User-set activation/close command [feature]
@@ -56,9 +54,11 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + [Possible] Move `/themes` into `/libs` [meta]
 + Styling updates to loader [bug]
 + Disable links when `design mode` command is active [bug]
++ Fix injection styling inconsistencies [bug] {in-progress}
 
 ### Completed
 
++ ~~Add mini-map as an automatic task and command [feature/bug]~~
 + ~~Loader height setting~~ [feature]
 + ~~Options page and browser storage for settings~~ [feature]
 + ~~Split settings page files~~ [meta]

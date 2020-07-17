@@ -399,5 +399,6 @@ const toggleTheme = (data) => {
 
 // descriptions of automatic functions
 const automaticDescriptions = {
-	'loader': 'Enable a loading bar.'
+	loader: 'Enable a loading bar.',
+	minimap: 'Enable a minimap of a page.'
 }

@@ -11,7 +11,13 @@
 	--secondary: #212121;
 }
 
+#kestrel-mini-map, #kestrel-mini-map > * {
+	animation: none !important;
+	transition: none !important;
+}
+
 #kestrel-mini-map {
+	z-index: 99999999999;
 	display: none;
 	border: 1px solid var(--highlight); /* colour should be primary */
 	width: 10vw;
