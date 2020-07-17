@@ -182,23 +182,22 @@ input[type="text"]:invalid { border-bottom: 2px solid crimson }
 
 .success, .failure {
 	padding: 10px 20px;
-	width: 25%;
+	min-width: 15%;
 	font-size: 14pt;
 
 	position: fixed;
-	bottom: 2%;
+	top: 2%;
 	right: 2%;
 	transition: none !important;
+	background: var(--tertiary);
 }
 
 .success {
-	background-color: rgba(22, 197, 129, 0.5);
-	border: 2px solid rgba(22, 197, 129, 1);
+	border-right: 5px solid var(--highlight);
 }
 
 .failure {
-	background-color: rgba(153, 0, 0, 0.5);
-	border: 2px solid rgba(153, 0, 0, 0.5);
+	border-right: 5px solid crimson;
 }
 
 .hidden {

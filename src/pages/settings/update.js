@@ -247,8 +247,8 @@ const success = (key) => {
 const failure = (key) => {
 	if (document.querySelector('.failure')) { document.querySelectorAll('.failure').forEach(item => item.remove()) }
 
-	let notification = buildElement('p', `Successfully updated ${key}.`, {
-		className: 'success'
+	let notification = buildElement('p', `Failed to update ${key}.  Check the console for more details.`, {
+		className: 'failure'
 	});
 
 	document.body.insertBefore(notification, document.body.lastChild);
