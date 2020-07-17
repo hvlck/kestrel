@@ -2,6 +2,17 @@
 // may use webRequest API in future for a more responsive loader
 // see https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest
 (function () {
+	const buildElement = (type, text, attributes) => {
+		let element = document.createElement(type);
+		element.innerText = text || '';
+		if (attributes) {
+			Object.keys(attributes).forEach(item => {
+				if (item.includes('data_')) { element.setAttribute(item.replace(new RegExp('_', 'g'), '-'), attributes[item]) }
+				else { element[item] = attributes[item] }
+			});
+		}
+		return element;
+	}
 	let num = Math.floor(Math.random() * 999999); // prevent page script interaction for the most part
 	if (document.querySelector(`kestrel-loading-bar-${num}`)) { return };
 

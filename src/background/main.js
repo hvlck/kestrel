@@ -159,7 +159,7 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
     } else if (msg.automatic) {
         browser.tabs.executeScript({
             file: `../cs/automatic/${msg.fn}.js`,
-            runAt: "document_start"
+            runAt: msg.runAt
         }).catch(err => console.error(`Failed to inject script: ${err}`));
     }
 });
