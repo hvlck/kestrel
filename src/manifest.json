@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
     "name": "Kestrel",
-    "description": "",
-    "version": "0.17.8",
+    "description": "General browser utilities",
+    "version": "0.18.3",
     "icons": {
         "48": "icons/icon.png",
         "96": "icons/icon@2x.png"
@@ -38,7 +38,7 @@
         }
     ],
     "commands": {
-        "activate": {
+        "kestrel-activate": {
             "suggested_key": {
                 "default": "Alt+Shift+Q",
                 "linux": "Ctrl+Shift+Q"

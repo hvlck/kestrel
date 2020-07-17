@@ -29,6 +29,15 @@ See [Features](#features).
 
 There's not much to see right now.  The main part is activated with `Alt+Shift+Q` on everything but Linux, which is `Alt+Shift+Q`.  Why Q?  All the keys can be hit with one hand.
 
+### Development
+
+1. Download Kestrel
+2. Go to `about:debugging`
+3. Click on `This Firefox`
+4. Click on `Load Temporary Add-on...`
+5. Navigate to wherever you downloaded Kestrel and open `src/manifest.json` in the prompt
+6. You're good to go!
+
 ## Roadmap
 
 + Performance Testing with *about:performance* [meta]
@@ -36,7 +45,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 ## High
 
 + Dynamic permission requests [feature]
-+ Security [bug]
++ Security [bug] {in-progess}
 
 ## Medium
 

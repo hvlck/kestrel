@@ -157,9 +157,7 @@ const connectPort = () => {
 	});
 
 	port.onMessage.addListener(msg => { // Messages from background script
-		if (msg.kestrel == 'connection-success') {
-
-		} else if (msg.kestrel == 'hide') {
+		if (msg.kestrel == 'hide') {
 			hideKestrel();
 		} else if (msg.kestrel == 'show') {
 			connectPort();

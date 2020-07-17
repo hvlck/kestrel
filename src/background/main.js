@@ -41,7 +41,7 @@ browser.commands.onCommand.addListener(command => {
             }
         }
 
-        if (command === 'activate' && !status[data].injected) { // Open UI command
+        if (command === 'kestrel-activate' && !status[data].injected) { // Open UI command
             injectScripts();
             status[data] = {
                 injected: true,
@@ -127,12 +127,15 @@ const removePalette = (sheet) => {
 
 let contentPort;
 browser.runtime.onConnect.addListener(port => { // Initial port connection to content script
+    if (port.sender.id !== browser.runtime.id) { return }
+
     contentPort = port;
     sender = port.sender.tab.id;
     status[sender] = {
         active: true,
         injected: true
     }
+
     if (contentPort) { sendMessage({ kestrel: 'connection-success' }) };
     if (port.name === 'kestrel') {
         port.onMessage.addListener(msg => {
@@ -150,6 +153,7 @@ browser.runtime.onConnect.addListener(port => { // Initial port connection to co
 
 // executes functions that require background script apis
 browser.runtime.onMessage.addListener((msg, sender, response) => {
+    if (sender.extensionId !== browser.runtime.id) { return }
     if (msg.fn == 'openSettings') {
         browser.runtime.openOptionsPage().catch(err => console.error(err));
     } else if (msg.injectSheet) {
