@@ -2,8 +2,6 @@
 
 General browser utilities.
 
-UPDATE KESTREL VERSION IN MANIFEST
-
 ![Kestrel's Icon](https://raw.githubusercontent.com/EthanJustice/kestrel/master/src/icons/icon.png)
 
 There's not much implemented right now, and what is is somewhat simplistic.  More complicated features are coming.

@@ -49,6 +49,12 @@ const settings = [
         dependsOn: "loader",
         setting: "automaticsettings",
         placeholder: "#",
+
+        matches: "^#\\S{6}",
+        matchDescription: "Enter a valid <a href='https://en.wikipedia.org/wiki/Web_colors'>HEX</a> colour code, consisting of 6 characters and starting with a '#.'  If you need assistance choosing a colour, <a href='https://github.com/EthanJustice/uls#design'>this</a> is a list of websites that can help.",
+        minLength: 7,
+        maxLength: 7,
+
         default: "#16c581",
         callback: "setColour"
     },

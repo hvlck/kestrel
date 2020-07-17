@@ -6,7 +6,7 @@
 	--tertiary: #e1e1e1;
 
 	--heading-font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-	--text-font: Arial, Helvetica, sans-serif;
+	--text-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -203,6 +203,10 @@ input[type="text"]:invalid { border-bottom: 2px solid crimson }
 .hidden {
 	display: none;
 	animation: 300ms fadeIn linear;
+}
+
+:invalid {
+	border: none;
 }
 
 @keyframes fadeIn {

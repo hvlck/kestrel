@@ -109,26 +109,32 @@ const build = () => {
 			let text = buildElement('input', '', {
 				type: 'text',
 				placeholder: item.placeholder,
-				maxLength: 7,
+				maxLength: item.maxLength,
+				minLength: item.minLength,
 				disabled: false,
 				value: item.default,
-				data_automatic_setting: item.dependsOn
+				data_automatic_setting: item.dependsOn,
+				pattern: item.matches
 			});
 
 			browser.storage.local.get(item.setting).then(data => {
 				text.value = data[item.setting][item.dependsOn] || item.default;
 				window[item.callback](text);
 			});
+
 			browser.storage.local.get(item.dependsOnKey).then(data => { text.disabled = !data[item.dependsOnKey][item.dependsOn] });
 
 			text.addEventListener('input', () => {
-				if (text.value.length == 7 && text.value.startsWith('#')) {
+				if (new RegExp(item.matches).test(text.value)) {
 					updateAutomaticSettings();
 					window[item.callback](text);
 				}
 			});
 
 			div.appendChild(text);
+			let matchDescElem = buildElement('p');
+			matchDescElem.innerHTML = item.matchDescription;
+			div.appendChild(matchDescElem);
 		}
 
 		main.appendChild(div);
@@ -323,7 +329,7 @@ function setColour(item) {
 		id: `${item.dataset.automaticSetting}-colour-swatch`
 	});
 
-	item.parentElement.appendChild(preview);
+	item.insertAdjacentElement('afterend', preview);
 }
 
 // updates all automatic functions, in memory and storage
