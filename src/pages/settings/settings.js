@@ -1,9 +1,35 @@
 // available settings, converted into html
+/*  KEYS
+
+general (required)
+    name - header for container encapsulating item
+    description - description for encapsulating container
+    type - type of item
+        divider - section divider, just a header and description
+            rule - only for the first divider, because <hr> are pre-appended
+        select - dropdown menu (<select> element)
+        toggle - table of toggles (checkboxes)
+            headers - array of headers for the table (should only be two)
+        text - text input (<input type="text" /> element)
+            dependsOnKey - object that it depends on to be enabled (this and dependsOn are backwards)
+            dependsOn - key that it depends on to be enabled
+            setting - setting object to update
+            placeholder - placeholder attribute
+            matches - regex string, pattern attribute
+            matchDescription - visual explanation of what the value of the input should be
+            min/max-Length - min/max-Length (camelCase) attributes
+            default - self-explanatory
+            callback - self-explanatory
+        special - special cases
+    default - default values
+    options - available options
+*/
 const settings = [
     {
         name: "Meta",
         description: "Meta settings for Kestrel",
-        type: "divider"
+        type: "divider",
+        rule: false
     },
     {
         name: "Theme",
@@ -45,8 +71,10 @@ const settings = [
         name: "Loader Bar Colour",
         description: "Customise the loader bar's colour.  Note: this may not work on all websites.  See the Reference for more.",
         type: "text",
+
         dependsOnKey: "automatic",
         dependsOn: "loader",
+
         setting: "automaticsettings",
         placeholder: "#",
 

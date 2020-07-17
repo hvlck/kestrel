@@ -55,7 +55,9 @@ const build = () => {
 
 		div.appendChild(description);
 
-		if (item.type == 'select') { // select element
+		if (item.type == 'divider' && item.rule != false) {
+			div.prepend(buildElement('hr'));
+		} else if (item.type == 'select') { // select element
 			let select = buildElement('select', '', {
 				className: 'settings-item-select'
 			});
