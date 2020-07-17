@@ -108,7 +108,9 @@ const updateCommands = () => { // Updates list of commands, adds event listeners
 		commandItem.addEventListener('mouseover', () => {
 			Object.values(commandList.children).forEach(child => child.classList.remove('kestrel-command-item-focused'));
 			commandItem.classList.add('kestrel-command-item-focused');
-		})
+
+			commandIndex = Object.values(commandList.children).findIndex(child => child.classList.contains('kestrel-command-item-focused'));
+		});
 
 		commandList.appendChild(commandItem);
 	});
