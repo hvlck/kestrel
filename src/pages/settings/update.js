@@ -98,6 +98,27 @@ const build = () => {
 
 
 			div.appendChild(container);
+		} else if (item.type == 'single-toggle') {
+			let container = buildElement('div', '', {
+				className: "checkbox-parent"
+			});
+
+			let toggle = buildElement('input', '', {
+				type: 'checkbox',
+				checked: item.defailt || false,
+				data_automatic_setting: item.dependsOn,
+				data_key: item.keyName
+			});
+
+			browser.storage.local.get(item.dependsOnKey).then(data => { toggle.disabled = !data[item.dependsOnKey][item.dependsOn] });
+
+			toggle.addEventListener('change', () => {
+				updateAutomaticSettings();
+			});
+
+			container.appendChild(toggle);
+
+			div.appendChild(container);
 		} else if (item.type == 'special') { // various special resets/buttons
 			let btn = buildElement('input', '', {
 				type: 'reset',
@@ -350,10 +371,19 @@ const updateAutomaticFunctions = () => {
 const updateAutomaticSettings = () => {
 	let name;
 	document.querySelectorAll('input[data-automatic-setting]').forEach(item => {
-		name = item.parentElement.querySelector('h3').innerText.toLowerCase();
+		if (item.parentElement.classList.contains('checkbox-parent')) {
+			name = item.parentElement.parentElement.querySelector('h3').innerText.toLowerCase();
+		} else {
+			name = item.parentElement.querySelector('h3').innerText.toLowerCase();
+		}
+
 		let key = item.dataset.key;
 		let parent = item.dataset.automaticSetting;
-		automaticSettings[parent][key] = item.value;
+		if (item.type == 'checkbox') {
+			automaticSettings[parent][key] = item.checked
+		} else {
+			automaticSettings[parent][key] = item.value;
+		}
 	});
 
 	updateSettings('automaticsettings', automaticSettings, name);

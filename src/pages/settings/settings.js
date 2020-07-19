@@ -108,6 +108,18 @@ const settings = [
         default: "2"
     },
     {
+        name: "Loader Bar Persistence",
+        description: "Decides whether the loader is removed from view after it's finished.  If it is checked, it will stay; if not, it will be removed.  Note: this may not work on all websites.  See the Reference for more.",
+        type: "single-toggle",
+
+        dependsOnKey: "automatic",
+        dependsOn: "loader",
+        keyName: "persist",
+        setting: "automaticsettings",
+
+        default: false
+    },
+    {
         name: "Reset settings",
         description: "Reset all settings to default",
         type: "special",

@@ -55,6 +55,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Changelog notification [feature]
 + Config exporter [feature]
 + Customisation of highlight colour [feature]
++ Explanation of settings for each item in the Reference [feature/meta]
 + Better mini-map styling [bug]
 
 ## Low

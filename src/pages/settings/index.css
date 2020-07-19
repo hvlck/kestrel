@@ -119,17 +119,17 @@ tr td:last-of-type {
 	width: 30%;
 }
 
-td {
+td, .checkbox-parent > * {
 	padding: 0px 10px;
 }
 
-td > * {
+td > *, .checkbox-parent > * {
 	margin: 0.2% 0;
 	padding: 10px;
 	font-size: 14pt;
 }
 
-td > input[type="checkbox"] {
+* > input[type="checkbox"] {
 	width: 2px;
 	height: 2px;
 	position: relative;
@@ -140,11 +140,11 @@ td > input[type="checkbox"] {
 	cursor: pointer;
 }
 
-td > input[type="checkbox"]:checked {
+* > input[type="checkbox"]:checked {
 	background-color: var(--highlight);
 }
 
-td > input[type="checkbox"]:checked::after {
+* > input[type="checkbox"]:checked::after {
 	content: "✓";
 	position: absolute;
 	left: 0%;

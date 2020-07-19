@@ -1,6 +1,4 @@
 // generates a loading bar
-// may use webRequest API in future for a more responsive loader
-// see https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest
 (function () {
 	const buildElement = (type, text, attributes) => {
 		let element = document.createElement(type);
@@ -47,10 +45,12 @@
 
 			loader.style.display = '';
 			loader.style.width = `${document.body.clientWidth}px`;
-			setTimeout(() => {
-				loader.style.display = 'none';
-				loader.remove();
-			}, 1000);
+			if (settings.automaticsettings.loader.persist == false) {
+				setTimeout(() => {
+					loader.style.display = 'none';
+					loader.remove();
+				}, 1000);
+			}
 		}
 	});
 }());
