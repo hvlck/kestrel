@@ -300,9 +300,10 @@ function reset() {
 
 // resets all storage, and initializes it again with default values
 function resetAll() {
-	browser.storage.local.clear();
-	history.replaceState('', 'Kestrel | Settings', `${window.location.href}#reset`)
-	window.location.reload();
+	browser.storage.local.clear().then(() => {
+		history.replaceState('', 'Kestrel | Settings', `${window.location.href}#reset`)
+		window.location.reload();
+	});
 }
 
 // updates all commands in storage, based on all configurable settings

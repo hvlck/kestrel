@@ -20,14 +20,14 @@
 		id: `kestrel-loading-bar-${num}`,
 		style: `
 			width: 0px;
-			height: ${`${settings.automaticsettings.loader.height}px` || '2px'};
+			height: ${'2px' || `${settings.automaticsettings.loader.height}px`};
 
 			position: fixed;
 			top: 0;
 			left: 0;
-			background: ${settings.automaticsettings.loader.colour || '#16c581'};
+			background: ${'#16c581' || settings.automaticsettings.loader.colour};
 			transition: 300ms linear !important;
-			box-shadow: 0px 0px 5px ${settings.automaticsettings.colour || '#16c581'};
+			box-shadow: 0px 0px 5px ${'#16c581' || settings.automaticsettings.loader.colour};
 			z-index: 999999999;
 		`
 	});
