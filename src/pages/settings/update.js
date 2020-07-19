@@ -17,15 +17,6 @@ const nav = buildElement('div', '', {
 	className: 'nav'
 });
 
-// organization of settings
-const sections = ['Meta', 'Utilities'];
-
-sections.forEach(item => {
-	nav.appendChild(buildElement('a', item, {
-		href: `#${item.replace(' ', '-').toLowerCase()}`
-	}));
-})
-
 // prevent content flashing
 document.body.querySelector('.hidden').appendChild(nav);
 
@@ -55,8 +46,11 @@ const build = () => {
 
 		div.appendChild(description);
 
-		if (item.type == 'divider' && item.rule != false) {
-			div.prepend(buildElement('hr'));
+		if (item.type == 'divider') {
+			nav.appendChild(buildElement('a', item.name, {
+				href: `#${item.name.replace(' ', '-').toLowerCase()}`
+			}));
+			if (item.rule != false) div.prepend(buildElement('hr'));
 		} else if (item.type == 'select') { // select element
 			let select = buildElement('select', '', {
 				className: 'settings-item-select'

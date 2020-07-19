@@ -45,6 +45,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 ## High
 
 + Security [bug] {in-progress}
++ Switch background injects to userScript api
 
 ## Medium
 

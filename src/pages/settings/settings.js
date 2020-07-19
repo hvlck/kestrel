@@ -44,8 +44,8 @@ const settings = [
         default: browser.storage.local.get('theme')
     },
     {
-        name: "Utilities",
-        description: "Settings for Kestrel utilities",
+        name: "Commands",
+        description: "Settings for the commands that are shown within the command palette",
         type: "divider"
     },
     {
@@ -57,6 +57,11 @@ const settings = [
             "Name",
             "On/Off"
         ]
+    },
+    {
+        name: "Background Tasks",
+        description: "Settings for background tasks that are run automatically once a page loads.",
+        type: "divider"
     },
     {
         name: "Background",
