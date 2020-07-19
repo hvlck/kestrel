@@ -56,7 +56,6 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Config exporter [feature]
 + Customisation of highlight colour [feature]
 + Better mini-map styling [bug]
-+ Individual resets for each setting
 
 ## Low
 
@@ -64,7 +63,6 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Fix injection styling inconsistencies [bug] {in-progress}
 + Mini-map customisation
 + Dev stats [feature]
-+ Persistent loader bar setting [feature]
 
 + Dynamic permission requests [feature] (see [here](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions) for all permissions that can be requested dynamically - of these, only a few are not needed automatically)
 
