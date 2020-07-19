@@ -6,7 +6,7 @@ General browser utilities.
 
 There's not much implemented right now, and what is is somewhat simplistic.  More complicated features are coming.
 
-The extension hasn't been submitted to FireFox addons just yet, but once some of the markers in the roadmap are hit and a lot more commands/features are added, it will be.  Stabilitiy also needs to be improved before I'll submit it.
+The extension hasn't been submitted to FireFox addons just yet, but once some of the markers in the roadmap are hit and a lot more commands/features are added, it will be.  Stability also needs to be improved before I'll submit it.
 
 ## How Permissions are Used
 
@@ -44,23 +44,27 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 ## High
 
-+ Dynamic permission requests [feature]
-+ Security [bug] {in-progess}
++ Security [bug] {in-progress}
 
 ## Medium
 
 + Refactoring [meta]
 + User-set activation/close command [feature]
 + Better onboarding/user-friendly docs [meta] {in-progress}
-+ Homepage [meta] {in-prog}
++ Homepage [meta] {in-progress}
 + Changelog notification [feature]
 + Config exporter [feature]
++ Customisation of highlight colour [feature]
++ Better mini-map styling [bug]
 
 ## Low
 
 + Debugging/error centre [feature] (further down the road, more for user error reports)
 + Fix injection styling inconsistencies [bug] {in-progress}
 + Mini-map customisation
++ Dev stats [feature]
+
++ Dynamic permission requests [feature] (see [here](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions) for all permissions that can be requested dynamically - of these, only a few are not needed automatically)
 
 ### Completed
 
