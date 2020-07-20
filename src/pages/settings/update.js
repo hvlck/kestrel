@@ -103,12 +103,15 @@ const build = () => {
 
 			let toggle = buildElement('input', '', {
 				type: 'checkbox',
-				checked: item.defailt || false,
+				checked: item.default || false,
 				data_automatic_setting: item.dependsOn,
 				data_key: item.keyName
 			});
 
-			browser.storage.local.get(item.dependsOnKey).then(data => { toggle.disabled = !data[item.dependsOnKey][item.dependsOn] });
+			browser.storage.local.get(item.dependsOnKey).then(data => toggle.disabled = !data[item.dependsOnKey][item.dependsOn]);
+			browser.storage.local.get(item.setting).then(data => {
+				toggle.checked = data[item.setting][item.dependsOn][item.keyName];
+			});
 
 			toggle.addEventListener('change', () => {
 				updateAutomaticSettings();
