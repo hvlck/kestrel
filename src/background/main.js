@@ -15,8 +15,10 @@ browser.runtime.onInstalled.addListener(() => {
 
 let status = {};
 
+// storage
 let settings;
 
+// keeps track of injected stylesheets [note: NEEDS TO BE SCOPED TO EACH ACTIVE TAB]
 let injections = [];
 
 // registered userscripts
@@ -62,6 +64,31 @@ browser.commands.onCommand.addListener(command => {
         }
     });
 });
+
+function updateUserScripts() {
+    updateSettings().then(() => {
+        Object.entries(settings.automatic).forEach(item => {
+            if (item[1] == true) {
+                browser.userScripts.register({
+                    js: [{
+                        file: `../cs/automatic/${item[0]}.js`
+                    }],
+                    matches: [
+                        "file://*/*",
+                        "https://*/*",
+                        "http://*/*"
+                    ],
+                    runAt: runtimes[item[0]],
+                    scriptMetadata: { name: item[0] }
+                }).then(data => {
+                    registeredScripts[item[0]] = data;
+                });
+            } else if (item[1] == false && registeredScripts[item[0]]) {
+                registeredScripts[item[0]].unregister();
+            }
+        });
+    });
+}
 
 // returns the currently active tab
 const getActiveTab = () => {
@@ -179,33 +206,13 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
             runAt: msg.runAt
         }).catch(err => console.error(`Failed to inject script: ${err}`));
     } else if (msg.settings == 'update-settings') {
-        updateSettings().then(() => {
-            Object.entries(settings.automatic).forEach(item => {
-                if (item[1] == true) {
-                    browser.userScripts.register({
-                        js: [{
-                            file: `../cs/automatic/${item[0]}.js`
-                        }],
-                        matches: [
-                            "file://*/*",
-                            "https://*/*",
-                            "http://*/*"
-                        ],
-                        runAt: runtimes[item[0]],
-                        scriptMetadata: { name: item[0] }
-                    }).then(data => {
-                        registeredScripts[item[0]] = data;
-                    });
-                } else if (item[1] == false && registeredScripts[item[0]]) {
-                    registeredScripts[item[0]].unregister();
-                }
-            });
-        });
-        //        Object.values(settings)
+        updateUserScripts();
     } else if (msg.settings == 'unregister-all') {
         Object.values(registeredScripts).forEach(item => {
             item.unregister();
         });
+
+        registeredScripts = {};
     }
 });
 

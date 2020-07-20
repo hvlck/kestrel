@@ -22,6 +22,10 @@ document.body.querySelector('.hidden').appendChild(nav);
 
 // generates settings html
 const build = () => {
+	browser.runtime.sendMessage({
+		settings: "update-settings"
+	});
+
 	const main = buildElement('div', '', {
 		className: 'main'
 	});
@@ -315,10 +319,12 @@ function reset() {
 
 // resets all storage, and initializes it again with default values
 function resetAll() {
-	browser.storage.local.clear();
-	history.replaceState('', 'Kestrel | Settings', `${window.location.href}#reset`)
-	window.location.reload();
-	browser.runtime.sendMessage({ settings: "unregister-all" })
+	browser.storage.local.clear().then(() => {
+		browser.runtime.sendMessage({ settings: "unregister-all" }).then(() => {
+			history.replaceState('', 'Kestrel | Settings', `${window.location.href}#reset`)
+			window.location.reload();
+		});
+	});
 }
 
 // updates all commands in storage, based on all configurable settings

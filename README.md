@@ -45,7 +45,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 ## High
 
 + Security [bug] {in-progress}
-+ Switch background injects to userScript api
++ Switch main injects to userScript APi
 
 ## Medium
 
@@ -70,6 +70,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 ### Completed
 
++ ~~Switch background injects to userScript API~~
 + ~~Disable links when `design mode` command is active~~ [bug]
 + ~~Rename `/src/pages/fresh` to `guide`~~ [meta]
 + ~~Move `/themes` into `/libs`~~ [meta]
