@@ -181,7 +181,9 @@ input[type="text"]:hover, input[type="text"]:focus, input[type="number"]:hover, 
 	border-bottom: 2px solid var(--highlight);
 }
 
-input[type="text"]:invalid, input[type="number"]:invalid { border-bottom: 2px solid crimson }
+:hover:invalid, :focus:invalid {
+	border-bottom: 2px solid red !important;
+}
 
 .confirm-reset > * {
 	margin: 2% 2% 2% 0;
@@ -204,7 +206,7 @@ input[type="text"]:invalid, input[type="number"]:invalid { border-bottom: 2px so
 }
 
 .failure {
-	border-right: 5px solid crimson;
+	border-right: 5px solid red;
 }
 
 .hidden {
@@ -216,6 +218,7 @@ input[type="text"]:invalid, input[type="number"]:invalid { border-bottom: 2px so
 	border-top: none !important;
 	border-left: none !important;
 	border-right: none !important;
+	border-bottom: 2px solid red;
 }
 
 @keyframes fadeIn {

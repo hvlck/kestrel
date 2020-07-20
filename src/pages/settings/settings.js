@@ -105,7 +105,7 @@ const settings = [
 
         placeholder: "2",
 
-        min: 2,
+        min: 1,
         max: 20,
 
         matchDescription: "Enter a length (in pixels) between 1 and 20.  The unit is not needed, so just a number will suffice.",

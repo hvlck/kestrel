@@ -147,9 +147,20 @@ const build = () => {
 			browser.storage.local.get(item.dependsOnKey).then(data => { text.disabled = !data[item.dependsOnKey][item.dependsOn] });
 
 			text.addEventListener('input', () => {
-				if (new RegExp(item.matches).test(text.value) || text.length <= item.max && text.length >= item.min) {
-					updateAutomaticSettings();
-					item.callback ? window[item.callback](text) : '';
+				if (item.type == 'number') {
+					if (new RegExp(item.matches).test(text.value)) {
+						if (text.value <= item.max && text.value >= item.min) {
+							updateAutomaticSettings();
+							item.callback ? window[item.callback](text) : '';
+						}
+					}
+				} else {
+					if (new RegExp(item.matches).test(text.value)) {
+						if (text.value.length <= item.max && text.value.length >= item.min) {
+							updateAutomaticSettings();
+							item.callback ? window[item.callback](text) : '';
+						}
+					}
 				}
 			});
 
