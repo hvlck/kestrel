@@ -35,7 +35,7 @@ const build = () => {
 
 		let title = buildElement(`${item.type == 'divider' ? 'h2' : 'h3'}`, item.name, {
 			className: 'settings-item-header',
-			id: `${item.type == 'divider' ? item.name.toLowerCase() : ''}`
+			id: `${item.type == 'divider' ? item.name.replace(new RegExp(' ', 'g'), '-').toLowerCase() : ''}`
 		});
 
 		div.appendChild(title);
