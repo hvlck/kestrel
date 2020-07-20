@@ -66,7 +66,7 @@ const automaticCommandsList = {
 const automaticSettings = {
 	loader: {
 		colour: '#16c581',
-		width: 2,
+		height: 2,
 		persist: false
 	}
 }

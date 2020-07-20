@@ -19,19 +19,21 @@ let settings;
 
 let injections = [];
 
+// registered userscripts
+let registeredScripts = {};
+
+let runtimes = {
+    loader: "document_start",
+    minimap: "document_idle",
+    linksInSameTab: "document_end"
+}
+
 // Listens for commands
 browser.commands.onCommand.addListener(command => {
     let actTab = getActiveTab();
 
     actTab.then(data => {
-        browser.storage.local.get(null).then(userSettings => {
-            settings = userSettings;
-
-            if (settings.theme == undefined) settings.theme = 'light';
-            if (settings.theme != 'operating-system-default') {
-                injectStylesheet(`../../libs/themes/${settings.theme}.css`);
-            }
-        }).catch(err => console.error(`Failed to load settings: ${err}`));
+        updateSettings();
 
         data = data.id;
         if (!status[data]) {
@@ -125,6 +127,17 @@ const removePalette = (sheet) => {
     }
 }
 
+function updateSettings() {
+    return browser.storage.local.get(null).then(userSettings => {
+        settings = userSettings;
+
+        if (settings.theme == undefined) settings.theme = 'light';
+        if (settings.theme != 'operating-system-default') {
+            injectStylesheet(`../../libs/themes/${settings.theme}.css`);
+        }
+    }).catch(err => console.error(`Failed to load settings: ${err}`));
+}
+
 let contentPort;
 browser.runtime.onConnect.addListener(port => { // Initial port connection to content script
     if (port.sender.id !== browser.runtime.id) { return }
@@ -153,7 +166,7 @@ browser.runtime.onConnect.addListener(port => { // Initial port connection to co
 
 // executes functions that require background script apis
 browser.runtime.onMessage.addListener((msg, sender, response) => {
-    if (sender.extensionId !== browser.runtime.id) { return }
+    if (sender.extensionId.startsWith(browser.runtime.id) !== true) { return }
     if (msg.fn == 'openSettings') {
         browser.runtime.openOptionsPage().catch(err => console.error(err));
     } else if (msg.injectSheet) {
@@ -165,6 +178,34 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
             file: `../cs/automatic/${msg.fn}.js`,
             runAt: msg.runAt
         }).catch(err => console.error(`Failed to inject script: ${err}`));
+    } else if (msg.settings == 'update-settings') {
+        updateSettings().then(() => {
+            Object.entries(settings.automatic).forEach(item => {
+                if (item[1] == true) {
+                    browser.userScripts.register({
+                        js: [{
+                            file: `../cs/automatic/${item[0]}.js`
+                        }],
+                        matches: [
+                            "file://*/*",
+                            "https://*/*",
+                            "http://*/*"
+                        ],
+                        runAt: runtimes[item[0]],
+                        scriptMetadata: { name: item[0] }
+                    }).then(data => {
+                        registeredScripts[item[0]] = data;
+                    });
+                } else if (item[1] == false && registeredScripts[item[0]]) {
+                    registeredScripts[item[0]].unregister();
+                }
+            });
+        });
+        //        Object.values(settings)
+    } else if (msg.settings == 'unregister-all') {
+        Object.values(registeredScripts).forEach(item => {
+            item.unregister();
+        });
     }
 });
 

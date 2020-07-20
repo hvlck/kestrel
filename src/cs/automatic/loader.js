@@ -11,46 +11,85 @@
 		}
 		return element;
 	}
-	let num = Math.floor(Math.random() * 999999); // prevent page script interaction for the most part
-	if (document.querySelector(`kestrel-loading-bar-${num}`)) { return };
 
-	let loader = buildElement('div', '', {
-		id: `kestrel-loading-bar-${num}`,
-		style: `
-			width: 0px;
-			height: ${settings.automaticsettings.loader.height ? settings.automaticsettings.loader.height : '2'}px;
+	GM_getSettings().then(data => {
+		build(data);
+	}).catch(err => console.error(`Failed to build Kestrel loader: ${err}`));
+
+	const build = (settings) => {
+		let lastWidth = 0;
+		settings = settings.settings.automaticsettings.loader;
+
+		let num = Math.floor(Math.random() * 999999); // prevent page script interaction for the most part
+		if (document.querySelector(`kestrel-loading-bar-${num}`)) { return };
+
+		let loader = buildElement('div', '', {
+			id: `kestrel-loading-bar-${num}`,
+			style: `
+			width: 0;
+			height: ${settings.height ? settings.height : '2'}px;
 
 			position: fixed;
 			top: 0;
 			left: 0;
-			background: ${settings.automaticsettings.loader.colour ? settings.automaticsettings.loader.colour : '#16c581'};
+			background: ${settings.colour ? settings.colour : '#16c581'};
 			transition: 300ms linear !important;
-			box-shadow: 0px 0px 5px ${settings.automaticsettings.colour ? settings.automaticsettings.loader.colour : '#16c581'};
+			box-shadow: 0px 0px 5px ${settings.colour ? settings.colour : '#16c581'};
 			z-index: 999999999;
 		`
-	});
+		});
 
-	document.addEventListener('readystatechange', () => {
-		if (document.readyState == 'interactive') {
-			if (!document.querySelector(`kestrel-loading-bar-${num}`)) {
-				document.body.appendChild(loader);
+		document.addEventListener('readystatechange', () => {
+			if (document.readyState == 'loading') {
+				if ((33 / 100) * document.documentElement.clientWidth < lastWidth) { return }
+
+				if (!document.querySelector(`kestrel-loading-bar-${num}`)) {
+					document.body.appendChild(loader);
+				}
+
+				loader.style.display = '';
+				loader.style.width = `${(33 / 100) * document.documentElement.clientWidth}px`;
+				lastWidth = (33 / 100) * document.documentElement.clientWidth;
+			} else if (document.readyState == 'interactive') {
+				if ((50 / 100) * document.documentElement.clientWidth < lastWidth) { return }
+
+				if (!document.querySelector(`kestrel-loading-bar-${num}`)) {
+					document.body.appendChild(loader);
+				}
+
+				loader.style.display = '';
+				loader.style.width = `${(50 / 100) * document.documentElement.clientWidth}px`;
+				lastWidth = (50 / 100) * document.documentElement.clientWidth;
+			} else if (document.readyState == 'complete') {
+				if (document.documentElement.clientWidth < lastWidth) { return }
+
+				if (!document.querySelector(`kestrel-loading-bar-${num}`)) {
+					document.body.appendChild(loader);
+				}
+
+				loader.style.display = '';
+				loader.style.width = `${document.documentElement.clientWidth}px`;
+				lastWidth = document.documentElement.clientWidth;
+				if (settings.persist == false) {
+					setTimeout(() => {
+						loader.style.display = 'none';
+						loader.remove();
+					}, 1000);
+				}
 			}
+		});
+
+		if (document.documentElement.clientWidth > lastWidth && parseInt(loader.style.width) == '0' && !document.querySelector(`kestrel-loading-bar-${num}`) && document.readyState == 'complete') {
+			document.body.appendChild(loader);
 
 			loader.style.display = '';
-			loader.style.width = `${(50 / 100) * document.body.clientWidth}px`;
-		} else if (document.readyState == 'complete') {
-			if (!document.querySelector(`kestrel-loading-bar-${num}`)) {
-				document.body.appendChild(loader);
-			}
-
-			loader.style.display = '';
-			loader.style.width = `${document.body.clientWidth}px`;
-			if (settings.automaticsettings.loader.persist == false) {
+			loader.style.width = `${document.documentElement.clientWidth}px`;
+			if (settings.persist == false) {
 				setTimeout(() => {
 					loader.style.display = 'none';
 					loader.remove();
 				}, 1000);
 			}
 		}
-	});
-}());
+	}
+})();

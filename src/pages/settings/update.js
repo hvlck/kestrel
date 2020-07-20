@@ -318,6 +318,7 @@ function resetAll() {
 	browser.storage.local.clear();
 	history.replaceState('', 'Kestrel | Settings', `${window.location.href}#reset`)
 	window.location.reload();
+	browser.runtime.sendMessage({ settings: "unregister-all" })
 }
 
 // updates all commands in storage, based on all configurable settings
@@ -359,6 +360,9 @@ const updateAutomaticFunctions = () => {
 	});
 
 	updateSettings('automatic', automaticCommandsList, name);
+	browser.runtime.sendMessage({
+		settings: "update-settings"
+	});
 }
 
 // updates all automatic task settings
