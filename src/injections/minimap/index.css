@@ -11,7 +11,8 @@
 	--secondary: #212121;
 }
 
-#kestrel-mini-map, #kestrel-mini-map > * {
+#kestrel-mini-map,
+#kestrel-mini-map > * {
 	animation: none !important;
 	transition: none !important;
 }
@@ -23,23 +24,26 @@
 	width: 10vw;
 	height: auto;
 	max-height: 95vh;
-	
+
 	position: fixed;
 	right: 3%;
 	top: 2%;
 
 	opacity: 0.7;
-	background: transparent -moz-element(#kestrel-mini-map-container) no-repeat center / contain;
+	background: transparent -moz-element(#kestrel-mini-map-container) no-repeat center /
+		contain;
 }
 
-#kestrel-mini-map:hover { opacity: 1 }
+#kestrel-mini-map:hover {
+	opacity: 1;
+}
 
 #kestrel-mini-map-slider {
 	max-width: 95vh;
 	height: 10vw;
 	margin: 0;
 	padding: 0;
-	
+
 	border-radius: 0;
 	background: transparent;
 	cursor: pointer;

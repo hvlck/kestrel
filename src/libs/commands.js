@@ -68,5 +68,8 @@ const automaticSettings = {
 		colour: '#16c581',
 		height: 2,
 		persist: false
+	},
+	minimap: {
+		colour: `#16c581`
 	}
 }

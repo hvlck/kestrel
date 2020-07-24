@@ -125,6 +125,26 @@ const settings = [
         default: false
     },
     {
+        name: "Minimap Colour",
+        description: "Sets the minimap's overlay colour",
+        type: "text",
+
+        dependsOnKey: "automatic",
+        dependsOn: "minimap",
+        keyName: "colour",
+        setting: "automaticsettings",
+
+        placeholder: "#",
+
+        matches: "^#\\S{6}",
+        matchDescription: "Enter a valid <a href='https://en.wikipedia.org/wiki/Web_colors'>HEX</a> colour code, consisting of 6 characters and starting with a '#.'  If you need assistance choosing a colour, <a href='https://github.com/EthanJustice/uls#design'>this</a> is a list of websites that can help.",
+        min: 7,
+        max: 7,
+
+        default: "#16c581",
+        callback: "setColour"
+    },
+    {
         name: "Reset settings",
         description: "Reset all settings to default",
         type: "special",

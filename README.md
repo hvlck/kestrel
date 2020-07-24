@@ -45,12 +45,10 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 ## High
 
 + Security [bug] {in-progress}
-+ Switch main injects to userScript APi
 
 ## Medium
 
 + Refactoring [meta]
-+ User-set activation/close command [feature]
 + Better onboarding/user-friendly docs [meta] {in-progress}
 + Homepage [meta] {in-progress}
 + Changelog notification [feature]
@@ -61,15 +59,15 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 ## Low
 
-+ Debugging/error centre [feature] (further down the road, more for user error reports)
++ User-set activation/close command [feature]
 + Fix injection styling inconsistencies [bug] {in-progress}
-+ Mini-map customisation
 + Dev stats [feature]
 
 + Dynamic permission requests [feature] (see [here](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions) for all permissions that can be requested dynamically - of these, only a few are not needed automatically)
 
 ### Completed
 
++ ~~Mini-map customisation~~
 + ~~Switch background injects to userScript API~~
 + ~~Disable links when `design mode` command is active~~ [bug]
 + ~~Rename `/src/pages/fresh` to `guide`~~ [meta]

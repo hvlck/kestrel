@@ -37,6 +37,10 @@
             value: 0
         });
 
+        GM_getSettings().then(data => {
+            minimap.style.setProperty('--highlight', data.settings.automaticsettings.minimap.colour);
+        });
+
         minimap.appendChild(selection);
         minimap.style.display = 'block';
 

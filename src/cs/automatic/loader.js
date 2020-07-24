@@ -78,7 +78,7 @@
 			}
 		});
 
-		if (document.documentElement.clientWidth > lastWidth && parseInt(loader.style.width) == '0' && !document.querySelector(`##kestrel-loading-bar-${num}`) && document.readyState == 'complete') {
+		if (document.documentElement.clientWidth > lastWidth && parseInt(loader.style.width) == '0' && !document.querySelector(`#kestrel-loading-bar`) && document.readyState == 'complete') {
 			document.body.appendChild(loader);
 
 			loader.style.display = '';
