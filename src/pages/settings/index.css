@@ -5,8 +5,7 @@
 	--secondary: #212121;
 	--tertiary: #e1e1e1;
 
-	--heading-font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-	--text-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	--primary-font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,29 +16,77 @@
 	}
 }
 
-html { border-top: 2px solid var(--highlight) }
+html {
+	border-top: 2px solid var(--highlight);
+}
 
 body {
+	--primary-transition: linear;
+
+	margin: 0 auto;
+	max-width: 800px;
+	padding: 10px;
 	background: var(--primary);
 	color: var(--secondary);
-	font-family: var(--text-font);
-	max-width: 850px;
-	margin: 0 auto;
-	padding: 10px;
-	font-size: 115%;
-	line-height: 1.6;
-	animation: fadeIn 300ms;
+	font-family: var(--primary-font);
 }
 
 * {
-	transition: 0.2s cubic-bezier(0.54, 0.39, 0.37, 0.98);
+	animation: 300ms fadeIn var(--primary-transition);
+	transition: 150ms var(--primary-transition);
 }
 
-h1 { margin: 1% auto }
+div[data-slide-name] {
+	max-width: 900px;
+	margin: 1% auto;
+}
 
-h1, h2, h3, h4, h5, h6 {
+p {
+	line-height: 1.4;
+}
+
+a,
+a:visited {
+	color: var(--highlight);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+kbd {
+	border: 2px solid var(--secondary);
+	padding: 1px 5px;
+	font-family: "Consolas", monospace;
+	font-weight: bold;
+}
+
+code {
+	background: var(--tertiary);
+	color: var(--highlight);
+	padding: 2px 5px;
+}
+
+li {
+	margin: 2% auto;
+	line-height: 1.4;
+	font-size: 11pt;
+}
+
+h1 {
+	margin: 1% auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	font-weight: lighter;
-	font-family: var(--heading-font);
+	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+		"Lucida Sans", Arial, sans-serif;
 }
 
 hr {
@@ -55,23 +102,8 @@ hr {
 	width: 100%;
 }
 
-a,
-a:visited {
-	color: var(--highlight);
-	padding: 1px;
-	opacity: 0.7;
-	width: auto;
-	border: none;
-}
-
-.nav a { margin: 0.5% 2% 0.5% 0% }
-
-a:hover {
-	opacity: 1;
-}
-
-p {
-	font-size: 12pt;
+.nav a {
+	margin: 0.5% 2% 0.5% 0%;
 }
 
 select,
@@ -119,11 +151,13 @@ tr td:last-of-type {
 	width: 30%;
 }
 
-td, .checkbox-parent > * {
+td,
+.checkbox-parent > * {
 	padding: 0px 10px;
 }
 
-td > *, .checkbox-parent > * {
+td > *,
+.checkbox-parent > * {
 	margin: 0.2% 0;
 	padding: 10px;
 	font-size: 14pt;
@@ -152,9 +186,12 @@ td > *, .checkbox-parent > * {
 	transform: translate(25%, -10%);
 }
 
-input { font-family: var(--text-font) }
+input {
+	font-family: var(--primary-font);
+}
 
-input[type="reset"], input[type="button"] {
+input[type="reset"],
+input[type="button"] {
 	background-color: var(--tertiary);
 	color: var(--secondary);
 	padding: 5px 10px;
@@ -163,11 +200,15 @@ input[type="reset"], input[type="button"] {
 	cursor: pointer;
 }
 
-input[type="reset"]:hover, input[type="reset"]:focus, input[type="button"]:hover, input[type="button"]:focus {
+input[type="reset"]:hover,
+input[type="reset"]:focus,
+input[type="button"]:hover,
+input[type="button"]:focus {
 	background-color: var(--highlight);
 }
 
-input[type="text"], input[type="number"] {
+input[type="text"],
+input[type="number"] {
 	background-color: var(--tertiary);
 	color: var(--secondary);
 	padding: 5px 10px;
@@ -177,11 +218,15 @@ input[type="text"], input[type="number"] {
 	border-bottom: 2px solid transparent;
 }
 
-input[type="text"]:hover, input[type="text"]:focus, input[type="number"]:hover, input[type="number"]:focus {
+input[type="text"]:hover,
+input[type="text"]:focus,
+input[type="number"]:hover,
+input[type="number"]:focus {
 	border-bottom: 2px solid var(--highlight);
 }
 
-:hover:invalid, :focus:invalid {
+:hover:invalid,
+:focus:invalid {
 	border-bottom: 2px solid red !important;
 }
 
@@ -189,7 +234,8 @@ input[type="text"]:hover, input[type="text"]:focus, input[type="number"]:hover, 
 	margin: 2% 2% 2% 0;
 }
 
-.success, .failure {
+.success,
+.failure {
 	padding: 10px 20px;
 	min-width: 15%;
 	font-size: 14pt;
@@ -222,8 +268,14 @@ input[type="text"]:hover, input[type="text"]:focus, input[type="number"]:hover, 
 }
 
 @keyframes fadeIn {
-	0% { opacity: 0 }
-	100% { opacity: 1 }
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
-:disabled { opacity: 0.7 }
+:disabled {
+	opacity: 0.7;
+}
