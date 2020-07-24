@@ -17,24 +17,14 @@
         "https://*/*",
         "http://*/*"
     ],
-    "optional_permissions": [
-        "idle"
-    ],
+    "optional_permissions": ["idle"],
     "background": {
-        "scripts": [
-            "background/main.js"
-        ]
+        "scripts": ["background/main.js"]
     },
     "content_scripts": [
         {
-            "matches": [
-                "file://*/*",
-                "https://*/*",
-                "http://*/*"
-            ],
-            "js": [
-                "libs/commands.js"
-            ],
+            "matches": ["file://*/*", "https://*/*", "http://*/*"],
+            "js": ["libs/commands.js"],
             "run_at": "document_start"
         }
     ],

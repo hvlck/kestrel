@@ -3,7 +3,7 @@
 */
 
 .kestrel {
-	--transition-primary: 100ms linear;
+    --transition-primary: 100ms linear;
 }
 
 /*
@@ -11,19 +11,19 @@
 */
 
 .kestrel {
-	--kestrel-primary: #fafafa;
-	--kestrel-secondary: #404040;
-	--kestrel-tertiary: #f1f2f3;
-	--kestrel-quaternary: #212121;
+    --kestrel-primary: #fafafa;
+    --kestrel-secondary: #404040;
+    --kestrel-tertiary: #f1f2f3;
+    --kestrel-quaternary: #212121;
 }
 
 @media (prefers-color-scheme: dark) {
-	.kestrel {
-		--kestrel-primary: #212121;
-		--kestrel-secondary: #fafafa;
-		--kestrel-tertiary: #404040;
-		--kestrel-quaternary: #b9bec5;
-	}
+    .kestrel {
+        --kestrel-primary: #212121;
+        --kestrel-secondary: #fafafa;
+        --kestrel-tertiary: #404040;
+        --kestrel-quaternary: #b9bec5;
+    }
 }
 
 /*
@@ -31,8 +31,8 @@
 */
 
 body > *:not(.kestrel) {
-	opacity: 0.2;
-	pointer-events: none;
+    opacity: 0.2;
+    pointer-events: none;
 }
 
 /*
@@ -40,29 +40,29 @@ body > *:not(.kestrel) {
 */
 
 .kestrel {
-	font-family: Arial, Helvetica, sans-serif;
-	background-color: transparent;
-	font-weight: normal;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: transparent;
+    font-weight: normal;
 
-	width: 100%;
-	max-width: 800px;
-	min-height: 400px;
-	max-height: 1000px;
+    width: 100%;
+    max-width: 800px;
+    min-height: 400px;
+    max-height: 1000px;
 
-	margin: 0 auto;
-	animation: none;
-	transition: none;
+    margin: 0 auto;
+    animation: none;
+    transition: none;
 
-	position: fixed;
-	top: 10%;
-	left: 50%;
-	transform: translate(-50%, 0%);
-	z-index: 99999;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    z-index: 99999;
 }
 
 .kestrel > * {
-	transition: none !important;
-	animation: none !important;
+    transition: none !important;
+    animation: none !important;
 }
 
 /*
@@ -70,23 +70,23 @@ body > *:not(.kestrel) {
 */
 
 input[type="text"].kestrel-command-input {
-	background: var(--kestrel-primary);
-	color: var(--kestrel-secondary);
+    background: var(--kestrel-primary);
+    color: var(--kestrel-secondary);
 
-	box-sizing: border-box;
-	font-size: 18pt !important;
-	border: none;
-	border-bottom: 1px solid var(--kestrel-quaternary);
-	border-radius: 0px;
-	width: 100%;
+    box-sizing: border-box;
+    font-size: 18pt !important;
+    border: none;
+    border-bottom: 1px solid var(--kestrel-quaternary);
+    border-radius: 0px;
+    width: 100%;
 
-	max-width: 800px;
-	height: 60px !important;
+    max-width: 800px;
+    height: 60px !important;
 
-	padding: 30px 20px !important;
-	margin: 0;
-	transition: none;
-	animation: none;
+    padding: 30px 20px !important;
+    margin: 0;
+    transition: none;
+    animation: none;
 }
 
 /*
@@ -94,13 +94,13 @@ input[type="text"].kestrel-command-input {
 */
 
 .kestrel-commands-container {
-	width: 100%;
-	max-height: 400px;
-	border: none;
-	border-radius: 2px;
-	margin: 0 auto;
-	overflow-x: hidden;
-	overflow-y: scroll;
+    width: 100%;
+    max-height: 400px;
+    border: none;
+    border-radius: 2px;
+    margin: 0 auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 /*
@@ -108,18 +108,18 @@ input[type="text"].kestrel-command-input {
 */
 
 .kestrel-command-item {
-	width: 100%;
-	display: block;
-	padding: 5px 10px !important;
-	margin: 0 auto;
-	font-size: 14pt;
-	font-family: Arial, Helvetica, sans-serif;
-	font-weight: normal;
-	background: var(--kestrel-primary);
-	color: var(--kestrel-secondary);
-	cursor: pointer;
-	animation: none;
-	transition: none;
+    width: 100%;
+    display: block;
+    padding: 5px 10px !important;
+    margin: 0 auto;
+    font-size: 14pt;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    background: var(--kestrel-primary);
+    color: var(--kestrel-secondary);
+    cursor: pointer;
+    animation: none;
+    transition: none;
 }
 
 /*
@@ -128,8 +128,8 @@ input[type="text"].kestrel-command-input {
 */
 
 .kestrel-command-item-focused {
-	background: var(--kestrel-tertiary);
-	transition: var(--transition-primary);
+    background: var(--kestrel-tertiary);
+    transition: var(--transition-primary);
 }
 
 /*
@@ -139,7 +139,7 @@ input[type="text"].kestrel-command-input {
 */
 
 .kestrel-hidden {
-	display: none;
-	animation: none;
-	transition: none;
+    display: none;
+    animation: none;
+    transition: none;
 }

@@ -1,14 +1,14 @@
 /* Dark theme variant */
 
 :root {
-	--primary: #212121;
-	--secondary: #fafafa;
-	--tertiary: #404040;
+    --primary: #212121;
+    --secondary: #fafafa;
+    --tertiary: #404040;
 }
 
 .kestrel {
-	--kestrel-primary: #212121;
-	--kestrel-secondary: #fafafa;
-	--kestrel-tertiary: #404040;
-	--kestrel-quaternary: #b9bec5;
+    --kestrel-primary: #212121;
+    --kestrel-secondary: #fafafa;
+    --kestrel-tertiary: #404040;
+    --kestrel-quaternary: #b9bec5;
 }

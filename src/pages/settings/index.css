@@ -1,81 +1,81 @@
 :root {
-	--highlight: #16c581;
+    --highlight: #16c581;
 
-	--primary: #fafafa;
-	--secondary: #212121;
-	--tertiary: #e1e1e1;
+    --primary: #fafafa;
+    --secondary: #212121;
+    --tertiary: #e1e1e1;
 
-	--primary-font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    --primary-font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
-	:root {
-		--primary: #212121;
-		--secondary: #fafafa;
-		--tertiary: #404040;
-	}
+    :root {
+        --primary: #212121;
+        --secondary: #fafafa;
+        --tertiary: #404040;
+    }
 }
 
 html {
-	border-top: 2px solid var(--highlight);
+    border-top: 2px solid var(--highlight);
 }
 
 body {
-	--primary-transition: linear;
+    --primary-transition: linear;
 
-	margin: 0 auto;
-	max-width: 800px;
-	padding: 10px;
-	background: var(--primary);
-	color: var(--secondary);
-	font-family: var(--primary-font);
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 10px;
+    background: var(--primary);
+    color: var(--secondary);
+    font-family: var(--primary-font);
 }
 
 * {
-	animation: 300ms fadeIn var(--primary-transition);
-	transition: 150ms var(--primary-transition);
+    animation: 300ms fadeIn var(--primary-transition);
+    transition: 150ms var(--primary-transition);
 }
 
 div[data-slide-name] {
-	max-width: 900px;
-	margin: 1% auto;
+    max-width: 900px;
+    margin: 1% auto;
 }
 
 p {
-	line-height: 1.4;
+    line-height: 1.4;
 }
 
 a,
 a:visited {
-	color: var(--highlight);
-	text-decoration: none;
+    color: var(--highlight);
+    text-decoration: none;
 }
 
 a:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 kbd {
-	border: 2px solid var(--secondary);
-	padding: 1px 5px;
-	font-family: "Consolas", monospace;
-	font-weight: bold;
+    border: 2px solid var(--secondary);
+    padding: 1px 5px;
+    font-family: "Consolas", monospace;
+    font-weight: bold;
 }
 
 code {
-	background: var(--tertiary);
-	color: var(--highlight);
-	padding: 2px 5px;
+    background: var(--tertiary);
+    color: var(--highlight);
+    padding: 2px 5px;
 }
 
 li {
-	margin: 2% auto;
-	line-height: 1.4;
-	font-size: 11pt;
+    margin: 2% auto;
+    line-height: 1.4;
+    font-size: 11pt;
 }
 
 h1 {
-	margin: 1% auto;
+    margin: 1% auto;
 }
 
 h1,
@@ -84,198 +84,198 @@ h3,
 h4,
 h5,
 h6 {
-	font-weight: lighter;
-	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-		"Lucida Sans", Arial, sans-serif;
+    font-weight: lighter;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
 }
 
 hr {
-	border: none;
-	border-top: 2px solid var(--tertiary);
-	width: 100%;
-	margin: 4% auto;
+    border: none;
+    border-top: 2px solid var(--tertiary);
+    width: 100%;
+    margin: 4% auto;
 }
 
 .nav {
-	margin: 2% auto 2% 0;
-	padding: 3px 3px 3px 0;
-	width: 100%;
+    margin: 2% auto 2% 0;
+    padding: 3px 3px 3px 0;
+    width: 100%;
 }
 
 .nav a {
-	margin: 0.5% 2% 0.5% 0%;
+    margin: 0.5% 2% 0.5% 0%;
 }
 
 select,
 select > * {
-	padding: 5px;
-	font-size: 12pt;
-	background-color: var(--primary);
-	color: var(--secondary);
-	border: 2px solid var(--tertiary);
+    padding: 5px;
+    font-size: 12pt;
+    background-color: var(--primary);
+    color: var(--secondary);
+    border: 2px solid var(--tertiary);
 }
 
 table {
-	border: 2px solid var(--tertiary);
-	width: 100%;
-	padding: 3px 10px;
-	border-collapse: collapse;
+    border: 2px solid var(--tertiary);
+    width: 100%;
+    padding: 3px 10px;
+    border-collapse: collapse;
 }
 
 thead {
-	border: none;
+    border: none;
 }
 
 th {
-	border: none;
-	background-color: var(--tertiary);
-	padding: 8px 20px;
-	text-align: left;
-	font-size: 16pt;
-	font-weight: bold;
+    border: none;
+    background-color: var(--tertiary);
+    padding: 8px 20px;
+    text-align: left;
+    font-size: 16pt;
+    font-weight: bold;
 }
 
 th:first-of-type {
-	border-right: 2px solid var(--primary);
+    border-right: 2px solid var(--primary);
 }
 
 tr {
-	border-bottom: 2px solid var(--tertiary);
+    border-bottom: 2px solid var(--tertiary);
 }
 
 tr td:first-of-type {
-	width: 70%;
+    width: 70%;
 }
 
 tr td:last-of-type {
-	width: 30%;
+    width: 30%;
 }
 
 td,
 .checkbox-parent > * {
-	padding: 0px 10px;
+    padding: 0px 10px;
 }
 
 td > *,
 .checkbox-parent > * {
-	margin: 0.2% 0;
-	padding: 10px;
-	font-size: 14pt;
+    margin: 0.2% 0;
+    padding: 10px;
+    font-size: 14pt;
 }
 
 * > input[type="checkbox"] {
-	width: 2px;
-	height: 2px;
-	position: relative;
-	background-color: var(--tertiary);
-	box-sizing: content-box;
-	appearance: none;
-	-webkit-appearance: none;
-	cursor: pointer;
+    width: 2px;
+    height: 2px;
+    position: relative;
+    background-color: var(--tertiary);
+    box-sizing: content-box;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
 }
 
 * > input[type="checkbox"]:checked {
-	background-color: var(--highlight);
+    background-color: var(--highlight);
 }
 
 * > input[type="checkbox"]:checked::after {
-	content: "✓";
-	position: absolute;
-	left: 0%;
-	top: 0%;
-	transform: translate(25%, -10%);
+    content: "✓";
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    transform: translate(25%, -10%);
 }
 
 input {
-	font-family: var(--primary-font);
+    font-family: var(--primary-font);
 }
 
 input[type="reset"],
 input[type="button"] {
-	background-color: var(--tertiary);
-	color: var(--secondary);
-	padding: 5px 10px;
-	font-size: 12pt;
-	border: none;
-	cursor: pointer;
+    background-color: var(--tertiary);
+    color: var(--secondary);
+    padding: 5px 10px;
+    font-size: 12pt;
+    border: none;
+    cursor: pointer;
 }
 
 input[type="reset"]:hover,
 input[type="reset"]:focus,
 input[type="button"]:hover,
 input[type="button"]:focus {
-	background-color: var(--highlight);
+    background-color: var(--highlight);
 }
 
 input[type="text"],
 input[type="number"] {
-	background-color: var(--tertiary);
-	color: var(--secondary);
-	padding: 5px 10px;
-	font-size: 13pt;
-	max-height: 30px;
-	border: none;
-	border-bottom: 2px solid transparent;
+    background-color: var(--tertiary);
+    color: var(--secondary);
+    padding: 5px 10px;
+    font-size: 13pt;
+    max-height: 30px;
+    border: none;
+    border-bottom: 2px solid transparent;
 }
 
 input[type="text"]:hover,
 input[type="text"]:focus,
 input[type="number"]:hover,
 input[type="number"]:focus {
-	border-bottom: 2px solid var(--highlight);
+    border-bottom: 2px solid var(--highlight);
 }
 
 :hover:invalid,
 :focus:invalid {
-	border-bottom: 2px solid red !important;
+    border-bottom: 2px solid red !important;
 }
 
 .confirm-reset > * {
-	margin: 2% 2% 2% 0;
+    margin: 2% 2% 2% 0;
 }
 
 .success,
 .failure {
-	padding: 10px 20px;
-	min-width: 15%;
-	font-size: 14pt;
+    padding: 10px 20px;
+    min-width: 15%;
+    font-size: 14pt;
 
-	position: fixed;
-	top: 2%;
-	right: 2%;
-	transition: none !important;
-	background: var(--tertiary);
+    position: fixed;
+    top: 2%;
+    right: 2%;
+    transition: none !important;
+    background: var(--tertiary);
 }
 
 .success {
-	border-right: 5px solid var(--highlight);
+    border-right: 5px solid var(--highlight);
 }
 
 .failure {
-	border-right: 5px solid red;
+    border-right: 5px solid red;
 }
 
 .hidden {
-	display: none;
-	animation: 300ms fadeIn linear;
+    display: none;
+    animation: 300ms fadeIn linear;
 }
 
 :invalid {
-	border-top: none !important;
-	border-left: none !important;
-	border-right: none !important;
-	border-bottom: 2px solid red;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 2px solid red;
 }
 
 @keyframes fadeIn {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 :disabled {
-	opacity: 0.7;
+    opacity: 0.7;
 }

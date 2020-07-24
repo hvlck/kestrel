@@ -1,71 +1,71 @@
 @media (prefers-color-scheme: dark) {
-	#kestrel-mini-map {
-		--primary: #212121;
-		--secondary: #fafafa;
-	}
+    #kestrel-mini-map {
+        --primary: #212121;
+        --secondary: #fafafa;
+    }
 }
 
 #kestrel-mini-map {
-	--highlight: #16c581;
-	--primary: #fafafa;
-	--secondary: #212121;
+    --highlight: #16c581;
+    --primary: #fafafa;
+    --secondary: #212121;
 }
 
 #kestrel-mini-map,
 #kestrel-mini-map > * {
-	animation: none !important;
-	transition: none !important;
+    animation: none !important;
+    transition: none !important;
 }
 
 #kestrel-mini-map {
-	z-index: 99999999999;
-	display: none;
-	border: 1px solid var(--highlight); /* colour should be primary */
-	width: 10vw;
-	height: auto;
-	max-height: 95vh;
+    z-index: 99999999999;
+    display: none;
+    border: 1px solid var(--highlight); /* colour should be primary */
+    width: 10vw;
+    height: auto;
+    max-height: 95vh;
 
-	position: fixed;
-	right: 3%;
-	top: 2%;
+    position: fixed;
+    right: 3%;
+    top: 2%;
 
-	opacity: 0.7;
-	background: transparent -moz-element(#kestrel-mini-map-container) no-repeat center /
-		contain;
+    opacity: 0.7;
+    background: transparent -moz-element(#kestrel-mini-map-container) no-repeat center /
+        contain;
 }
 
 #kestrel-mini-map:hover {
-	opacity: 1;
+    opacity: 1;
 }
 
 #kestrel-mini-map-slider {
-	max-width: 95vh;
-	height: 10vw;
-	margin: 0;
-	padding: 0;
+    max-width: 95vh;
+    height: 10vw;
+    margin: 0;
+    padding: 0;
 
-	border-radius: 0;
-	background: transparent;
-	cursor: pointer;
-	opacity: 0.7;
+    border-radius: 0;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0.7;
 
-	transform: translate(0, -100%) rotate(90deg);
-	transform-origin: bottom left;
+    transform: translate(0, -100%) rotate(90deg);
+    transform-origin: bottom left;
 }
 
 #kestrel-mini-map-slider::-moz-range-track {
-	background: transparent;
+    background: transparent;
 }
 
 #kestrel-mini-map-slider::-moz-range-thumb {
-	width: 30px;
-	height: 10vw;
-	cursor: pointer;
-	background-color: var(--highlight);
-	border-radius: 0;
-	border: none;
+    width: 30px;
+    height: 10vw;
+    cursor: pointer;
+    background-color: var(--highlight);
+    border-radius: 0;
+    border: none;
 }
 
 #kestrel-mini-map-slider:hover {
-	opacity: 1;
+    opacity: 1;
 }

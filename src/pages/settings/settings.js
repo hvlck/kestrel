@@ -30,52 +30,45 @@ const settings = [
         name: "Meta",
         description: "Meta settings for Kestrel",
         type: "divider",
-        rule: false
+        rule: false,
     },
     {
         name: "Theme",
         description: "Set the theme Kestrel uses.",
         type: "select",
-        options: [
-            "Dark",
-            "Light",
-            "Operating System Default"
-        ],
-        default: browser.storage.local.get('theme')
+        options: ["Dark", "Light", "Operating System Default"],
+        default: browser.storage.local.get("theme"),
     },
     {
         name: "Commands",
-        description: "Settings for the commands that are shown within the command palette",
-        type: "divider"
+        description:
+            "Settings for the commands that are shown within the command palette",
+        type: "divider",
     },
     {
         name: "Commands",
         description: "Select commands that you want to use.",
         type: "toggle",
-        options: browser.storage.local.get('commands'),
-        headers: [
-            "Name",
-            "On/Off"
-        ]
+        options: browser.storage.local.get("commands"),
+        headers: ["Name", "On/Off"],
     },
     {
         name: "Background Tasks",
-        description: "Settings for background tasks that are run automatically once a page loads.",
-        type: "divider"
+        description:
+            "Settings for background tasks that are run automatically once a page loads.",
+        type: "divider",
     },
     {
         name: "Background",
         description: "Select background tasks that you want to use.",
         type: "toggle",
-        options: browser.storage.local.get('automatic'),
-        headers: [
-            "Name",
-            "On/Off"
-        ]
+        options: browser.storage.local.get("automatic"),
+        headers: ["Name", "On/Off"],
     },
     {
         name: "Loader Bar Colour",
-        description: "Customise the loader bar's colour.  Note: this may not work on all websites.  See the Reference for more.",
+        description:
+            "Customise the loader bar's colour.  Note: this may not work on all websites.  See the Reference for more.",
         type: "text",
 
         dependsOnKey: "automatic",
@@ -86,16 +79,18 @@ const settings = [
         placeholder: "#",
 
         matches: "^#\\S{6}",
-        matchDescription: "Enter a valid <a href='https://en.wikipedia.org/wiki/Web_colors'>HEX</a> colour code, consisting of 6 characters and starting with a '#.'  If you need assistance choosing a colour, <a href='https://github.com/EthanJustice/uls#design'>this</a> is a list of websites that can help.",
+        matchDescription:
+            "Enter a valid <a href='https://en.wikipedia.org/wiki/Web_colors'>HEX</a> colour code, consisting of 6 characters and starting with a '#.'  If you need assistance choosing a colour, <a href='https://github.com/EthanJustice/uls#design'>this</a> is a list of websites that can help.",
         min: 7,
         max: 7,
 
         default: "#16c581",
-        callback: "setColour"
+        callback: "setColour",
     },
     {
         name: "Loader Bar Height",
-        description: "Customise the loader bar's height.  Note: this may not work on all websites.  See the Reference for more.",
+        description:
+            "Customise the loader bar's height.  Note: this may not work on all websites.  See the Reference for more.",
         type: "number",
 
         dependsOnKey: "automatic",
@@ -108,13 +103,15 @@ const settings = [
         min: 1,
         max: 20,
 
-        matchDescription: "Enter a length (in pixels) between 1 and 20.  The unit is not needed, so just a number will suffice.",
+        matchDescription:
+            "Enter a length (in pixels) between 1 and 20.  The unit is not needed, so just a number will suffice.",
 
-        default: "2"
+        default: "2",
     },
     {
         name: "Loader Bar Persistence",
-        description: "Decides whether the loader is removed from view after it's finished.  If it is checked, it will stay; if not, it will be removed.  Note: this may not work on all websites.  See the Reference for more.",
+        description:
+            "Decides whether the loader is removed from view after it's finished.  If it is checked, it will stay; if not, it will be removed.  Note: this may not work on all websites.  See the Reference for more.",
         type: "single-toggle",
 
         dependsOnKey: "automatic",
@@ -122,7 +119,7 @@ const settings = [
         keyName: "persist",
         setting: "automaticsettings",
 
-        default: false
+        default: false,
     },
     {
         name: "Minimap Colour",
@@ -137,17 +134,18 @@ const settings = [
         placeholder: "#",
 
         matches: "^#\\S{6}",
-        matchDescription: "Enter a valid <a href='https://en.wikipedia.org/wiki/Web_colors'>HEX</a> colour code, consisting of 6 characters and starting with a '#.'  If you need assistance choosing a colour, <a href='https://github.com/EthanJustice/uls#design'>this</a> is a list of websites that can help.",
+        matchDescription:
+            "Enter a valid <a href='https://en.wikipedia.org/wiki/Web_colors'>HEX</a> colour code, consisting of 6 characters and starting with a '#.'  If you need assistance choosing a colour, <a href='https://github.com/EthanJustice/uls#design'>this</a> is a list of websites that can help.",
         min: 7,
         max: 7,
 
         default: "#16c581",
-        callback: "setColour"
+        callback: "setColour",
     },
     {
         name: "Reset settings",
         description: "Reset all settings to default",
         type: "special",
-        fn: "reset"
-    }
-]
+        fn: "reset",
+    },
+];
