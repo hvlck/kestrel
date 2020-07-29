@@ -8,9 +8,14 @@ There's not much implemented right now, and what is is somewhat simplistic.  Mor
 
 The extension hasn't been submitted to FireFox addons just yet, but once some of the markers in the roadmap are hit and a lot more commands/features are added, it will be.  Stability also needs to be improved before I'll submit it.
 
-## How Permissions are Used
+## Table of Contents
 
-See [Features](#features).
++ [Features](#features)
++ [FAQ](#faq)
++ [Usage](#usage)
++ [Roadmap](#roadmap)
++ [Docs](#docs)
++ [License](#license)
 
 ## Features
 
@@ -24,6 +29,18 @@ See [Features](#features).
 + Toggle animations [none]
 + Edit page [none] {in-progress}
 + Mini-map [none] {in-progress}
+
+## FAQ
+
+### How Are Permissions Used
+
+The [features](#features) section lists the permissions that each feature uses.
+
+TODO: General overview of how permissions are used
+
+### How Do I Change Kestrel's Default Activation Command
+
+See [this article](https://support.mozilla.org/en-US/kb/manage-extension-shortcuts-firefox) from FireFox.
 
 ## Usage
 
@@ -40,13 +57,14 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 ## Roadmap
 
-+ Performance Testing with *about:performance* [meta]
++ Performance Testing with **about:performance** [meta]
++ Better docs (diagrams, etc.) [meta]
 
-## High
+### High
 
 + Security [bug] {in-progress}
 
-## Medium
+### Medium
 
 + Refactoring [meta]
 + Better onboarding/user-friendly docs [meta] {in-progress}
@@ -56,13 +74,15 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Customisation of highlight colour [feature]
 + Better mini-map styling [bug]
 
-## Low
+### Low
 
 + ~~Explanation of settings for each item in the Reference [feature/meta]~~
-+ User-set activation/close command [feature]
 + Fix injection styling inconsistencies [bug] {in-progress}
 + Dev stats [feature]
 
+### Abandoned/Ultra-Low Priority
+
++ ~~User-set activation/close command [feature]~~ [abandoned - see [](https://github.com/EthanJustice/kestrel/)]
 + Dynamic permission requests [feature] (see [here](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions) for all permissions that can be requested dynamically - of these, only a few are not needed automatically)
 
 ### Completed
