@@ -6,6 +6,7 @@
     --tertiary: #e1e1e1;
 
     --primary-font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    --secondary-font: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -85,8 +86,7 @@ h4,
 h5,
 h6 {
     font-weight: lighter;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-        "Lucida Sans", Arial, sans-serif;
+    font-family: var(--secondary-font);
 }
 
 hr {
@@ -113,6 +113,11 @@ select > * {
     background-color: var(--primary);
     color: var(--secondary);
     border: 2px solid var(--tertiary);
+}
+
+select:focus, select:hover {
+    outline: none;
+    border: 2px solid var(--highlight);
 }
 
 table {
@@ -230,12 +235,14 @@ input[type="number"]:focus {
 .failure {
     padding: 10px 20px;
     min-width: 15%;
-    font-size: 14pt;
+    font-size: 12pt;
+    font-family: var(--secondary-font);
 
     position: fixed;
     top: 2%;
     right: 2%;
     transition: none !important;
+    animation: none;
     background: var(--tertiary);
 }
 
@@ -253,10 +260,12 @@ input[type="number"]:focus {
 }
 
 :invalid {
-    border-top: none !important;
-    border-left: none !important;
-    border-right: none !important;
+    border: none;
     border-bottom: 2px solid red;
+}
+
+:focus {
+    outline: none;
 }
 
 @keyframes fadeIn {

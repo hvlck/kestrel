@@ -218,7 +218,7 @@ browser.runtime.onConnect.addListener(port => {
         sendMessage({ kestrel: "connection-success" });
     }
     if (port.name === "kestrel") {
-        port.onMessage.addListener(msg => {});
+        port.onMessage.addListener(msg => { });
     }
 
     contentPort.onDisconnect.addListener(msg => {
@@ -232,7 +232,7 @@ browser.runtime.onConnect.addListener(port => {
 
 // executes functions that require background script apis
 browser.runtime.onMessage.addListener((msg, sender, response) => {
-    if (sender.extensionId.startsWith(browser.runtime.id) !== true) {
+    if (sender.id.startsWith(browser.runtime.id) !== true) {
         return;
     }
     if (msg.fn == "openSettings") {
