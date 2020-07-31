@@ -1,0 +1,129 @@
+select,
+select > * {
+    padding: 5px;
+    font-size: 12pt;
+    background-color: var(--primary);
+    color: var(--secondary);
+    border: 2px solid var(--tertiary);
+}
+
+select:focus, select:hover {
+    outline: none;
+    border: 2px solid var(--highlight);
+}
+
+td,
+.checkbox-parent > * {
+    padding: 0px 10px;
+}
+
+td > *,
+.checkbox-parent > * {
+    margin: 0.2% 0;
+    padding: 10px;
+    font-size: 14pt;
+}
+
+* > input[type="checkbox"] {
+    width: 2px;
+    height: 2px;
+    position: relative;
+    background-color: var(--tertiary);
+    box-sizing: content-box;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+* > input[type="checkbox"]:checked {
+    background-color: var(--highlight);
+}
+
+* > input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    transform: translate(25%, -10%);
+}
+
+input {
+    font-family: var(--primary-font);
+}
+
+input[type="reset"],
+input[type="button"] {
+    background-color: var(--tertiary);
+    color: var(--secondary);
+    padding: 5px 10px;
+    font-size: 12pt;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="reset"]:hover,
+input[type="reset"]:focus,
+input[type="button"]:hover,
+input[type="button"]:focus {
+    background-color: var(--highlight);
+}
+
+input[type="text"],
+input[type="number"] {
+    background-color: var(--tertiary);
+    color: var(--secondary);
+    padding: 5px 10px;
+    font-size: 13pt;
+    max-height: 30px;
+    border: none;
+    border-bottom: 2px solid transparent;
+}
+
+input[type="text"]:hover,
+input[type="text"]:focus,
+input[type="number"]:hover,
+input[type="number"]:focus {
+    border-bottom: 2px solid var(--highlight);
+}
+
+:hover:invalid,
+:focus:invalid {
+    border-bottom: 2px solid red !important;
+}
+
+.confirm-reset > * {
+    margin: 2% 2% 2% 0;
+}
+
+.success,
+.failure {
+    padding: 10px 20px;
+    min-width: 15%;
+    font-size: 12pt;
+    font-family: var(--secondary-font);
+
+    position: fixed;
+    top: 2%;
+    right: 2%;
+    transition: none !important;
+    animation: none;
+    background: var(--tertiary);
+}
+
+.success {
+    border-right: 5px solid var(--highlight);
+}
+
+.failure {
+    border-right: 5px solid red;
+}
+
+.hidden {
+    display: none;
+    animation: 300ms fadeIn linear;
+}
+
+:invalid {
+    border: none;
+    border-bottom: 2px solid red;
+}

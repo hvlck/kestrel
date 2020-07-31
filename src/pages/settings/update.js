@@ -24,9 +24,7 @@
 })();
 
 // nav bar
-const nav = buildElement("div", "", {
-    className: "nav",
-});
+const nav = buildElement("nav");
 
 // prevent content flashing
 document.body.querySelector(".hidden").appendChild(nav);
@@ -56,10 +54,10 @@ const build = () => {
                 id: `${
                     item.type == "divider"
                         ? item.name
-                              .replace(new RegExp(" ", "g"), "-")
-                              .toLowerCase()
+                            .replace(new RegExp(" ", "g"), "-")
+                            .toLowerCase()
                         : ""
-                }`,
+                    }`,
             }
         );
 
