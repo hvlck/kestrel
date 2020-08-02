@@ -107,8 +107,6 @@ I also have a list of other features I'm working on that I'll port over when I c
 
 File structure
 
-TODO: update
-
 ```plaintext
 readme.md - meta information
 license - MIT
@@ -119,9 +117,9 @@ license - MIT
         manifest.json - WebExtension manifest
         /background - background scripts
             main.js - primary background script, controls injection logic
+            scriptApi.js - userscript API
         /cs - content scripts
             /automatic - automatic content scripts, injected at page load
-            auto.js - things that run automatically
             kestrel.js - logic for commands
             ui.css - styling for command palette
             ui.js - logic for command palette
@@ -130,14 +128,18 @@ license - MIT
             /minimap - injection files for minimap command
         /libs - libraries and files used across multiple folders
             commands.js - list of commands, aliases, and callbacks
+            index.css - base stylesheet for all pages
             taita.js - command palette logic processor
             utils.js - utility
+            /themes - various themes
         /pages
             /settings - extension settings page
                 index.html - settings page
+                settings.css - form styling, some stlying specific to /settings
+                settings.js - object with settings, descriptions, etc.
                 update.js - settings page logic
             /media - images
-            /fresh - kestrel guide
+            /guide - kestrel guide
             /reference - kestrel reference
         /themes - reusable themes
             dark.css - dark theme variables
