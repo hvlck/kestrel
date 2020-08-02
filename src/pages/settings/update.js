@@ -477,7 +477,9 @@ function setColour(item) {
 
 // updates all automatic functions, in memory and storage
 const updateAutomaticFunctions = () => {
+    let name;
     document.querySelectorAll("input[data-background]").forEach(item => {
+        name = item.dataset.background;
         automaticCommandsList[name] = item.checked;
     });
 

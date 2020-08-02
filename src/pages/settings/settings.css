@@ -96,6 +96,11 @@ input[type="number"]:focus {
     margin: 2% 2% 2% 0;
 }
 
+.confirm-reset input[value="Confirm"]:hover,
+.confirm-reset input[value="Confirm"]:focus {
+    background: crimson;
+}
+
 .success,
 .failure {
     padding: 10px 20px;
