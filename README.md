@@ -107,6 +107,8 @@ I also have a list of other features I'm working on that I'll port over when I c
 
 File structure
 
+TODO: update
+
 ```plaintext
 readme.md - meta information
 license - MIT
@@ -132,7 +134,6 @@ license - MIT
             utils.js - utility
         /pages
             /settings - extension settings page
-                index.css - settings page styling
                 index.html - settings page
                 update.js - settings page logic
             /media - images

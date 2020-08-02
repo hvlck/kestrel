@@ -6,7 +6,8 @@
     --tertiary: #e1e1e1;
 
     --primary-font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    --secondary-font: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+    --secondary-font: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,7 +26,7 @@ body {
     --primary-transition: linear;
 
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 900px;
     padding: 10px;
     background: var(--primary);
     color: var(--secondary);
