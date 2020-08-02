@@ -7,7 +7,8 @@ select > * {
     border: 2px solid var(--tertiary);
 }
 
-select:focus, select:hover {
+select:focus,
+select:hover {
     outline: none;
     border: 2px solid var(--highlight);
 }

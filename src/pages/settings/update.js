@@ -54,10 +54,10 @@ const build = () => {
                 id: `${
                     item.type == "divider"
                         ? item.name
-                            .replace(new RegExp(" ", "g"), "-")
-                            .toLowerCase()
+                              .replace(new RegExp(" ", "g"), "-")
+                              .toLowerCase()
                         : ""
-                    }`,
+                }`,
             }
         );
 
@@ -477,13 +477,11 @@ function setColour(item) {
 
 // updates all automatic functions, in memory and storage
 const updateAutomaticFunctions = () => {
-    let name;
     document.querySelectorAll("input[data-background]").forEach(item => {
-        name = item.dataset.background;
         automaticCommandsList[name] = item.checked;
     });
 
-    updateSettings("automatic", automaticCommandsList, name);
+    updateSettings("automatic", automaticCommandsList, `automatic settings`);
     browser.runtime.sendMessage({
         settings: "update-settings",
     });

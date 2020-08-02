@@ -60,6 +60,10 @@ body > *:not(.kestrel) {
     z-index: 99999;
 }
 
+.kestrel:focus {
+    outline: none;
+}
+
 .kestrel > * {
     transition: none !important;
     animation: none !important;
