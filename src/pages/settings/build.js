@@ -216,47 +216,8 @@ const build = () => {
                     .replace(new RegExp(" ", "g"), "-")}`,
             });
 
-            inp.addEventListener("change", function (event) {
-                this.files[0]
-                    .text()
-                    .then(data => {
-                        browser.storage.local
-                            .clear()
-                            .then(() => {
-                                browser.runtime
-                                    .sendMessage({ settings: "unregister-all" })
-                                    .then(() => {
-                                        browser.storage.local
-                                            .set(JSON.parse(data))
-                                            .then(() => {
-                                                history.replaceState(
-                                                    "",
-                                                    "Kestrel | Settings",
-                                                    `${window.location.href}#reset`
-                                                );
-                                                window.location.reload();
-                                            })
-                                            .catch(err => {
-                                                console.error(err);
-                                                failure(
-                                                    `Failed to upload config.`
-                                                );
-                                            });
-                                    })
-                                    .catch(err => {
-                                        console.error(err);
-                                        failure(`Failed to upload config.`);
-                                    });
-                            })
-                            .catch(err => {
-                                console.error(err);
-                                failure(`Failed to upload config.`);
-                            });
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        failure(`Failed to upload config.`);
-                    });
+            inp.addEventListener("change", function () {
+                window[item.fn](this);
             });
 
             div.appendChild(label);
