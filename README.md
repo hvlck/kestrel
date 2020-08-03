@@ -70,13 +70,12 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Better onboarding/user-friendly docs [meta] {in-progress}
 + Homepage [meta] {in-progress}
 + Changelog notification [feature]
-+ Config exporter [feature]
 + Customisation of highlight colour [feature]
 + Better mini-map styling [bug]
 
 ### Low
 
-+ ~~Explanation of settings for each item in the Reference [feature/meta]~~
++ Decouple html generation in settings from update script [meta]
 + Fix injection styling inconsistencies [bug] {in-progress}
 + Dev stats [feature]
 
@@ -87,6 +86,8 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 ### Completed
 
++ ~~Explanation of settings for each item in the Reference [feature/meta]~~
++ ~~Config exporter [feature]~~
 + ~~Mini-map customisation~~
 + ~~Switch background injects to userScript API~~
 + ~~Disable links when `design mode` command is active~~ [bug]

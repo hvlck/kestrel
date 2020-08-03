@@ -1,3 +1,7 @@
+:target {
+    color: var(--highlight);
+}
+
 select,
 select > * {
     padding: 5px;

@@ -156,6 +156,11 @@ const settings = [
         callback: "setColour",
     },
     {
+        name: "Danger Zone",
+        description: "Exercise caution here.",
+        type: "divider",
+    },
+    {
         name: "Reset settings",
         description: "Reset all settings to default",
         type: "special",

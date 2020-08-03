@@ -7,7 +7,7 @@
                 initStorage().then(() =>
                     window.location.assign("../guide/index.html")
                 );
-            } else if (window.location.hash) {
+            } else if (window.location.hash == "reset") {
                 history.replaceState(
                     "",
                     "Kestrel | Settings",
