@@ -441,6 +441,22 @@ function resetAll() {
     });
 }
 
+function downloadConfig() {
+    browser.storage.local.get(null).then(data => {
+        let link = buildElement("a", "", {
+            className: "hidden",
+            href: `data:octet/stream;charset=utf-8,${encodeURIComponent(
+                JSON.stringify(data)
+            )}`,
+            download: `kestrel` + `.json`,
+        });
+
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+    });
+}
+
 // updates all commands in storage, based on all configurable settings
 const updateCommands = () => {
     let name;

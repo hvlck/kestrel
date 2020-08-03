@@ -24,6 +24,7 @@ general (required)
         special - special cases
     default - default values
     options - available options
+    
 */
 const settings = [
     {
@@ -38,6 +39,12 @@ const settings = [
         type: "select",
         options: ["Dark", "Light", "Operating System Default"],
         default: browser.storage.local.get("theme"),
+    },
+    {
+        name: "Download Config",
+        description: "Download your Kestrel configuration",
+        type: "special",
+        fn: "downloadConfig",
     },
     {
         name: "Commands",
