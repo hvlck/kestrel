@@ -236,10 +236,13 @@ function downloadConfig() {
     });
 }
 
+let required = ["automatic", "automaticsettings", "commands"];
 function uploadConfig(data) {
     data.files[0]
         .text()
         .then(data => {
+            data = JSON.parse(data);
+            if (required.some(item => !data[item] || Object.keys(data[item]).length == 0) == true) return;
             browser.storage.local
                 .clear()
                 .then(() => {
@@ -249,7 +252,7 @@ function uploadConfig(data) {
                         })
                         .then(() => {
                             browser.storage.local
-                                .set(JSON.parse(data))
+                                .set(data)
                                 .then(() => {
                                     history.replaceState(
                                         "",
