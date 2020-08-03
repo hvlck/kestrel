@@ -69,7 +69,6 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Refactoring [meta]
 + Better onboarding/user-friendly docs [meta] {in-progress}
 + Homepage [meta] {in-progress}
-+ Changelog notification [feature]
 + Customisation of highlight colour [feature]
 + Better mini-map styling [bug]
 
@@ -84,6 +83,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 ### Completed
 
++ ~~Changelog notification [feature]~~
 + ~~Decouple html generation in settings from update script [meta]~~
 + ~~Explanation of settings for each item in the Reference [feature/meta]~~
 + ~~Config exporter [feature]~~

@@ -262,6 +262,8 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
         });
 
         registeredScripts = {};
+    } else if (msg.settings == "get-manifest") {
+        return new Promise(resolve => resolve(browser.runtime.getManifest()));
     }
 });
 
