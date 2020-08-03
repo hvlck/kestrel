@@ -76,7 +76,6 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 ### Low
 
 + Fix injection styling inconsistencies [bug] {in-progress}
-+ Dev stats [feature]
 
 ### Abandoned/Ultra-Low Priority
 

@@ -1,3 +1,5 @@
+/* injection styling for the minimap command and background task */
+
 @media (prefers-color-scheme: dark) {
     #kestrel-mini-map {
         --primary: #212121;

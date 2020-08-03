@@ -1,3 +1,5 @@
+// generates html for settings
+
 // nav bar
 const nav = buildElement("nav");
 
@@ -29,10 +31,10 @@ const build = () => {
                 id: `${
                     item.type == "divider"
                         ? item.name
-                              .replace(new RegExp(" ", "g"), "-")
-                              .toLowerCase()
+                            .replace(new RegExp(" ", "g"), "-")
+                            .toLowerCase()
                         : ""
-                }`,
+                    }`,
             }
         );
 

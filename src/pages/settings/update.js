@@ -1,3 +1,5 @@
+// handles updating storage, some visual (confirm/fail) notifcations, etc.
+
 // checks if this is a fresh install, acts if it is
 (function () {
     browser.storage.local

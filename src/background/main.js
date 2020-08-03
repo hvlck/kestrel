@@ -74,6 +74,7 @@ browser.commands.onCommand.addListener(command => {
     });
 });
 
+// updates all active userscripts from user settings (browser.storage api)
 function updateUserScripts() {
     updateSettings().then(() => {
         Object.entries(settings.automatic).forEach(item => {
@@ -186,6 +187,7 @@ const removePalette = sheet => {
     }
 };
 
+// gets all settings, fills in defaults
 function updateSettings() {
     return browser.storage.local
         .get(null)

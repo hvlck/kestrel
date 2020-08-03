@@ -1,3 +1,4 @@
+// defines an api for interacting with webextension APIs from userscripts
 browser.userScripts.onBeforeScript.addListener(script => {
     script.defineGlobals({
         async GM_getSettings() {

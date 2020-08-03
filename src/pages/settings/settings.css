@@ -1,6 +1,7 @@
 * {
     animation: none;
 }
+
 :target {
     color: var(--highlight);
 }

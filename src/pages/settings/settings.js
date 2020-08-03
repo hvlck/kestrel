@@ -236,7 +236,9 @@ function downloadConfig() {
     });
 }
 
+// required keys that the config uploaded must have
 let required = ["automatic", "automaticsettings", "commands"];
+// validates an uploaded config, and then sets it as the settings
 function uploadConfig(data) {
     data.files[0]
         .text()
@@ -282,6 +284,7 @@ function uploadConfig(data) {
         });
 }
 
+// sets swatches next to inputs that involve colour to their specified colour
 function setColour(item) {
     let previous = document.querySelector(
         `span[id="${item.dataset.automaticSetting}-colour-swatch"]`
