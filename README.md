@@ -75,7 +75,6 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 ### Low
 
-+ Decouple html generation in settings from update script [meta]
 + Fix injection styling inconsistencies [bug] {in-progress}
 + Dev stats [feature]
 
@@ -86,6 +85,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 ### Completed
 
++ ~~Decouple html generation in settings from update script [meta]~~
 + ~~Explanation of settings for each item in the Reference [feature/meta]~~
 + ~~Config exporter [feature]~~
 + ~~Mini-map customisation~~

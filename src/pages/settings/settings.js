@@ -167,3 +167,96 @@ const settings = [
         fn: "reset",
     },
 ];
+
+// Special functions
+
+// generates storage reset confirmation
+function reset() {
+    document
+        .querySelector(`input[value="Reset settings"]`)
+        .setAttribute("disabled", "true");
+
+    let container = buildElement("nav", "", { className: "confirm-reset" });
+
+    let confirmBtn = buildElement("input", "", {
+        type: "button",
+        value: "Confirm",
+    });
+
+    confirmBtn.addEventListener("click", () => resetAll());
+
+    let cancelBtn = buildElement("input", "", {
+        type: "button",
+        value: "Cancel",
+    });
+
+    cancelBtn.addEventListener("click", () => {
+        container.remove();
+        document
+            .querySelector(`input[value="Reset settings"]`)
+            .removeAttribute("disabled");
+    });
+
+    container.appendChild(cancelBtn);
+    container.appendChild(confirmBtn);
+
+    document
+        .querySelector(`input[value="Reset settings"]`)
+        .parentElement.appendChild(container);
+}
+
+// resets all storage, and initializes it again with default values
+function resetAll() {
+    browser.storage.local.clear().then(() => {
+        browser.runtime.sendMessage({ settings: "unregister-all" }).then(() => {
+            history.replaceState(
+                "",
+                "Kestrel | Settings",
+                `${window.location.href}#reset`
+            );
+            window.location.reload();
+        });
+    });
+}
+
+// download kestrel config as a .json file
+function downloadConfig() {
+    browser.storage.local.get(null).then(data => {
+        let link = buildElement("a", "", {
+            className: "hidden",
+            href: `data:octet/stream;charset=utf-8,${encodeURIComponent(
+                JSON.stringify(data)
+            )}`,
+            download: `kestrel` + `.json`,
+        });
+
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+    });
+}
+
+function uploadConfig() {}
+
+function setColour(item) {
+    let previous = document.querySelector(
+        `span[id="${item.dataset.automaticSetting}-colour-swatch"]`
+    );
+    if (previous) {
+        previous.remove();
+    }
+    let preview = buildElement("span", "", {
+        style: `
+			background: ${item.value};
+			content: '';
+			padding: 5px 10px;
+			font-size: 13pt;
+			border-bottom: 2px solid ${item.value};
+			height: 30px;
+			margin: 0 0.5%;
+		`,
+        id: `${item.dataset.automaticSetting}-colour-swatch`,
+    });
+
+    item.insertAdjacentElement("afterend", preview);
+}
