@@ -89,11 +89,6 @@ const callbacks = {
                                 browser.storage.local
                                     .set(data)
                                     .then(() => {
-                                        history.replaceState(
-                                            "",
-                                            "Kestrel | Settings",
-                                            `${window.location.href}#reset`
-                                        );
                                         window.location.reload();
                                     })
                                     .catch(err => {
