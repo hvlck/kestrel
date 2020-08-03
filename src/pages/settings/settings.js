@@ -41,10 +41,16 @@ const settings = [
         default: browser.storage.local.get("theme"),
     },
     {
-        name: "Download Config",
-        description: "Download your Kestrel configuration",
+        name: "Export Config",
+        description: "Export your Kestrel configuration",
         type: "special",
         fn: "downloadConfig",
+    },
+    {
+        name: "Import Config",
+        description: "Import a Kestrel configuration",
+        type: "file",
+        fn: "uploadConfig",
     },
     {
         name: "Commands",

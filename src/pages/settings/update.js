@@ -166,7 +166,7 @@ const build = () => {
             // various special resets/buttons
             let btn = buildElement("input", "", {
                 type: "reset",
-                value: "Reset settings",
+                value: item.name,
             });
 
             btn.addEventListener("click", () => window[item.fn]());
@@ -223,6 +223,69 @@ const build = () => {
             let matchDescElem = buildElement("p");
             matchDescElem.innerHTML = item.matchDescription;
             div.appendChild(matchDescElem);
+        } else if (item.type == "file" && item.fn) {
+            let label = buildElement("label", item.name, {
+                className: "file-label",
+            });
+            label.setAttribute(
+                "for",
+                `file-${item.name
+                    .toLowerCase()
+                    .replace(new RegExp(" ", "g"), "-")}`
+            );
+
+            let inp = buildElement("input", "", {
+                type: "file",
+                id: `file-${item.name
+                    .toLowerCase()
+                    .replace(new RegExp(" ", "g"), "-")}`,
+            });
+
+            inp.addEventListener("change", function (event) {
+                this.files[0]
+                    .text()
+                    .then(data => {
+                        browser.storage.local
+                            .clear()
+                            .then(() => {
+                                browser.runtime
+                                    .sendMessage({ settings: "unregister-all" })
+                                    .then(() => {
+                                        browser.storage.local
+                                            .set(JSON.parse(data))
+                                            .then(() => {
+                                                history.replaceState(
+                                                    "",
+                                                    "Kestrel | Settings",
+                                                    `${window.location.href}#reset`
+                                                );
+                                                window.location.reload();
+                                            })
+                                            .catch(err => {
+                                                console.error(err);
+                                                failure(
+                                                    `Failed to upload config.`
+                                                );
+                                            });
+                                    })
+                                    .catch(err => {
+                                        console.error(err);
+                                        failure(`Failed to upload config.`);
+                                    });
+                            })
+                            .catch(err => {
+                                console.error(err);
+                                failure(`Failed to upload config.`);
+                            });
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        failure(`Failed to upload config.`);
+                    });
+            });
+
+            div.appendChild(label);
+            div.appendChild(inp);
         }
 
         main.appendChild(div);
@@ -441,6 +504,7 @@ function resetAll() {
     });
 }
 
+// download kestrel config as a .json file
 function downloadConfig() {
     browser.storage.local.get(null).then(data => {
         let link = buildElement("a", "", {
@@ -456,6 +520,8 @@ function downloadConfig() {
         link.remove();
     });
 }
+
+function uploadConfig() {}
 
 // updates all commands in storage, based on all configurable settings
 const updateCommands = () => {
