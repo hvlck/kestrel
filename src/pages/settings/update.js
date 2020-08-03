@@ -1,3 +1,7 @@
+import buildElement from '../../libs/utils.js';
+import build from './build.js';
+import { toggleTheme } from './settings.js';
+
 // handles updating storage, some visual (confirm/fail) notifcations, etc.
 
 // checks if this is a fresh install, acts if it is
@@ -156,31 +160,4 @@ const initStorage = () => {
     return updateSettings("commands", commands);
 };
 
-// other
-
-// changes theme
-const toggleTheme = data => {
-    document
-        .querySelectorAll('link[class="custom-theme"]')
-        .forEach(item => item.remove());
-    data = data.replace(new RegExp(" ", "g"), "-").toLowerCase();
-    if (data != "operating-system-default") {
-        document.head.appendChild(
-            buildElement("link", "", {
-                href: `../../libs/themes/${data.toLowerCase()}.css`,
-                rel: "stylesheet",
-                type: "text/css",
-                className: "custom-theme",
-            })
-        );
-    } else if (document.querySelector(`link[href$="../../libs/themes"]`)) {
-        document.querySelector(`link[href$="../../libs/themes"]`).remove();
-    }
-};
-
-// descriptions of automatic functions
-const automaticDescriptions = {
-    loader: "Enable a loading bar.",
-    minimap: "Enable a minimap of a page.",
-    linksInSameTab: "Open all links in the same tab.",
-};
+export { updateAutomaticFunctions, updateAutomaticSettings, updateCommands, updateSettings }

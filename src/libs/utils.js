@@ -18,3 +18,5 @@ const buildElement = (type, text, attributes) => {
     }
     return element;
 };
+
+export default buildElement;

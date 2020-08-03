@@ -1,3 +1,5 @@
+import buildElement from '../../libs/utils.js';
+
 // available settings, converted into html
 /*  KEYS
 
@@ -168,142 +170,31 @@ const settings = [
     },
 ];
 
-// Special functions
-
-// generates storage reset confirmation
-function reset() {
+// changes theme
+const toggleTheme = data => {
     document
-        .querySelector(`input[value="Reset settings"]`)
-        .setAttribute("disabled", "true");
-
-    let container = buildElement("nav", "", { className: "confirm-reset" });
-
-    let confirmBtn = buildElement("input", "", {
-        type: "button",
-        value: "Confirm",
-    });
-
-    confirmBtn.addEventListener("click", () => resetAll());
-
-    let cancelBtn = buildElement("input", "", {
-        type: "button",
-        value: "Cancel",
-    });
-
-    cancelBtn.addEventListener("click", () => {
-        container.remove();
-        document
-            .querySelector(`input[value="Reset settings"]`)
-            .removeAttribute("disabled");
-    });
-
-    container.appendChild(cancelBtn);
-    container.appendChild(confirmBtn);
-
-    document
-        .querySelector(`input[value="Reset settings"]`)
-        .parentElement.appendChild(container);
-}
-
-// resets all storage, and initializes it again with default values
-function resetAll() {
-    browser.storage.local.clear().then(() => {
-        browser.runtime.sendMessage({ settings: "unregister-all" }).then(() => {
-            history.replaceState(
-                "",
-                "Kestrel | Settings",
-                `${window.location.href}#reset`
-            );
-            window.location.reload();
-        });
-    });
-}
-
-// download kestrel config as a .json file
-function downloadConfig() {
-    browser.storage.local.get(null).then(data => {
-        let link = buildElement("a", "", {
-            className: "hidden",
-            href: `data:octet/stream;charset=utf-8,${encodeURIComponent(
-                JSON.stringify(data)
-            )}`,
-            download: `kestrel` + `.json`,
-        });
-
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-    });
-}
-
-// required keys that the config uploaded must have
-let required = ["automatic", "automaticsettings", "commands"];
-// validates an uploaded config, and then sets it as the settings
-function uploadConfig(data) {
-    data.files[0]
-        .text()
-        .then(data => {
-            data = JSON.parse(data);
-            if (required.some(item => !data[item] || Object.keys(data[item]).length == 0) == true) return;
-            browser.storage.local
-                .clear()
-                .then(() => {
-                    browser.runtime
-                        .sendMessage({
-                            settings: "unregister-all",
-                        })
-                        .then(() => {
-                            browser.storage.local
-                                .set(data)
-                                .then(() => {
-                                    history.replaceState(
-                                        "",
-                                        "Kestrel | Settings",
-                                        `${window.location.href}#reset`
-                                    );
-                                    window.location.reload();
-                                })
-                                .catch(err => {
-                                    console.error(err);
-                                    failure(`Failed to upload config.`);
-                                });
-                        })
-                        .catch(err => {
-                            console.error(err);
-                            failure(`Failed to upload config.`);
-                        });
-                })
-                .catch(err => {
-                    console.error(err);
-                    failure(`Failed to upload config.`);
-                });
-        })
-        .catch(err => {
-            console.error(err);
-            failure(`Failed to upload config.`);
-        });
-}
-
-// sets swatches next to inputs that involve colour to their specified colour
-function setColour(item) {
-    let previous = document.querySelector(
-        `span[id="${item.dataset.automaticSetting}-colour-swatch"]`
-    );
-    if (previous) {
-        previous.remove();
+        .querySelectorAll('link[class="custom-theme"]')
+        .forEach(item => item.remove());
+    data = data.replace(new RegExp(" ", "g"), "-").toLowerCase();
+    if (data != "operating-system-default") {
+        document.head.appendChild(
+            buildElement("link", "", {
+                href: `../../libs/themes/${data.toLowerCase()}.css`,
+                rel: "stylesheet",
+                type: "text/css",
+                className: "custom-theme",
+            })
+        );
+    } else if (document.querySelector(`link[href$="../../libs/themes"]`)) {
+        document.querySelector(`link[href$="../../libs/themes"]`).remove();
     }
-    let preview = buildElement("span", "", {
-        style: `
-			background: ${item.value};
-			content: '';
-			padding: 5px 10px;
-			font-size: 13pt;
-			border-bottom: 2px solid ${item.value};
-			height: 30px;
-			margin: 0 0.5%;
-		`,
-        id: `${item.dataset.automaticSetting}-colour-swatch`,
-    });
+};
 
-    item.insertAdjacentElement("afterend", preview);
-}
+// descriptions of automatic functions
+const automaticDescriptions = {
+    loader: "Enable a loading bar.",
+    minimap: "Enable a minimap of a page.",
+    linksInSameTab: "Open all links in the same tab.",
+};
+
+export { settings, toggleTheme, automaticDescriptions };

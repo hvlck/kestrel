@@ -1,3 +1,8 @@
+import buildElement from '../../libs/utils.js';
+import { settings, toggleTheme, automaticDescriptions } from './settings.js';
+import callbacks from './callbacks.js'
+import { updateAutomaticFunctions, updateAutomaticSettings, updateCommands, updateSettings } from './update.js';
+
 // generates html for settings
 
 // nav bar
@@ -8,10 +13,6 @@ document.body.querySelector(".hidden").appendChild(nav);
 
 // generates settings html
 const build = () => {
-    browser.runtime.sendMessage({
-        settings: "update-settings",
-    });
-
     const main = buildElement("div", "", {
         className: "main",
     });
@@ -146,7 +147,7 @@ const build = () => {
                 value: item.name,
             });
 
-            btn.addEventListener("click", () => window[item.fn]());
+            btn.addEventListener("click", () => callbacks[item.fn]());
 
             div.appendChild(btn);
         } else if (item.type == "text" || item.type == "number") {
@@ -168,7 +169,7 @@ const build = () => {
                 text.value =
                     data[item.setting][item.dependsOn][item.keyName] ||
                     item.default;
-                item.callback ? window[item.callback](text) : "";
+                item.callback ? callbacks[item.callback](text) : "";
             });
 
             browser.storage.local.get(item.dependsOnKey).then(data => {
@@ -180,7 +181,7 @@ const build = () => {
                     if (new RegExp(item.matches).test(text.value)) {
                         if (text.value <= item.max && text.value >= item.min) {
                             updateAutomaticSettings();
-                            item.callback ? window[item.callback](text) : "";
+                            item.callback ? callbacks[item.callback](text) : "";
                         }
                     }
                 } else {
@@ -190,7 +191,7 @@ const build = () => {
                             text.value.length >= item.min
                         ) {
                             updateAutomaticSettings();
-                            item.callback ? window[item.callback](text) : "";
+                            item.callback ? callbacks[item.callback](text) : "";
                         }
                     }
                 }
@@ -219,7 +220,7 @@ const build = () => {
             });
 
             inp.addEventListener("change", function () {
-                window[item.fn](this);
+                callbacks[item.fn](this);
             });
 
             div.appendChild(label);
@@ -330,3 +331,5 @@ function buildToggleHtml(iter, container, original, ref) {
         container.appendChild(row);
     });
 }
+
+export default build;
