@@ -410,8 +410,10 @@ class Taita {
         // Developer mode erorr reporting
         console.error(
             `Taita error${this.options.items.dev ? `: ${msg}` : "."}${
-                error ? `  Error: ${error}` : ""
+            error ? `  Error: ${error}` : ""
             }`
         );
     }
 }
+
+export default Taita;

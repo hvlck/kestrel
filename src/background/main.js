@@ -210,7 +210,7 @@ browser.runtime.onConnect.addListener(port => {
     }
 
     contentPort = port;
-    sender = port.sender.tab.id;
+    sender = port.sender.id;
     status[sender] = {
         active: true,
         injected: true,
@@ -225,7 +225,7 @@ browser.runtime.onConnect.addListener(port => {
 
     contentPort.onDisconnect.addListener(msg => {
         // tab is closed, removes tab status
-        status[msg.sender.tab.id] = {
+        status[msg.sender.id] = {
             active: false,
             injected: false,
         };

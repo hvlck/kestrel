@@ -22,18 +22,18 @@ Structure
 </body>
 */
 
+import buildElement from '../libs/utils.js';
+import { cpal, commands } from '../libs/commands.js';
+
 let kestrel;
 let commandInp;
 let commandIndex = 0;
 
-// taita instance
-const cpal = new Taita(commands, {
-    sort: "alphabetical",
-});
-
 let commandsChanged = cpal.matchedCommands.changed();
 
 let port;
+
+let settings;
 
 // generates command palette and logic
 function buildUI() {
@@ -102,6 +102,7 @@ const updateCommands = () => {
 
         commandItem.addEventListener("click", () => {
             cpal.execute(commandItem.innerText, cmdFunctions);
+            updateCommands();
         });
 
         commandItem.addEventListener("mouseover", () => {

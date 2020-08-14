@@ -1,3 +1,5 @@
+import Taita from './taita.js';
+
 // Command palette variables
 const commands = {
     disableLinks: {
@@ -68,3 +70,10 @@ const automaticSettings = {
         colour: `#16c581`,
     },
 };
+
+// taita instance
+const cpal = new Taita(commands, {
+    sort: "alphabetical",
+});
+
+export { commands, cpal, automaticCommandsList, automaticSettings };

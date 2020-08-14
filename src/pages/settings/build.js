@@ -1,3 +1,4 @@
+import { automaticCommandsList } from '../../libs/commands.js';
 import buildElement from '../../libs/utils.js';
 import { settings, toggleTheme, automaticDescriptions } from './settings.js';
 import callbacks from './callbacks.js'

@@ -217,7 +217,7 @@ let cmdFunctions = {
                     (parseInt(getComputedStyle(selection).width) *
                         parseInt(getComputedStyle(container).height)) /
                     parseInt(getComputedStyle(container).width)
-                }px`;
+                    }px`;
 
                 selection.style.width = dimensions;
                 minimap.style.height = dimensions;
@@ -245,7 +245,7 @@ let cmdFunctions = {
                 scrollTo(
                     0,
                     parseInt(getComputedStyle(container).height) *
-                        (event.target.value / 100)
+                    (event.target.value / 100)
                 );
             });
         }
