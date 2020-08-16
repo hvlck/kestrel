@@ -13,16 +13,19 @@ The extension hasn't been submitted to FireFox addons just yet, but once some of
 + [Features](#features)
 + [FAQ](#faq)
 + [Usage](#usage)
++ [Screenshots](#screenshots)
 + [Roadmap](#roadmap)
 + [Docs](#docs)
++ [Motivation](#motivation)
 + [License](#license)
 
 ## Features
 
+TODO: Update
+
 + Disable all links [none]
 + Hide media (images/video) [none]
 + Open all links in the same tab [none]
-+ Settings [none]
 + Refresh tabs [tabs]
 + Scroll to *x* [none]
 + Show media (images/video) [none]
@@ -32,6 +35,8 @@ The extension hasn't been submitted to FireFox addons just yet, but once some of
 
 ## FAQ
 
+TODO: Finish section
+
 ### How Are Permissions Used
 
 The [features](#features) section lists the permissions that each feature uses.
@@ -40,11 +45,13 @@ TODO: General overview of how permissions are used
 
 ### How Do I Change Kestrel's Default Activation Command
 
-See [this article](https://support.mozilla.org/en-US/kb/manage-extension-shortcuts-firefox) from FireFox.
+See [this article](https://support.mozilla.org/en-US/kb/manage-extension-shortcuts-firefox) from Mozilla.
 
 ## Usage
 
-There's not much to see right now.  The main part is activated with `Alt+Shift+Q` on everything but Linux, which is `Alt+Shift+Q`.  Why Q?  All the keys can be hit with one hand.
+Kestrel is currently not listed on any addons store, and it will stay that way until **at least** 1.0.  The current version can be found in the `version` key of the [manifest](https://github.com/EthanJustice/kestrel/blob/master/src/manifest.json).
+
+There's not much to see right now.  The main part is activated with `Alt+Shift+Q`.  Why Q?  All the keys can be hit with one hand.
 
 ### Development
 
@@ -54,6 +61,10 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 4. Click on `Load Temporary Add-on...`
 5. Navigate to wherever you downloaded Kestrel and open `src/manifest.json` in the prompt
 6. You're good to go!
+
+## Screenshots
+
+TODO: Finish section
 
 ## Roadmap
 
@@ -80,26 +91,6 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 
 + ~~User-set activation/close command [feature]~~ [abandoned - see [](https://github.com/EthanJustice/kestrel/)]
 + Dynamic permission requests [feature] (see [here](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions) for all permissions that can be requested dynamically - of these, only a few are not needed automatically)
-
-### Completed
-
-+ ~~Changelog notification [feature]~~
-+ ~~Decouple html generation in settings from update script [meta]~~
-+ ~~Explanation of settings for each item in the Reference [feature/meta]~~
-+ ~~Config exporter [feature]~~
-+ ~~Mini-map customisation~~
-+ ~~Switch background injects to userScript API~~
-+ ~~Disable links when `design mode` command is active~~ [bug]
-+ ~~Rename `/src/pages/fresh` to `guide`~~ [meta]
-+ ~~Move `/themes` into `/libs`~~ [meta]
-+ ~~Move "Open all links in the current tab," command to automatic functions [bug]~~
-+ ~~Add mini-map as an automatic task and command [feature/bug]~~
-+ ~~Loader height setting~~ [feature]
-+ ~~Options page and browser storage for settings~~ [feature]
-+ ~~Split settings page files~~ [meta]
-+ ~~Better folder naming~~ [meta]
-+ ~~Refactor `Hide/Show Media` commands into `Toggle Media`~~ [meta]
-+ ~~Colour preview for loader bar~~ [feature/bug]
 
 I also have a list of other features I'm working on that I'll port over when I can.
 
@@ -173,6 +164,10 @@ commands - all commands, and whether they're enabled
 
 theme - string - kestrel's theme (light, dark, or operating-system-default, which uses the (prefers-color-scheme) media query)
 ```
+
+## Motivation
+
+Kestrel is simply a collection of utilities that I wished browsers included (and they may, I probably just didn't find them), wrapped in convenience (as opposed to several hundred small UserScripts).  I've built it to present as little overhead on general performance as possible, but there's still much to be done.
 
 ## License
 
