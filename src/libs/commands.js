@@ -21,15 +21,25 @@ const commands = {
         callback: "refreshTabs",
         aliases: ["Refresh all tabs: hard"],
     },
-    scrollTo: {
+    scrollToTop: {
         name: "Scroll to top of the page",
-        callback: "scrollTo",
-        aliases: [
-            "Scroll to 1/4 of the page",
-            "Scroll to middle of the page",
-            "Scroll to 3/4 of the page",
-            "Scroll to bottom of the page",
-        ],
+        callback: "scrollToTop",
+    },
+    scrollToBottom: {
+        name: "Scroll to the bottom of the page",
+        callback: "scrollToBottom",
+    },
+    scrollToMiddle: {
+        name: "Scroll to the middle of the page",
+        callback: "scrollToMiddle",
+    },
+    scrollToOneFourth: {
+        name: "Scroll to 1/4 of the page",
+        callback: "scrollToOneFourth",
+    },
+    scrollToThreeFourths: {
+        name: "Scroll to 3/4 of the page",
+        callback: "scrollToThreeFourths",
     },
     toggleAnimations: {
         name: "Toggle animations: off",
@@ -43,7 +53,14 @@ const commands = {
     toggleMedia: {
         name: "Toggle media",
         callback: "toggleMedia",
-        aliases: ["Toggle images", "Toggle video"],
+    },
+    toggleVideo: {
+        name: "Toggle video",
+        callback: "toggleVideo",
+    },
+    toggleImages: {
+        name: "Toggle images",
+        callback: "toggleImages",
     },
     toggleMiniMap: {
         name: "Toggle minimap",

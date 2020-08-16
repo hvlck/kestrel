@@ -63,6 +63,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 ### High
 
 + Security [bug] {in-progress}
++ Anti-fingerprinting
 
 ### Medium
 
@@ -71,6 +72,7 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 + Homepage [meta] {in-progress}
 + Customisation of highlight colour [feature]
 + Better mini-map styling [bug]
++ Move `src/cs/automatic` to `src/injections/automatic` [meta]
 
 ### Low
 

@@ -403,7 +403,10 @@ class Taita {
         if (!obj) {
             obj = window;
         }
-        obj[callback](command);
+
+        if (!obj[callback]) return true;
+
+        return obj[callback](command);
     }
 
     _generateError(error, msg) {

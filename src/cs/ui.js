@@ -24,6 +24,7 @@ Structure
 
 import buildElement from '../libs/utils.js';
 import { cpal, commands } from '../libs/commands.js';
+import cmdFunctions from './kestrel.js';
 
 let kestrel;
 let commandInp;
@@ -101,8 +102,8 @@ const updateCommands = () => {
         });
 
         commandItem.addEventListener("click", () => {
-            sendFnEvent({ inject: cpal._commandContains(commandItem.innerText) });
-            console.log(cpal._commandContains(commandItem.innerText))
+            let c = cpal.execute(commandItem.innerText, cmdFunctions);
+            if (c != false) sendFnEvent({ inject: cpal._commandContains(commandItem.innerText) });
             updateCommands();
         });
 
@@ -132,8 +133,8 @@ function listen(event) {
     if (event.keyCode == 13 && commandList) {
         Object.values(commandList.children).forEach(child => {
             if (child.classList.contains("kestrel-command-item-focused")) {
-                sendFnEvent({ inject: cpal._commandContains(child.innerText) });
-                console.log(cpal._commandContains(child.innerText))
+                let c = cpal.execute(child.innerText, cmdFunctions);
+                if (c != false) sendFnEvent({ inject: cpal._commandContains(child.innerText) });
             }
         });
         commandInp.value = "";
@@ -237,3 +238,5 @@ function clearCommands() {
 }
 
 buildUI();
+
+export { sendFnEvent };

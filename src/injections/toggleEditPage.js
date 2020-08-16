@@ -1,3 +1,4 @@
+// edit page using contentEditable
 (function () {
     let b = document.body;
     if (b.contentEditable == "inherit" || b.contentEditable == "false") {
