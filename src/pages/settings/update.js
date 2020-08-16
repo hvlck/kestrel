@@ -1,4 +1,4 @@
-import { automaticCommandsList, automaticSettings } from '../../libs/commands.js';
+import { automaticCommandsList, automaticSettings, commands } from '../../libs/commands.js';
 import buildElement from '../../libs/utils.js';
 import build from './build.js';
 import { toggleTheme } from './settings.js';

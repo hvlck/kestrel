@@ -101,7 +101,8 @@ const updateCommands = () => {
         });
 
         commandItem.addEventListener("click", () => {
-            cpal.execute(commandItem.innerText, cmdFunctions);
+            sendFnEvent({ inject: cpal._commandContains(commandItem.innerText) });
+            console.log(cpal._commandContains(commandItem.innerText))
             updateCommands();
         });
 
@@ -131,7 +132,8 @@ function listen(event) {
     if (event.keyCode == 13 && commandList) {
         Object.values(commandList.children).forEach(child => {
             if (child.classList.contains("kestrel-command-item-focused")) {
-                cpal.execute(child.innerText, cmdFunctions);
+                sendFnEvent({ inject: cpal._commandContains(child.innerText) });
+                console.log(cpal._commandContains(child.innerText))
             }
         });
         commandInp.value = "";

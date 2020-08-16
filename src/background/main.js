@@ -154,6 +154,10 @@ const injectScripts = () => {
         });
 };
 
+const injectScript = (script) => {
+    return browser.tabs.executeScript({ file: script })
+}
+
 // controls injection of needed stylesheets
 // for now this is just cs/ui.css
 const injectStylesheet = sheet => {
@@ -264,6 +268,8 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
         registeredScripts = {};
     } else if (msg.settings == "get-manifest") {
         return new Promise(resolve => resolve(browser.runtime.getManifest()));
+    } else if (msg.inject) {
+        injectScript(`injections/${msg.inject}.js`);
     }
 });
 
