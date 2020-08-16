@@ -15,6 +15,7 @@ The extension hasn't been submitted to FireFox addons just yet, but once some of
 + [Usage](#usage)
 + [Screenshots](#screenshots)
 + [Roadmap](#roadmap)
++ [Changelog](#changelog)
 + [Docs](#docs)
 + [Motivation](#motivation)
 + [License](#license)
@@ -97,6 +98,13 @@ TODO: Finish section
 + Dynamic permission requests [feature] (see [here](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions) for all permissions that can be requested dynamically - of these, only a few are not needed automatically)
 
 I also have a list of other features I'm working on that I'll port over when I can.
+
+## Changelog
+
+### v1.0.0
+
++ Switched from injection-based approach to a browser-action-based approach
++ Some internal updates
 
 ## Docs
 
