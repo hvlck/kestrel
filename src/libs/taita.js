@@ -403,15 +403,20 @@ class Taita {
         if (!obj) {
             obj = window;
         }
-        obj[callback](command);
+
+        if (!obj[callback]) return true;
+
+        return obj[callback](command);
     }
 
     _generateError(error, msg) {
         // Developer mode erorr reporting
         console.error(
             `Taita error${this.options.items.dev ? `: ${msg}` : "."}${
-                error ? `  Error: ${error}` : ""
+            error ? `  Error: ${error}` : ""
             }`
         );
     }
 }
+
+export default Taita;

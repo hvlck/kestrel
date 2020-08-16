@@ -22,18 +22,19 @@ Structure
 </body>
 */
 
+import buildElement from '../libs/utils.js';
+import { cpal, commands } from '../libs/commands.js';
+import cmdFunctions from './kestrel.js';
+
 let kestrel;
 let commandInp;
 let commandIndex = 0;
 
-// taita instance
-const cpal = new Taita(commands, {
-    sort: "alphabetical",
-});
-
 let commandsChanged = cpal.matchedCommands.changed();
 
 let port;
+
+let settings;
 
 // generates command palette and logic
 function buildUI() {
@@ -101,7 +102,9 @@ const updateCommands = () => {
         });
 
         commandItem.addEventListener("click", () => {
-            cpal.execute(commandItem.innerText, cmdFunctions);
+            let c = cpal.execute(commandItem.innerText, cmdFunctions);
+            if (c != false) sendFnEvent({ inject: cpal._commandContains(commandItem.innerText) });
+            updateCommands();
         });
 
         commandItem.addEventListener("mouseover", () => {
@@ -130,7 +133,8 @@ function listen(event) {
     if (event.keyCode == 13 && commandList) {
         Object.values(commandList.children).forEach(child => {
             if (child.classList.contains("kestrel-command-item-focused")) {
-                cpal.execute(child.innerText, cmdFunctions);
+                let c = cpal.execute(child.innerText, cmdFunctions);
+                if (c != false) sendFnEvent({ inject: cpal._commandContains(child.innerText) });
             }
         });
         commandInp.value = "";
@@ -234,3 +238,5 @@ function clearCommands() {
 }
 
 buildUI();
+
+export { sendFnEvent };

@@ -74,6 +74,7 @@ TODO: Finish section
 ### High
 
 + Security [bug] {in-progress}
++ Anti-fingerprinting
 
 ### Medium
 
@@ -82,7 +83,9 @@ TODO: Finish section
 + Homepage [meta] {in-progress}
 + Customisation of highlight colour [feature]
 + Better mini-map styling [bug]
++ Move `src/cs/automatic` to `src/injections/automatic` [meta]
 + Doc updates [meta]
++ Move `src/cs/automatic` to `src/injections/automatic` [meta]
 
 ### Low
 

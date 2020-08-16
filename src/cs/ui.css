@@ -2,7 +2,7 @@
 	Global variables not changed by colour theme
 */
 
-.kestrel {
+body {
     --transition-primary: 100ms linear;
 }
 
@@ -10,7 +10,7 @@
 	Fallback if user hasn't set a colour theme preference
 */
 
-.kestrel {
+body {
     --kestrel-primary: #fafafa;
     --kestrel-secondary: #404040;
     --kestrel-tertiary: #f1f2f3;
@@ -18,7 +18,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    .kestrel {
+    body {
         --kestrel-primary: #212121;
         --kestrel-secondary: #fafafa;
         --kestrel-tertiary: #404040;
@@ -26,13 +26,11 @@
     }
 }
 
-/*
-	Dims background
-*/
-
-body > *:not(.kestrel) {
-    opacity: 0.2;
-    pointer-events: none;
+body {
+    width: 600px;
+    padding: 0;
+    margin: 0;
+    background: var(--kestrel-primary);
 }
 
 /*
@@ -46,18 +44,10 @@ body > *:not(.kestrel) {
 
     width: 100%;
     max-width: 800px;
-    min-height: 400px;
-    max-height: 1000px;
 
     margin: 0 auto;
     animation: none;
     transition: none;
-
-    position: fixed;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, 0%);
-    z-index: 99999;
 }
 
 .kestrel:focus {
