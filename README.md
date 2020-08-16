@@ -101,7 +101,7 @@ I also have a list of other features I'm working on that I'll port over when I c
 
 ## Changelog
 
-### v1.0.0
+### v1.0
 
 + Switched from injection-based approach to a browser-action-based approach
 + Some internal updates
