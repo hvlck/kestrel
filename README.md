@@ -86,7 +86,7 @@ TODO: Finish section
 + Better mini-map styling [bug]
 + Move `src/cs/automatic` to `src/injections/automatic` [meta]
 + Doc updates [meta]
-+ Move `src/cs/automatic` to `src/injections/automatic` [meta]
++ Logical ordering of variables and whatnot [meta]
 
 ### Low
 

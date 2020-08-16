@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,14 +33,19 @@
     </head>
 
     <body>
-        <nav class="nav">
+        <nav>
             <a href="https://ethanjustice.github.io/kestrel/">Homepage</a>
             <a href="../settings/index.html">Settings</a>
             <a href="../guide/index.html">Guide</a>
             <a href="../reference/index.html">Reference</a>
+            <a href="https://github.com/EthanJustice/kestrel/wiki">Wiki</a>
+            <a href="https://github.com/EthanJustice/kestrel">Repository</a>
         </nav>
         <!--Welcome to the Commandinomicon!-->
         <h1>Kestrel Reference</h1>
+        <nav>
+            <a href="https://github.com/EthanJustice/kestrel/wiki/Terminology">Terminology</a>
+        </nav>
         <h2>Commands</h2>
         <h3>Disable all links</h3>
         <h4>Meta</h4>
@@ -54,7 +60,7 @@
             stop JavaScript-based navigation, so it may not work on all "links."
         </p>
         <p>
-            This command is not a toggle as it is made to lessen distractions.
+            <b>Note</b>: This command is not a toggle as it is made to lessen distractions.
         </p>
         <h3 id="links-in-same-tab">Open all links in the current tab</h3>
         <h4>Meta</h4>
@@ -66,8 +72,9 @@
         </table>
         <p>
             Opens all hyperlinks in the active tab in the same tab, rather than
-            as a new window or tab. There is also a background task version of
-            this command. Note: this command doesn't stop JavaScript-based
+            as a new window or tab. <a href="#links-in-same-tab-background">There is also a background task version
+                of
+                this command</a>. Note: this command doesn't stop JavaScript-based
             navigation, so it may not work on all "links."
         </p>
         <h3>Open settings page</h3>
@@ -95,20 +102,20 @@
             Refreshes all tabs in every window. If the "hard," variant is
             chosen, the cache is bypassed when refreshing the tabs.
         </p>
-        <h3>Scroll to top of page</h3>
+        <h3>Scroll to...</h3>
         <h4>Meta</h4>
         <table>
             <tr>
                 <td>Enabled by Default?</td>
-                <td>Yes</td>
+                <td>Some</td>
             </tr>
         </table>
         <p>Aliases:</p>
         <ul>
-            <li>Scroll to 1/4 of the page</li>
-            <li>Scroll to middle of the page</li>
-            <li>Scroll to 3/4 of the page</li>
-            <li>Scroll to bottom of the page</li>
+            <li>Scroll to 1/4 of the page (disabled)</li>
+            <li>Scroll to middle of the page (enabled)</li>
+            <li>Scroll to 3/4 of the page (disabled)</li>
+            <li>Scroll to bottom of the page (enabled)</li>
         </ul>
         <p>Scrolls to the given distance in the currently active tab.</p>
         <h3>Toggle animations: off</h3>
@@ -158,24 +165,26 @@
                 <td>No</td>
             </tr>
         </table>
-        <p>
-            Toggles an interactive minimap of the page. There is also a
-            background task version of this command. Note: this may be slow and
-            "zoomed-out," on larger pages.
-        </p>
+        <p>Toggles an interactive minimap of the page. There is also a background task version of this command.</p>
+        <p><b>Note</b>: this may be slow and "zoomed-out," on larger pages.</p>
         <h2>Background</h2>
         <p>Background tasks aren't enabled by default.</p>
+        <p>The "Runs," value specifies when a background task is injected into the page. The <a
+                href="https://github.com/EthanJustice/kestrel/wiki/Terminology#runs">Terminology</a> page provides
+            definitions for these values.</p>
         <p>
-            Due to enabled tasks being chosen by the user, it is not always
-            guaranteed that tasks that start at page load will be completed
-            successfully. For example, the page loader will not always work if a
-            site loads exceptionally fast, because it must first be injected.
-        </p>
-        <p>
-            These tasks may also slow down performance. Keep this in mind when
+            These tasks may slow down performance. Keep this in mind when
             choosing which tasks to enable.
         </p>
         <h3>Page Loader</h3>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Runs</td>
+                    <td>Immediately</td>
+                </tr>
+            </tbody>
+        </table>
         <h4>Settings</h4>
         <table>
             <tr>
@@ -209,6 +218,14 @@
             begin once the page is first navigated to.
         </p>
         <h3>Minimap</h3>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Runs at</td>
+                    <td>Completed</td>
+                </tr>
+            </tbody>
+        </table>
         <h4>Settings</h4>
         <table>
             <tr>
@@ -221,7 +238,15 @@
             </tr>
         </table>
         <p>See the <a href="#toggle-minimap">Toggle Minimap</a> command.</p>
-        <h3>Open all links in the same tab</h3>
+        <h3 id="links-in-same-tab-background">Open all links in the same tab</h3>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Runs At</td>
+                    <td>Loading</td>
+                </tr>
+            </tbody>
+        </table>
         <p>
             See the
             <a href="#links-in-same-tab">Open all links in the current tab</a>
@@ -247,10 +272,9 @@
         </ul>
         <nav>
             <a href="https://github.com/EthanJustice/kestrel">Repository</a>
-            <a href="https://github.com/EthanJustice/kestrel/issues"
-                >Report an Issue</a
-            >
+            <a href="https://github.com/EthanJustice/kestrel/issues">Report an Issue</a>
         </nav>
         <script src="../changelog.js" defer type="module"></script>
     </body>
+
 </html>
