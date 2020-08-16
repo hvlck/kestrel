@@ -36,10 +36,12 @@ const commands = {
     scrollToOneFourth: {
         name: "Scroll to 1/4 of the page",
         callback: "scrollToOneFourth",
+        on: false,
     },
     scrollToThreeFourths: {
         name: "Scroll to 3/4 of the page",
         callback: "scrollToThreeFourths",
+        on: false,
     },
     toggleAnimations: {
         name: "Toggle animations: off",
