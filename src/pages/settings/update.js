@@ -115,32 +115,6 @@ const updateAutomaticFunctions = () => {
     });
 };
 
-// updates all automatic task settings
-const updateAutomaticSettings = () => {
-    let name;
-    document.querySelectorAll("input[data-automatic-setting]").forEach(item => {
-        if (item.parentElement.classList.contains("checkbox-parent")) {
-            name = item.parentElement.parentElement
-                .querySelector("h3")
-                .innerText.toLowerCase();
-        } else {
-            name = item.parentElement
-                .querySelector("h3")
-                .innerText.toLowerCase();
-        }
-
-        let key = item.dataset.key;
-        let parent = item.dataset.automaticSetting;
-        if (item.type == "checkbox") {
-            automaticSettings[parent][key] = item.checked;
-        } else {
-            automaticSettings[parent][key] = item.value;
-        }
-    });
-
-    updateSettings("automaticsettings", automaticSettings, name);
-};
-
 // fresh install
 
 // default settings
@@ -148,6 +122,7 @@ const defaults = {
     theme: "operating-system-default",
     automatic: automaticCommandsList,
     automaticsettings: automaticSettings,
+    browserAction: false
 };
 
 // creates initial storage data
@@ -161,4 +136,4 @@ const initStorage = () => {
     return updateSettings("commands", commands);
 };
 
-export { updateAutomaticFunctions, updateAutomaticSettings, updateCommands, updateSettings }
+export { updateAutomaticFunctions, updateCommands, updateSettings }
