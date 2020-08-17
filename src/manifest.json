@@ -8,16 +8,13 @@
         "96": "icons/icon@2x.png"
     },
     "permissions": [
-        "alarms",
         "storage",
         "tabs",
         "activeTab",
-        "search",
         "file://*/*",
         "https://*/*",
         "http://*/*"
     ],
-    "optional_permissions": ["idle"],
     "background": {
         "scripts": ["background/main.js"]
     },
@@ -34,8 +31,7 @@
     "commands": {
         "_execute_browser_action": {
             "suggested_key": {
-                "default": "Alt+Shift+Q",
-                "linux": "Ctrl+Shift+Q"
+                "default": "Alt+Shift+Q"
             },
             "description": "Open Kestrel command interface"
         }
@@ -47,9 +43,17 @@
         "default_title": "Kestrel - Search Commands",
         "default_popup": "cs/index.html"
     },
+    "page_action": {
+        "default_icon": {
+            "19": "icons/icon.png"
+        },
+        "default_title": "Kestrel",
+        "default_popup": "browser/index.html",
+        "browser_style": true
+    },
     "options_ui": {
         "page": "pages/settings/index.html",
-        "browser_style": false,
+        "browser_style": true,
         "open_in_tab": true
     }
 }
