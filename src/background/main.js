@@ -1,10 +1,38 @@
+// primary background script
+
+// utils
+const getActiveTab = () => {
+    return browser.tabs
+        .query({
+            currentWindow: true,
+            active: true,
+        })
+        .then(tabs => {
+            return tabs[0];
+        })
+        .catch(err => console.error(err));
+};
+
 // opens settings page once user has installed extension
 browser.runtime.onInstalled.addListener(() => {
+    browser.tabs.query({}).then(tabs => {
+        tabs.forEach(item => {
+            browser.pageAction.hide(item.id);
+        });
+    })
     browser.runtime.openOptionsPage();
     browser.runtime.setUninstallURL(
         "https://ethanjustice.github.io/kestrel/meta/uninstall"
     );
 });
+
+// opens page action
+browser.commands.onCommand.addListener(command => {
+    if (command == 'open_kestrel_page_action') {
+        browser.pageAction.openPopup()
+    }
+});
+
 
 // storage
 let settings;
@@ -104,16 +132,18 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
     if (sender.id.startsWith(browser.runtime.id) !== true) {
         return;
     }
-    if (msg.fn == "openSettings") {
-        browser.runtime.openOptionsPage().catch(err => console.error(err));
+    if (msg.fn) {
+        if (msg.fn === "tabs") {
+            browser.tabs
+                .query({})
+                .then(tabs =>
+                    tabs.forEach(tab => browser.tabs.reload(tab.id, msg.args))
+                );
+        } else if (msg.fn == "openSettings") {
+            browser.runtime.openOptionsPage().catch(err => console.error(err));
+        }
     } else if (msg.injectSheet) {
         injectStylesheet(`../injections/${msg.injectSheet}/index.css`);
-    } else if (msg.fn === "tabs") {
-        browser.tabs
-            .query({})
-            .then(tabs =>
-                tabs.forEach(tab => browser.tabs.reload(tab.id, msg.args))
-            );
     } else if (msg.automatic) {
         browser.tabs
             .executeScript({
@@ -121,16 +151,30 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
                 runAt: msg.runAt,
             })
             .catch(err => console.error(`Failed to inject script: ${err}`));
-    } else if (msg.settings == "update-settings") {
-        updateUserScripts();
-    } else if (msg.settings == "unregister-all") {
-        Object.values(registeredScripts).forEach(item => {
-            item.unregister();
-        });
+    } else if (msg.settings) {
+        if (msg.settings == "get-manifest") {
+            return new Promise(resolve => resolve(browser.runtime.getManifest()));
+        } else if (msg.settings == "unregister-all") {
+            Object.values(registeredScripts).forEach(item => {
+                item.unregister();
+            });
 
-        registeredScripts = {};
-    } else if (msg.settings == "get-manifest") {
-        return new Promise(resolve => resolve(browser.runtime.getManifest()));
+            registeredScripts = {};
+        } else if (msg.settings == "update-settings") {
+            updateUserScripts();
+        } else if (msg.settings == 'popup-true') {
+            browser.tabs.query({}).then(tabs => {
+                tabs.forEach(item => {
+                    browser.pageAction.show(item.id);
+                });
+            });
+        } else if (msg.settings == 'popup-false') {
+            browser.tabs.query({}).then(tabs => {
+                tabs.forEach(item => {
+                    browser.pageAction.hide(item.id);
+                });
+            });
+        }
     } else if (msg.inject) {
         injectScript(`injections/${msg.inject}.js`);
     }

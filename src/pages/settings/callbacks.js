@@ -1,4 +1,6 @@
 import buildElement from '../../libs/utils.js';
+import { automaticSettings } from '../../libs/commands.js';
+import { updateSettings } from './update.js';
 
 // Special functions
 
@@ -52,6 +54,33 @@ const callbacks = {
         });
     },
 
+    // updates all automatic task settings
+    updateAutomaticSettings: function (element) {
+        let name;
+        document.querySelectorAll("input[data-automatic-setting]").forEach(item => {
+            if (item.disabled == true) { return }
+            if (item.parentElement.classList.contains("checkbox-parent")) {
+                name = item.parentElement.parentElement
+                    .querySelector("h3")
+                    .innerText.toLowerCase();
+            } else {
+                name = item.parentElement
+                    .querySelector("h3")
+                    .innerText.toLowerCase();
+            }
+
+            let key = item.dataset.key;
+            let parent = item.dataset.automaticSetting;
+            if (item.type == "checkbox") {
+                automaticSettings[parent][key] = item.checked;
+            } else {
+                automaticSettings[parent][key] = item.value;
+            }
+        });
+
+        updateSettings("automaticsettings", automaticSettings, name);
+    },
+
     // download kestrel config as a .json file
     downloadConfig: function () {
         browser.storage.local.get(null).then(data => {
@@ -66,6 +95,12 @@ const callbacks = {
             document.body.appendChild(link);
             link.click();
             link.remove();
+        });
+    },
+
+    updateBrowserAction: function (item) {
+        browser.runtime.sendMessage({ settings: `popup-${item.checked}` }).then(() => {
+            updateSettings('browserAction', item.checked, 'popup');
         });
     },
 

@@ -34,6 +34,12 @@
                 "default": "Alt+Shift+Q"
             },
             "description": "Open Kestrel command interface"
+        },
+        "open_kestrel_page_action": {
+            "suggested_key": {
+                "default": "Alt+Q"
+            },
+            "description": "Open page information."
         }
     },
     "browser_action": {
@@ -49,7 +55,8 @@
         },
         "default_title": "Kestrel",
         "default_popup": "browser/index.html",
-        "browser_style": true
+        "browser_style": true,
+        "show_matches": ["file://*/*", "https://*/*", "http://*/*"]
     },
     "options_ui": {
         "page": "pages/settings/index.html",

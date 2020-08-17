@@ -2,7 +2,7 @@ import { automaticCommandsList } from '../../libs/commands.js';
 import buildElement from '../../libs/utils.js';
 import { settings, toggleTheme, automaticDescriptions } from './settings.js';
 import callbacks from './callbacks.js'
-import { updateAutomaticFunctions, updateAutomaticSettings, updateCommands, updateSettings } from './update.js';
+import { updateAutomaticFunctions, updateCommands, updateSettings } from './update.js';
 
 // generates html for settings
 
@@ -117,25 +117,28 @@ const build = () => {
             let toggle = buildElement("input", "", {
                 type: "checkbox",
                 checked: item.default || false,
-                data_automatic_setting: item.dependsOn,
-                data_key: item.keyName,
             });
 
-            browser.storage.local
-                .get(item.dependsOnKey)
-                .then(
-                    data =>
-                        (toggle.disabled = !data[item.dependsOnKey][
-                            item.dependsOn
-                        ])
-                );
+            if (item.dependsOn) toggle.dataset.automaticSetting = item.dependsOn;
+            if (item.keyName) toggle.dataset.key = item.keyName;
+
+            browser.storage.local.get(item.dependsOnKey).then(data => {
+                if (item.dependsOnKey && item.dependsOn) {
+                    toggle.disabled = !data[item.dependsOnKey][item.dependsOn]
+                }
+            });
             browser.storage.local.get(item.setting).then(data => {
-                toggle.checked =
-                    data[item.setting][item.dependsOn][item.keyName];
+                if (item.setting) {
+                    toggle.checked = data[item.setting][item.dependsOn][item.keyName];
+                } else {
+                    toggle.checked = data[item.dependsOnKey];
+                }
             });
 
             toggle.addEventListener("change", () => {
-                updateAutomaticSettings();
+                if (item.callback) {
+                    callbacks[item.callback](toggle);
+                }
             });
 
             container.appendChild(toggle);
@@ -181,7 +184,7 @@ const build = () => {
                 if (item.type == "number") {
                     if (new RegExp(item.matches).test(text.value)) {
                         if (text.value <= item.max && text.value >= item.min) {
-                            updateAutomaticSettings();
+                            callbacks.updateAutomaticSettings();
                             item.callback ? callbacks[item.callback](text) : "";
                         }
                     }
@@ -191,7 +194,7 @@ const build = () => {
                             text.value.length <= item.max &&
                             text.value.length >= item.min
                         ) {
-                            updateAutomaticSettings();
+                            callbacks.updateAutomaticSettings();
                             item.callback ? callbacks[item.callback](text) : "";
                         }
                     }

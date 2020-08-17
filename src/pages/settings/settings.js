@@ -12,6 +12,7 @@ general (required)
         select - dropdown menu (<select> element)
         toggle - table of toggles (checkboxes)
             headers - array of headers for the table (should only be two)
+        single-toggle - single toggle
         text - text input (<input type="text" /> element)
             dependsOnKey - object that it depends on to be enabled (this and dependsOn are backwards)
             dependsOn - key that it depends on to be enabled
@@ -134,6 +135,8 @@ const settings = [
         keyName: "persist",
         setting: "automaticsettings",
 
+        callback: "updateAutomaticSettings",
+
         default: false,
     },
     {
@@ -156,6 +159,20 @@ const settings = [
 
         default: "#16c581",
         callback: "setColour",
+    },
+    {
+        name: "Page Information",
+        description: "Settings for the page information popup.",
+        type: "divider",
+    },
+    {
+        name: "Popup Enabled",
+        type: "single-toggle",
+
+        dependsOnKey: "browserAction",
+        callback: "updateBrowserAction",
+
+        default: false,
     },
     {
         name: "Danger Zone",
