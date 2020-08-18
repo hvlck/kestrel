@@ -71,6 +71,15 @@ browser.runtime.onStartup.addListener(async () => {
     }
 });
 
+browser.storage.onChanged.addListener((e) => {
+    let items = Object.keys(e);
+    if (items.includes('browseraction') && e.browseraction.newValue == true) {
+        utils.showPageAction();
+    } else if (items.includes('browseraction') && e.browseraction.newValue == false) {
+        utils.hidePageAction();
+    }
+});
+
 // opens page action
 browser.commands.onCommand.addListener(async (command) => {
     if (command == 'open_kestrel_page_action') {
@@ -133,23 +142,19 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
                 runAt: msg.runAt,
             })
             .catch((err) => console.error(`Failed to inject script: ${err}`));
+    } else if (msg.inject) {
+        utils.injectScript(`injections/${msg.inject}.js`);
+    } else if (msg.meta == 'get-manifest') {
+        return new Promise((resolve) => resolve(browser.runtime.getManifest()));
     } else if (msg.settings) {
-        if (msg.settings == 'get-manifest') {
-            return new Promise((resolve) => resolve(browser.runtime.getManifest()));
+        if (msg.settings == 'update-settings') {
+            updateUserScripts();
         } else if (msg.settings == 'unregister-all') {
             Object.values(registeredScripts).forEach((item) => {
                 item.unregister();
             });
 
             registeredScripts = {};
-        } else if (msg.settings == 'update-settings') {
-            updateUserScripts();
-        } else if (msg.settings == 'popup-true') {
-            utils.showPageAction();
-        } else if (msg.settings == 'popup-false') {
-            utils.hidePageAction();
         }
-    } else if (msg.inject) {
-        utils.injectScript(`injections/${msg.inject}.js`);
     }
 });
