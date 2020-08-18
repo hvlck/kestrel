@@ -79,6 +79,7 @@ TODO: Finish section
 
 ### Medium
 
++ Switch to [`storage.onChanged`](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/onChanged) rather than messaging
 + Refactoring [meta]
 + Better onboarding/user-friendly docs [meta] {in-progress}
 + Homepage [meta] {in-progress}
@@ -89,8 +90,6 @@ TODO: Finish section
 + Logical ordering of variables and whatnot [meta]
 
 ### Low
-
-+ Fix injection styling inconsistencies [bug] {in-progress}
 
 ### Abandoned/Ultra-Low Priority
 

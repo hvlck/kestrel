@@ -1,29 +1,71 @@
 // primary background script
 
+// organisation wrapper for meta-information
+const meta = {
+    runtimes: {
+        loader: 'document_start',
+        minimap: 'document_idle',
+        linksInSameTab: 'document_end',
+    },
+};
+
+// can't use es6 modules in background scripts without specifiying an (unneccessary) background page
+// these functions are contained within utils for organisation
+const utils = {
+    // hides the page action (url bar)
+    hidePageAction: () => {
+        browser.tabs.query({}).then((tabs) => {
+            tabs.forEach((item) => {
+                browser.pageAction.hide(item.id);
+            });
+        });
+    },
+
+    // shows the page action (url bar)
+    showPageAction: () => {
+        browser.tabs.query({}).then((tabs) => {
+            tabs.forEach((item) => {
+                browser.pageAction.show(item.id);
+            });
+        });
+    },
+
+    // injects a script into the active tab
+    injectScript: (script) => {
+        return browser.tabs.executeScript({ file: script });
+    },
+
+    // injects stylesheet into  current tab
+    injectStylesheet: (sheet) => {
+        if (!sheet || injections[sheet]) {
+            return;
+        }
+        injections.push(sheet);
+        browser.tabs
+            .insertCSS({
+                file: sheet,
+            })
+            .catch((err) => {
+                console.error(`Failed to inject sheet (${sheet}): ${err}`);
+                return err;
+            });
+    },
+
+    // gets all settings, fills in defaults
+    getSettings: () => {
+        return browser.storage.local.get(null).catch((err) => console.error(`Failed to load settings: ${err}`));
+    },
+};
+
 // opens settings page once user has installed extension
 browser.runtime.onInstalled.addListener(() => {
     browser.runtime.openOptionsPage();
     browser.runtime.setUninstallURL('https://ethanjustice.github.io/kestrel/meta/uninstall');
 });
 
-const hidePageAction = () => {
-    browser.tabs.query({}).then((tabs) => {
-        tabs.forEach((item) => {
-            browser.pageAction.hide(item.id);
-        });
-    });
-};
-
-const showPageAction = () => {
-    browser.tabs.query({}).then((tabs) => {
-        tabs.forEach((item) => {
-            browser.pageAction.show(item.id);
-        });
-    });
-};
-
+// fires when browser starts up
 browser.runtime.onStartup.addListener(async () => {
-    let s = await updateSettings();
+    let s = await utils.getSettings();
     if (s.browseraction == true) {
         showPageAction();
     }
@@ -45,15 +87,9 @@ let injections = [];
 // registered userscripts
 let registeredScripts = {};
 
-let runtimes = {
-    loader: 'document_start',
-    minimap: 'document_idle',
-    linksInSameTab: 'document_end',
-};
-
 // updates all active userscripts from user settings (browser.storage api)
 async function updateUserScripts() {
-    let settings = await updateSettings();
+    let settings = await utils.getSettings();
 
     Object.entries(settings.automatic).forEach((item) => {
         if (item[1] == true) {
@@ -65,7 +101,7 @@ async function updateUserScripts() {
                         },
                     ],
                     matches: ['file://*/*', 'https://*/*', 'http://*/*'],
-                    runAt: runtimes[item[0]],
+                    runAt: meta.runtimes[item[0]],
                     scriptMetadata: { name: item[0] },
                 })
                 .then((data) => {
@@ -75,48 +111,6 @@ async function updateUserScripts() {
             registeredScripts[item[0]].unregister();
         }
     });
-}
-
-const injectScript = (script) => {
-    return browser.tabs.executeScript({ file: script });
-};
-
-// controls injection of needed stylesheets
-// for now this is just cs/ui.css
-const injectStylesheet = (sheet) => {
-    if (!sheet || injections[sheet]) {
-        return;
-    }
-    injections.push(sheet);
-    browser.tabs
-        .insertCSS({
-            // Injects UI stylesheet
-            file: sheet,
-        })
-        .catch((err) => {
-            console.error(`Failed to inject sheet (${sheet}): ${err}`);
-            return err;
-        });
-};
-
-// removes needed stylesheets from page
-// scripts cannot be removed
-const removePalette = (sheet) => {
-    injections.splice(injections.indexOf(sheet), 1);
-    browser.tabs
-        .removeCSS({
-            file: sheet,
-        })
-        .catch((err) => console.error(`Failed to remove stylesheet: ${err}`));
-
-    if (contentPort) {
-        sendMessage({ kestrel: 'hide' });
-    }
-};
-
-// gets all settings, fills in defaults
-function updateSettings() {
-    return browser.storage.local.get(null).catch((err) => console.error(`Failed to load settings: ${err}`));
 }
 
 // executes functions that require background script apis
@@ -131,7 +125,7 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
             browser.runtime.openOptionsPage().catch((err) => console.error(err));
         }
     } else if (msg.injectSheet) {
-        injectStylesheet(`../injections/${msg.injectSheet}/index.css`);
+        utils.injectStylesheet(`../injections/${msg.injectSheet}/index.css`);
     } else if (msg.automatic) {
         browser.tabs
             .executeScript({
@@ -151,16 +145,11 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
         } else if (msg.settings == 'update-settings') {
             updateUserScripts();
         } else if (msg.settings == 'popup-true') {
-            showPageAction();
+            utils.showPageAction();
         } else if (msg.settings == 'popup-false') {
-            hidePageAction();
+            utils.hidePageAction();
         }
     } else if (msg.inject) {
-        injectScript(`injections/${msg.inject}.js`);
+        utils.injectScript(`injections/${msg.inject}.js`);
     }
 });
-
-// sends message to currently active page
-const sendMessage = (msg) => {
-    contentPort.postMessage(msg);
-};
