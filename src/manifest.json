@@ -7,14 +7,7 @@
         "48": "icons/icon.png",
         "96": "icons/icon@2x.png"
     },
-    "permissions": [
-        "storage",
-        "tabs",
-        "activeTab",
-        "file://*/*",
-        "https://*/*",
-        "http://*/*"
-    ],
+    "permissions": ["storage", "tabs", "activeTab", "file://*/*", "https://*/*", "http://*/*"],
     "background": {
         "scripts": ["background/main.js"]
     },
@@ -54,7 +47,7 @@
             "19": "icons/icon.png"
         },
         "default_title": "Kestrel",
-        "default_popup": "browser/index.html",
+        "default_popup": "page_action/index.html",
         "browser_style": true,
         "show_matches": ["file://*/*", "https://*/*", "http://*/*"]
     },

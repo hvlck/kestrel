@@ -5,10 +5,24 @@ const getActiveTab = () => {
             currentWindow: true,
             active: true,
         })
-        .then(tabs => {
+        .then((tabs) => {
             return tabs[0];
         })
-        .catch(err => console.error(err));
+        .catch((err) => console.error(err));
 };
 
-export { getActiveTab }
+// injects a script into the current page
+const execute = (file) => {
+    return browser.tabs.executeScript({
+        file: file,
+    });
+};
+
+const activeTab = () => {
+    return browser.tabs.query({
+        currentWindow: true,
+        active: true,
+    });
+};
+
+export { getActiveTab, execute, activeTab };
