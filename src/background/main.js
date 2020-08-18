@@ -135,15 +135,8 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
         }
     } else if (msg.injectSheet) {
         utils.injectStylesheet(`../injections/${msg.injectSheet}/index.css`);
-    } else if (msg.automatic) {
-        browser.tabs
-            .executeScript({
-                file: `../injections/automatic/${msg.fn}.js`,
-                runAt: msg.runAt,
-            })
-            .catch((err) => console.error(`Failed to inject script: ${err}`));
     } else if (msg.inject) {
-        utils.injectScript(`injections/${msg.inject}.js`);
+        utils.injectScript(`injections/commands/${msg.inject}.js`);
     } else if (msg.meta == 'get-manifest') {
         return new Promise((resolve) => resolve(browser.runtime.getManifest()));
     } else if (msg.settings) {

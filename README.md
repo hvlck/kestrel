@@ -82,7 +82,6 @@ TODO: Finish section
 + Refactoring [meta]
 + Better onboarding/user-friendly docs [meta] {in-progress}
 + Homepage [meta] {in-progress}
-+ Move `src/injections/..` to `src/injections/commands` [meta]
 + Doc updates [meta]
 + Logical ordering of variables and whatnot [meta]
 
