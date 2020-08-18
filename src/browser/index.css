@@ -1,0 +1,37 @@
+html {
+    border: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 12pt;
+    min-height: 100px;
+    min-width: 200px;
+}
+
+* {
+    margin: 0;
+    animation: none;
+}
+
+.banner {
+    width: 100%;
+}
+
+.f {
+    background: crimson;
+}
+
+.s {
+    background: var(--highlight);
+}
+
+#title {
+    color: var(--highlight);
+    cursor: pointer;
+}
+
+#title:hover {
+    text-decoration: underline;
+}

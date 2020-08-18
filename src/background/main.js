@@ -1,18 +1,5 @@
 // primary background script
 
-// utils
-const getActiveTab = () => {
-    return browser.tabs
-        .query({
-            currentWindow: true,
-            active: true,
-        })
-        .then(tabs => {
-            return tabs[0];
-        })
-        .catch(err => console.error(err));
-};
-
 // opens settings page once user has installed extension
 browser.runtime.onInstalled.addListener(() => {
     browser.tabs.query({}).then(tabs => {
