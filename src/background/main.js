@@ -106,7 +106,7 @@ async function updateUserScripts() {
                 .register({
                     js: [
                         {
-                            file: `../cs/automatic/${item[0]}.js`,
+                            file: `../injections/automatic/${item[0]}.js`,
                         },
                     ],
                     matches: ['file://*/*', 'https://*/*', 'http://*/*'],
@@ -138,7 +138,7 @@ browser.runtime.onMessage.addListener((msg, sender, response) => {
     } else if (msg.automatic) {
         browser.tabs
             .executeScript({
-                file: `../cs/automatic/${msg.fn}.js`,
+                file: `../injections/automatic/${msg.fn}.js`,
                 runAt: msg.runAt,
             })
             .catch((err) => console.error(`Failed to inject script: ${err}`));

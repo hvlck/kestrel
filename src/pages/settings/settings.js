@@ -188,6 +188,7 @@ const settings = [
 // changes theme
 const toggleTheme = (data) => {
     document.querySelectorAll('link[class="custom-theme"]').forEach((item) => item.remove());
+    if (!data || Object.keys(data).length == 0) return;
     data = data.replace(new RegExp(' ', 'g'), '-').toLowerCase();
     if (data != 'operating-system-default') {
         document.head.appendChild(

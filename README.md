@@ -79,17 +79,16 @@ TODO: Finish section
 
 ### Medium
 
-+ Switch to [`storage.onChanged`](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/onChanged) rather than messaging
 + Refactoring [meta]
 + Better onboarding/user-friendly docs [meta] {in-progress}
 + Homepage [meta] {in-progress}
-+ Customisation of highlight colour [feature]
-+ Better mini-map styling [bug]
-+ Move `src/cs/automatic` to `src/injections/automatic` [meta]
++ Move `src/injections/..` to `src/injections/commands` [meta]
 + Doc updates [meta]
 + Logical ordering of variables and whatnot [meta]
 
 ### Low
+
++ Customisation of highlight colour [feature]
 
 ### Abandoned/Ultra-Low Priority
 

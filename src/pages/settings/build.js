@@ -60,9 +60,10 @@ const build = () => {
             });
 
             item.default.then((data) => {
-                data =
-                    Object.values(data)[0].replace(new RegExp(' ', 'g'), '-').toLowerCase() ||
-                    'operating-system-default';
+                if (Object.keys(data).length != 0)
+                    data =
+                        Object.values(data)[0].replace(new RegExp(' ', 'g'), '-').toLowerCase() ||
+                        'operating-system-default';
 
                 let matches = Object.values(select.querySelectorAll('option')).filter(
                     (child) => child.innerText.replace(new RegExp(' ', 'g'), '-').toLowerCase() == data
@@ -231,7 +232,8 @@ function buildToggle(item, customData, container) {
             }
         });
     } else if (item.name == 'Background') {
-        buildToggleHtml(Object.keys(customData.automatic), container, '', 'background');
+        if (Object.keys(customData).length != 0)
+            buildToggleHtml(Object.keys(customData.automatic), container, '', 'background');
     }
 }
 
