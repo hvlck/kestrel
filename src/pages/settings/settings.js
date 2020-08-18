@@ -31,175 +31,171 @@ general (required)
 */
 const settings = [
     {
-        name: "Meta",
-        description: "Meta settings for Kestrel",
-        type: "divider",
+        name: 'Meta',
+        description: 'Meta settings for Kestrel',
+        type: 'divider',
         rule: false,
     },
     {
-        name: "Theme",
-        description: "Set the theme Kestrel uses.",
-        type: "select",
-        options: ["Dark", "Light", "Operating System Default"],
-        default: browser.storage.local.get("theme"),
+        name: 'Theme',
+        description: 'Set the theme Kestrel uses.',
+        type: 'select',
+        options: ['Dark', 'Light', 'Operating System Default'],
+        default: browser.storage.local.get('theme'),
     },
     {
-        name: "Export Config",
-        description: "Export your Kestrel configuration",
-        type: "special",
-        fn: "downloadConfig",
+        name: 'Export Config',
+        description: 'Export your Kestrel configuration',
+        type: 'special',
+        fn: 'downloadConfig',
     },
     {
-        name: "Import Config",
-        description: "Import a Kestrel configuration",
-        type: "file",
-        fn: "uploadConfig",
+        name: 'Import Config',
+        description: 'Import a Kestrel configuration',
+        type: 'file',
+        fn: 'uploadConfig',
     },
     {
-        name: "Commands",
-        description:
-            "Settings for the commands that are shown within the command palette",
-        type: "divider",
+        name: 'Commands',
+        description: 'Settings for the commands that are shown within the command palette',
+        type: 'divider',
     },
     {
-        name: "Commands",
-        description: "Select commands that you want to use.",
-        type: "toggle",
-        options: browser.storage.local.get("commands"),
-        headers: ["Name", "On/Off"],
+        name: 'Commands',
+        description: 'Select commands that you want to use.',
+        type: 'toggle',
+        options: browser.storage.local.get('commands'),
+        headers: ['Name', 'On/Off'],
     },
     {
-        name: "Background Tasks",
-        description:
-            "Settings for background tasks that are run automatically once a page loads.",
-        type: "divider",
+        name: 'Background Tasks',
+        description: 'Settings for background tasks that are run automatically once a page loads.',
+        type: 'divider',
     },
     {
-        name: "Background",
-        description: "Select background tasks that you want to use.",
-        type: "toggle",
-        options: browser.storage.local.get("automatic"),
-        headers: ["Name", "On/Off"],
+        name: 'Background',
+        description: 'Select background tasks that you want to use.',
+        type: 'toggle',
+        options: browser.storage.local.get('automatic'),
+        headers: ['Name', 'On/Off'],
     },
     {
-        name: "Loader Bar Colour",
+        name: 'Loader Bar Colour',
         description:
             "Customise the loader bar's colour.  Note: this may not work on all websites.  See the Reference for more.",
-        type: "text",
+        type: 'text',
 
-        dependsOnKey: "automatic",
-        dependsOn: "loader",
-        keyName: "colour",
-        setting: "automaticsettings",
+        dependsOnKey: 'automatic',
+        dependsOn: 'loader',
+        keyName: 'colour',
+        setting: 'automaticsettings',
 
-        placeholder: "#",
+        placeholder: '#',
 
-        matches: "^#\\S{6}",
+        matches: '^#\\S{6}',
         matchDescription:
             "Enter a valid <a href='https://en.wikipedia.org/wiki/Web_colors'>HEX</a> colour code, consisting of 6 characters and starting with a '#.'  If you need assistance choosing a colour, <a href='https://github.com/EthanJustice/links#designcolours'>this</a> is a list of websites that can help.",
         min: 7,
         max: 7,
 
-        default: "#16c581",
-        callback: "setColour",
+        default: '#16c581',
+        callback: 'setColour',
     },
     {
-        name: "Loader Bar Height",
+        name: 'Loader Bar Height',
         description:
             "Customise the loader bar's height.  Note: this may not work on all websites.  See the Reference for more.",
-        type: "number",
+        type: 'number',
 
-        dependsOnKey: "automatic",
-        dependsOn: "loader",
-        keyName: "height",
-        setting: "automaticsettings",
+        dependsOnKey: 'automatic',
+        dependsOn: 'loader',
+        keyName: 'height',
+        setting: 'automaticsettings',
 
-        placeholder: "2",
+        placeholder: '2',
 
         min: 1,
         max: 20,
 
         matchDescription:
-            "Enter a length (in pixels) between 1 and 20.  The unit is not needed, so just a number will suffice.",
+            'Enter a length (in pixels) between 1 and 20.  The unit is not needed, so just a number will suffice.',
 
-        default: "2",
+        default: '2',
     },
     {
-        name: "Loader Bar Persistence",
+        name: 'Loader Bar Persistence',
         description:
             "Decides whether the loader is removed from view after it's finished.  If it is checked, it will stay; if not, it will be removed.  Note: this may not work on all websites.  See the Reference for more.",
-        type: "single-toggle",
+        type: 'single-toggle',
 
-        dependsOnKey: "automatic",
-        dependsOn: "loader",
-        keyName: "persist",
-        setting: "automaticsettings",
+        dependsOnKey: 'automatic',
+        dependsOn: 'loader',
+        keyName: 'persist',
+        setting: 'automaticsettings',
 
-        callback: "updateAutomaticSettings",
+        callback: 'updateAutomaticSettings',
 
         default: false,
     },
     {
-        name: "Minimap Colour",
+        name: 'Minimap Colour',
         description: "Sets the minimap's overlay colour",
-        type: "text",
+        type: 'text',
 
-        dependsOnKey: "automatic",
-        dependsOn: "minimap",
-        keyName: "colour",
-        setting: "automaticsettings",
+        dependsOnKey: 'automatic',
+        dependsOn: 'minimap',
+        keyName: 'colour',
+        setting: 'automaticsettings',
 
-        placeholder: "#",
+        placeholder: '#',
 
-        matches: "^#\\S{6}",
+        matches: '^#\\S{6}',
         matchDescription:
             "Enter a valid <a href='https://en.wikipedia.org/wiki/Web_colors'>HEX</a> colour code, consisting of 6 characters and starting with a '#.'  If you need assistance choosing a colour, <a href='https://github.com/EthanJustice/links#designcolours'>this</a> is a list of websites that can help.",
         min: 7,
         max: 7,
 
-        default: "#16c581",
-        callback: "setColour",
+        default: '#16c581',
+        callback: 'setColour',
     },
     {
-        name: "Page Information",
-        description: "Settings for the page information popup.",
-        type: "divider",
+        name: 'Page Information',
+        description: 'Settings for the page information popup.',
+        type: 'divider',
     },
     {
-        name: "Popup Enabled",
-        type: "single-toggle",
+        name: 'Popup Enabled',
+        type: 'single-toggle',
 
-        dependsOnKey: "browserAction",
-        callback: "updateBrowserAction",
+        dependsOnKey: 'browseraction',
+        callback: 'updateBrowserAction',
 
         default: false,
     },
     {
-        name: "Danger Zone",
-        description: "Exercise caution here.",
-        type: "divider",
+        name: 'Danger Zone',
+        description: 'Exercise caution here.',
+        type: 'divider',
     },
     {
-        name: "Reset settings",
-        description: "Reset all settings to default",
-        type: "special",
-        fn: "reset",
+        name: 'Reset settings',
+        description: 'Reset all settings to default',
+        type: 'special',
+        fn: 'reset',
     },
 ];
 
 // changes theme
-const toggleTheme = data => {
-    document
-        .querySelectorAll('link[class="custom-theme"]')
-        .forEach(item => item.remove());
-    data = data.replace(new RegExp(" ", "g"), "-").toLowerCase();
-    if (data != "operating-system-default") {
+const toggleTheme = (data) => {
+    document.querySelectorAll('link[class="custom-theme"]').forEach((item) => item.remove());
+    data = data.replace(new RegExp(' ', 'g'), '-').toLowerCase();
+    if (data != 'operating-system-default') {
         document.head.appendChild(
-            buildElement("link", "", {
+            buildElement('link', '', {
                 href: `../../libs/themes/${data.toLowerCase()}.css`,
-                rel: "stylesheet",
-                type: "text/css",
-                className: "custom-theme",
+                rel: 'stylesheet',
+                type: 'text/css',
+                className: 'custom-theme',
             })
         );
     } else if (document.querySelector(`link[href$="../../libs/themes"]`)) {
@@ -209,9 +205,9 @@ const toggleTheme = data => {
 
 // descriptions of automatic functions
 const automaticDescriptions = {
-    loader: "Enable a loading bar.",
-    minimap: "Enable a minimap of a page.",
-    linksInSameTab: "Open all links in the same tab.",
+    loader: 'Enable a loading bar.',
+    minimap: 'Enable a minimap of a page.',
+    linksInSameTab: 'Open all links in the same tab.',
 };
 
 export { settings, toggleTheme, automaticDescriptions };

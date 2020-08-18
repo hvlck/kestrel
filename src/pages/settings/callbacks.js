@@ -7,48 +7,38 @@ import { updateSettings } from './update.js';
 const callbacks = {
     // generates storage reset confirmation
     reset: function () {
-        document
-            .querySelector(`input[value="Reset settings"]`)
-            .setAttribute("disabled", "true");
+        document.querySelector(`input[value="Reset settings"]`).setAttribute('disabled', 'true');
 
-        let container = buildElement("nav", "", { className: "confirm-reset" });
+        let container = buildElement('nav', '', { className: 'confirm-reset' });
 
-        let confirmBtn = buildElement("input", "", {
-            type: "button",
-            value: "Confirm",
+        let confirmBtn = buildElement('input', '', {
+            type: 'button',
+            value: 'Confirm',
         });
 
-        confirmBtn.addEventListener("click", () => this.resetAll());
+        confirmBtn.addEventListener('click', () => this.resetAll());
 
-        let cancelBtn = buildElement("input", "", {
-            type: "button",
-            value: "Cancel",
+        let cancelBtn = buildElement('input', '', {
+            type: 'button',
+            value: 'Cancel',
         });
 
-        cancelBtn.addEventListener("click", () => {
+        cancelBtn.addEventListener('click', () => {
             container.remove();
-            document
-                .querySelector(`input[value="Reset settings"]`)
-                .removeAttribute("disabled");
+            document.querySelector(`input[value="Reset settings"]`).removeAttribute('disabled');
         });
 
         container.appendChild(cancelBtn);
         container.appendChild(confirmBtn);
 
-        document
-            .querySelector(`input[value="Reset settings"]`)
-            .parentElement.appendChild(container);
+        document.querySelector(`input[value="Reset settings"]`).parentElement.appendChild(container);
     },
 
     // resets all storage, and initializes it again with default values
     resetAll: function () {
         browser.storage.local.clear().then(() => {
-            browser.runtime.sendMessage({ settings: "unregister-all" }).then(() => {
-                history.replaceState(
-                    "",
-                    "Kestrel | Settings",
-                    `${window.location.href}#reset`
-                );
+            browser.runtime.sendMessage({ settings: 'unregister-all' }).then(() => {
+                history.replaceState('', 'Kestrel | Settings', `${window.location.href}#reset`);
                 window.location.reload();
             });
         });
@@ -57,38 +47,34 @@ const callbacks = {
     // updates all automatic task settings
     updateAutomaticSettings: function (element) {
         let name;
-        document.querySelectorAll("input[data-automatic-setting]").forEach(item => {
-            if (item.disabled == true) { return }
-            if (item.parentElement.classList.contains("checkbox-parent")) {
-                name = item.parentElement.parentElement
-                    .querySelector("h3")
-                    .innerText.toLowerCase();
+        document.querySelectorAll('input[data-automatic-setting]').forEach((item) => {
+            if (item.disabled == true) {
+                return;
+            }
+            if (item.parentElement.classList.contains('checkbox-parent')) {
+                name = item.parentElement.parentElement.querySelector('h3').innerText.toLowerCase();
             } else {
-                name = item.parentElement
-                    .querySelector("h3")
-                    .innerText.toLowerCase();
+                name = item.parentElement.querySelector('h3').innerText.toLowerCase();
             }
 
             let key = item.dataset.key;
             let parent = item.dataset.automaticSetting;
-            if (item.type == "checkbox") {
+            if (item.type == 'checkbox') {
                 automaticSettings[parent][key] = item.checked;
             } else {
                 automaticSettings[parent][key] = item.value;
             }
         });
 
-        updateSettings("automaticsettings", automaticSettings, name);
+        updateSettings('automaticsettings', automaticSettings, name);
     },
 
     // download kestrel config as a .json file
     downloadConfig: function () {
-        browser.storage.local.get(null).then(data => {
-            let link = buildElement("a", "", {
-                className: "hidden",
-                href: `data:octet/stream;charset=utf-8,${encodeURIComponent(
-                    JSON.stringify(data)
-                )}`,
+        browser.storage.local.get(null).then((data) => {
+            let link = buildElement('a', '', {
+                className: 'hidden',
+                href: `data:octet/stream;charset=utf-8,${encodeURIComponent(JSON.stringify(data))}`,
                 download: `kestrel` + `.json`,
             });
 
@@ -105,20 +91,20 @@ const callbacks = {
     },
 
     // required keys that the config uploaded must have
-    required: ["automatic", "automaticsettings", "commands"],
+    required: ['automatic', 'automaticsettings', 'commands'],
     // validates an uploaded config, and then sets it as the settings
     uploadConfig: function (data) {
         data.files[0]
             .text()
-            .then(data => {
+            .then((data) => {
                 data = JSON.parse(data);
-                if (this.required.some(item => !data[item] || Object.keys(data[item]).length == 0) == true) return;
+                if (this.required.some((item) => !data[item] || Object.keys(data[item]).length == 0) == true) return;
                 browser.storage.local
                     .clear()
                     .then(() => {
                         browser.runtime
                             .sendMessage({
-                                settings: "unregister-all",
+                                settings: 'unregister-all',
                             })
                             .then(() => {
                                 browser.storage.local
@@ -126,22 +112,22 @@ const callbacks = {
                                     .then(() => {
                                         window.location.reload();
                                     })
-                                    .catch(err => {
+                                    .catch((err) => {
                                         console.error(err);
                                         failure(`Failed to upload config.`);
                                     });
                             })
-                            .catch(err => {
+                            .catch((err) => {
                                 console.error(err);
                                 failure(`Failed to upload config.`);
                             });
                     })
-                    .catch(err => {
+                    .catch((err) => {
                         console.error(err);
                         failure(`Failed to upload config.`);
                     });
             })
-            .catch(err => {
+            .catch((err) => {
                 console.error(err);
                 failure(`Failed to upload config.`);
             });
@@ -149,13 +135,11 @@ const callbacks = {
 
     // sets swatches next to inputs that involve colour to their specified colour
     setColour: function (item) {
-        let previous = document.querySelector(
-            `span[id="${item.dataset.automaticSetting}-colour-swatch"]`
-        );
+        let previous = document.querySelector(`span[id="${item.dataset.automaticSetting}-colour-swatch"]`);
         if (previous) {
             previous.remove();
         }
-        let preview = buildElement("span", "", {
+        let preview = buildElement('span', '', {
             style: `
 			background: ${item.value};
 			content: '';
@@ -168,8 +152,8 @@ const callbacks = {
             id: `${item.dataset.automaticSetting}-colour-swatch`,
         });
 
-        item.insertAdjacentElement("afterend", preview);
-    }
-}
+        item.insertAdjacentElement('afterend', preview);
+    },
+};
 
 export default callbacks;

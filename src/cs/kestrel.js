@@ -7,21 +7,21 @@ import { sendFnEvent } from './ui.js';
 let cmdFunctions = {
     // opens Kestrel's settings/options page
     openSettings: function (ref) {
-        sendFnEvent({ fn: "openSettings" });
+        sendFnEvent({ fn: 'openSettings' });
         return false;
     },
 
     // refreshs all tabs
     refreshTabs: function (ref) {
         // soft refreshing doesn't bypass cache, hard refreshing does
-        if (ref.includes("soft")) {
+        if (ref.includes('soft')) {
             sendFnEvent({
-                fn: "tabs",
+                fn: 'tabs',
                 args: { bypassCache: false },
             });
-        } else if (ref.includes("hard")) {
+        } else if (ref.includes('hard')) {
             sendFnEvent({
-                fn: "tabs",
+                fn: 'tabs',
                 args: { bypassCache: true },
             });
         }
@@ -34,7 +34,7 @@ let cmdFunctions = {
     injectedMiniMap: false,
     toggleMiniMap: function (ref) {
         if (this.injectedMiniMap == false) {
-            sendFnEvent({ injectSheet: "minimap" });
+            sendFnEvent({ injectSheet: 'minimap' });
             this.injectedMiniMap = true;
         }
     },

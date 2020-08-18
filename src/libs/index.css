@@ -5,9 +5,8 @@
     --secondary: #212121;
     --tertiary: #e1e1e1;
 
-    --primary-font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    --secondary-font: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-        "Lucida Sans", Arial, sans-serif;
+    --primary-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --secondary-font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,7 +33,6 @@ body {
 }
 
 * {
-    animation: 300ms fadeIn var(--primary-transition);
     transition: 150ms var(--primary-transition);
 }
 
@@ -55,7 +53,7 @@ a:hover {
 kbd {
     border: 2px solid var(--secondary);
     padding: 1px 5px;
-    font-family: "Consolas", monospace;
+    font-family: 'Consolas', monospace;
     font-weight: bold;
 }
 
@@ -110,7 +108,7 @@ kbd {
     background: var(--tertiary);
     padding: 3px 6px;
     color: var(--highlight);
-    font-family: "Consolas", monospace;
+    font-family: 'Consolas', monospace;
     font-weight: bold;
 }
 
