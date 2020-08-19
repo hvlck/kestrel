@@ -85,6 +85,10 @@ const buildFromInfo = () => {
             buildElement('p', `Reading time: ${info.readingTime} minute${info.readingTime != 1 ? 's' : ''}.`)
         );
     }
+
+    if (info.pwa == true) {
+        main.appendChild(buildElement('p', 'PWA'));
+    }
 };
 
 getActiveTab().then(async (t) => {

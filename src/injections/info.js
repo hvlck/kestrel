@@ -24,6 +24,10 @@
 
             return Math.ceil(words / 250);
         },
+
+        pwa: () => {
+            if (document.head.querySelector(`link[rel="manifest"][href$=".webmanifest"]`)) return true;
+        },
     };
 
     const scrape = () => {
