@@ -105,6 +105,20 @@ getActiveTab().then(async (t) => {
     });
     main.appendChild(c);
 
+    let crumbs = t.url.split(/\/+/).filter((i) => i.length > 0);
+    let root = buildElement('a', '', { href: t.url });
+
+    let path = '';
+    crumbs.forEach((item, index) => {
+        if (item.includes('http')) return;
+        if (root.hostname != item) path += `/${item}`;
+        document.body.appendChild(
+            buildElement('a', root.hostname != item ? path : item, {
+                href: `${root.protocol}//${root.hostname}${root.hostname == item ? '' : path}`,
+            })
+        );
+    });
+
     let siteDataLoader = buildElement('p', 'Loading...');
 
     let registered = execute('../injections/info.js')
