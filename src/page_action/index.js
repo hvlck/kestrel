@@ -109,6 +109,52 @@ getActiveTab().then(async (t) => {
     });
     main.appendChild(c);
 
+    browser.permissions.contains({ permissions: ['history'] }).then((has) => {
+        if (has == true) {
+            let root = buildElement('a', '', { href: t.url }).hostname;
+            browser.history
+                .search({
+                    text: root,
+                    startTime: new Date().setMonth(new Date().getMonth() - 1),
+                })
+                .then(async (data) => {
+                    let pageDailyRaw = await browser.history.search({
+                        text: root,
+                    });
+
+                    let pageDaily = Array.from(pageDailyRaw)
+                        .filter((visit) => visit.url.split('#')[0] == t.url.split('#')[0])
+                        .reduce((p, n) => (p += n.visitCount), 0);
+
+                    let pageTotal = Array.from(data)
+                        .filter((visit) => visit.url.split('#')[0] == t.url.split('#')[0])
+                        .reduce((p, n) => (p += n.visitCount), 0);
+
+                    let domainDaily = Array.from(pageDailyRaw).reduce((p, n) => (p += n.visitCount), 0);
+
+                    let domainTotal = Array.from(data).reduce((p, n) => (p += n.visitCount), 0);
+
+                    main.appendChild(
+                        buildElement(
+                            'p',
+                            `Visited page ${pageTotal} time${
+                                pageTotal > 1 ? 's' : ''
+                            } in the last month (${pageDaily} time${pageDaily > 1 ? 's' : ''} today)`
+                        )
+                    );
+
+                    main.appendChild(
+                        buildElement(
+                            'p',
+                            `Visited domain ${domainTotal} time${
+                                domainTotal > 1 ? 's' : ''
+                            } in the last month (${domainDaily} time${domainDaily > 1 ? 's' : ''} today)`
+                        )
+                    );
+                });
+        }
+    });
+
     let crumbs = t.url.split(/\/+/).filter((i) => i.length > 0);
     let root = buildElement('a', '', { href: t.url });
 

@@ -85,6 +85,9 @@ const callbacks = {
     },
 
     updateBrowserAction: function (item) {
+        browser.permissions.request({
+            permissions: ['history'],
+        });
         browser.runtime.sendMessage({ settings: `popup-${item.checked}` }).then(() => {
             updateSettings('browserAction', item.checked, 'popup');
         });

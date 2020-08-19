@@ -44,6 +44,8 @@ The [features](#features) section lists the permissions that each feature uses.
 
 TODO: General overview of how permissions are used
 
+TODO: instances of permission usage, e.g. [https://github.com/EthanJustice/kestrel/search?q=browser.tabs.&unscoped_q=browser.tabs.](https://github.com/EthanJustice/kestrel/search?q=browser.tabs.&unscoped_q=browser.tabs.)
+
 ### How Do I Change Kestrel's Default Activation Command
 
 See [this article](https://support.mozilla.org/en-US/kb/manage-extension-shortcuts-firefox) from Mozilla.
@@ -79,6 +81,8 @@ TODO: Finish section
 
 ### Medium
 
++ Update features [meta]
++ Page action styling
 + Refactoring [meta]
 + Better onboarding/user-friendly docs [meta] {in-progress}
 + Homepage [meta] {in-progress}

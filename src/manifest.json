@@ -8,6 +8,7 @@
         "96": "icons/icon@2x.png"
     },
     "permissions": ["storage", "tabs", "activeTab", "file://*/*", "https://*/*", "http://*/*"],
+    "optional_permissions": ["history"],
     "background": {
         "scripts": ["background/main.js"]
     },

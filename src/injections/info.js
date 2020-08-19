@@ -27,6 +27,7 @@
 
         pwa: () => {
             if (document.head.querySelector(`link[rel="manifest"][href$=".webmanifest"]`)) return true;
+            else return false;
         },
     };
 
