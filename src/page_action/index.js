@@ -11,35 +11,59 @@ const dispatch = (event, status) => {
 
 const main = buildElement('div', '', {
     id: 'main',
+    className: 'menu',
 });
 
 document.body.appendChild(main);
 
 const home = buildElement('a', 'Back', {
-    style: 'display:none',
+    style: 'display: none;',
 });
 
 home.addEventListener('click', () => menus.showMain());
+document.body.appendChild(home);
 
 const menus = {
-    showMain: () => {
-        document.body.appendChild(main);
+    hideMenus: () => {
+        document.querySelectorAll('.menu').forEach((item) => {
+            item.style.display = 'none';
+        });
     },
 
-    showHome: () => {
+    showMain: function () {
+        this.hideMenus();
+        main.style.display = '';
+    },
+
+    showHome: function () {
+        this.hideMenus();
         home.style.display = '';
     },
 
     showFeeds: (feeds) => {
+        let container =
+            document.querySelector('#feeds') ||
+            buildElement('div', '', {
+                className: 'menu',
+                id: 'feeds',
+            });
+
         menus.showHome();
-        main.remove();
-        feeds.forEach((item) => {
-            document.body.appendChild(
-                buildElement('a', item, {
-                    href: item,
-                })
-            );
-        });
+        menus.hideMenus();
+
+        if (!document.querySelector('#feeds')) {
+            feeds.forEach((item) => {
+                container.appendChild(
+                    buildElement('a', item, {
+                        href: item,
+                    })
+                );
+            });
+            document.body.appendChild(container);
+        } else {
+            menus.hideMenus();
+            container.style.display = '';
+        }
     },
 };
 
@@ -48,19 +72,25 @@ let info = {};
 const buildFromInfo = () => {
     console.log(info);
     if (info.rss.length != 0) {
-        let rss = buildElement('a', 'RSS Feeds Available');
+        let rss = buildElement('a', 'RSS Feeds Available', { className: 'special' });
         rss.addEventListener('click', () => {
             menus.showFeeds(info.rss);
         });
 
         main.appendChild(rss);
     }
+
+    if (info.readingTime) {
+        main.appendChild(
+            buildElement('p', `Reading time: ${info.readingTime} minute${info.readingTime != 1 ? 's' : ''}.`)
+        );
+    }
 };
 
 getActiveTab().then(async (t) => {
     let title = t.title;
     let c = buildElement('p', title, {
-        id: 'title',
+        className: 'special',
         title: 'Copy',
     });
     c.addEventListener('click', () => {
@@ -90,7 +120,7 @@ getActiveTab().then(async (t) => {
                 }
             });
 
-            browser.tabs.sendMessage(t[0].id, { start: true }).then(() => {});
+            browser.tabs.sendMessage(t[0].id, { start: true });
         })
         .catch((err) => {
             console.error(`Failed to inject info: ${err}`);

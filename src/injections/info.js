@@ -12,11 +12,22 @@
 
             return links;
         },
+
+        readingTime: () => {
+            let words = 0;
+            document.body.querySelectorAll('h1,h2,h3,h4,h5,h6,p, * > a,table > *,table,code,kbd').forEach((item) => {
+                if (item.innerText && Object.values(item.getBoundingClientRect()).every((i) => i == 0))
+                    words += item.innerText.split(/\s/g).filter((s) => s.length > 0).length;
+            });
+
+            return Math.ceil(words / 250);
+        },
     };
 
     const scrape = () => {
         let returnedData = {};
         returnedData.rss = data.getRSS();
+        returnedData.readingTime = data.readingTime();
 
         return returnedData;
     };

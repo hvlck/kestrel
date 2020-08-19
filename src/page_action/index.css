@@ -27,11 +27,11 @@ body {
     background: var(--highlight);
 }
 
-#title {
+.special {
     color: var(--highlight);
     cursor: pointer;
 }
 
-#title:hover {
+.special:hover {
     text-decoration: underline;
 }
