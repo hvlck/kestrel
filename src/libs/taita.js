@@ -156,8 +156,8 @@ class Taita {
         }
         args.forEach((arg) => {
             this.commands[Object.keys(arg)[0]] = Object.assign(
-                Object.values(arg)[0],
-                this.commands[Object.keys(arg)[0]]
+                this.commands[Object.keys(arg)[0]],
+                Object.values(arg)[0]
             );
         });
     }

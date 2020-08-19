@@ -23,8 +23,8 @@ Structure
 */
 
 import buildElement from '../libs/utils.js';
-import { cpal, commands } from '../libs/commands.js';
-import cmdFunctions from './kestrel.js';
+import { cpal } from '../libs/commands.js';
+import { cmdFunctions } from './kestrel.js';
 
 let kestrel;
 let commandInp;

@@ -11,13 +11,6 @@
     "background": {
         "scripts": ["background/main.js"]
     },
-    "content_scripts": [
-        {
-            "matches": ["file://*/*", "https://*/*", "http://*/*"],
-            "js": ["libs/commands.js"],
-            "run_at": "document_start"
-        }
-    ],
     "user_scripts": {
         "api_script": "background/scriptApi.js"
     },
