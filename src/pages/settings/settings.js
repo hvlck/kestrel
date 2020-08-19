@@ -209,6 +209,7 @@ const automaticDescriptions = {
     loader: 'Enable a loading bar.',
     minimap: 'Enable a minimap of a page.',
     linksInSameTab: 'Open all links in the same tab.',
+    noSameSiteLinks: 'Disable links that link to the current page',
 };
 
 export { settings, toggleTheme, automaticDescriptions };

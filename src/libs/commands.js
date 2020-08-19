@@ -72,6 +72,7 @@ const commands = {
     togglePageTheme: {
         name: 'Toggle page theme',
         callback: 'togglePageTheme',
+        on: false,
     },
 };
 
@@ -80,6 +81,7 @@ const automaticCommandsList = {
     loader: false,
     minimap: false,
     linksInSameTab: false,
+    noSameSiteLinks: false,
 };
 
 // settings for automatic tasks
