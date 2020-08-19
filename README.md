@@ -84,6 +84,7 @@ TODO: Finish section
 + Homepage [meta] {in-progress}
 + Doc updates [meta]
 + Logical ordering of variables and whatnot [meta]
++ Possible migration of the `reference` to the `wiki`
 
 ### Low
 
