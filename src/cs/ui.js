@@ -41,6 +41,16 @@ function buildUI() {
     importSettings().then((data) => {
         settings = data;
 
+        if (settings.theme && settings.theme != 'operating-system-default') {
+            document.head.appendChild(
+                buildElement('link', '', {
+                    rel: 'stylesheet',
+                    type: 'text/css',
+                    href: `../libs/themes/${settings.theme}.css`,
+                })
+            );
+        }
+
         Object.entries(settings.commands).forEach((item) => {
             if (item[1].on === false) {
                 cpal.removeCommands(item[0]);
