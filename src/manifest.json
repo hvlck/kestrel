@@ -34,7 +34,7 @@
             "19": "icons/icon.png"
         },
         "default_title": "Kestrel - Search Commands",
-        "default_popup": "cs/index.html"
+        "default_popup": "browser_action/index.html"
     },
     "page_action": {
         "default_icon": {

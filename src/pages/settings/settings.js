@@ -166,6 +166,7 @@ const settings = [
     {
         name: 'Popup Enabled',
         type: 'single-toggle',
+        description: 'Enables the <a href="">page information popup</a>.',
 
         dependsOnKey: 'browseraction',
         callback: 'updateBrowserAction',
