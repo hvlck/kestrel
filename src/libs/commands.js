@@ -43,6 +43,11 @@ const commands = {
         callback: 'scrollToThreeFourths',
         on: false,
     },
+    setTimer: {
+        name: 'Set timer',
+        callback: 'setTimer',
+        on: true,
+    },
     toggleAnimations: {
         name: 'Toggle animations: off',
         callback: 'toggleAnimations',

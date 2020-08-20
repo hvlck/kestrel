@@ -1,7 +1,23 @@
 // Command Callbacks
 
-import { sendFnEvent } from './ui.js';
-import { taita } from '../libs/commands.js';
+import { sendFnEvent, input, hideKestrel, showKestrel, updateCommands, listen } from './ui.js';
+
+const parseAlarm = (v) => {
+    return new Promise((resolve, reject) => {
+        if (!v.includes(':')) {
+            let d = new Date();
+            d.setMinutes(v);
+            resolve(d);
+        } else if (v.includes(':') && v.split(':').length == 2) {
+            let d = new Date();
+            resolve(
+                new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), v.split(':')[0], v.split(':')[1])
+            );
+        } else {
+            reject(`Invalid user input.`);
+        }
+    });
+};
 
 // command callbacks, not listed in window object for organization and for preventing conflict
 // note: explicit returns of false denote that the function doesn't need access to the window (through injections)
@@ -38,6 +54,44 @@ let cmdFunctions = {
             sendFnEvent({ injectSheet: 'minimap' });
             this.injectedMiniMap = true;
         }
+    },
+
+    setTimer: function (ref) {
+        hideKestrel();
+        let time;
+
+        input.placeholder = 'For how long?';
+        input.pattern = /\d/;
+        input.removeEventListener('keydown', listen);
+
+        const addAlarm = async (event) => {
+            if (event.keyCode == 13 && input.value) {
+                if (!time) {
+                    time = await parseAlarm(input.value).catch((e) => console.error(`Failed to parse date: ${e}`));
+                    input.value = '';
+
+                    input.pattern = /[a-z]/i;
+                    input.placeholder = 'What do you want to name this alarm?';
+                } else {
+                    browser.alarms.create(input.value, {
+                        when: time.getTime(),
+                    });
+
+                    input.removeEventListener('keydown', addAlarm);
+
+                    input.value = '';
+                    input.placeholder = 'Search commands';
+                    input.removeAttribute('pattern');
+
+                    updateCommands();
+                    showKestrel();
+                    input.focus();
+                }
+            }
+        };
+
+        input.addEventListener('keydown', addAlarm);
+        return false;
     },
 };
 

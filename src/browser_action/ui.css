@@ -135,3 +135,7 @@ input[type='text'].kestrel-command-input {
     animation: none;
     transition: none;
 }
+
+:invalid {
+    border: 2px solid crimson;
+}

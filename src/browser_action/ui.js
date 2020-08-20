@@ -23,8 +23,8 @@ import { taita } from '../libs/commands.js';
 import { cmdFunctions } from './kestrel.js';
 
 let kestrel;
-let commandInp;
-let commandIndex = 0;
+let input;
+let taitaIndex = 0;
 
 let commandsChanged = taita.matchedCommands.changed();
 
@@ -49,26 +49,26 @@ async function buildUI() {
     });
 
     kestrel = buildElement('div', '', {
-        className: 'kestrel kestrel-hidden',
+        className: 'kestrel',
     });
 
-    commandInp = buildElement('input', '', {
+    input = buildElement('input', '', {
         type: 'text',
         placeholder: 'Search commands...',
         className: 'kestrel-command-input',
     });
 
-    commandInp.addEventListener('input', updateCommands);
-    commandInp.addEventListener('focus', updateCommands);
-    commandInp.addEventListener('keydown', listen);
+    input.addEventListener('input', updateCommands);
+    input.addEventListener('focus', updateCommands);
+    input.addEventListener('keydown', listen);
 
-    kestrel.appendChild(commandInp);
+    kestrel.appendChild(input);
 
     updateCommands();
 
     showKestrel();
 
-    commandInp.focus();
+    input.focus();
 }
 
 // gets settings
@@ -77,20 +77,20 @@ const importSettings = () => {
 };
 
 // updates list of commands and corresponding html
-let commandList;
+let list;
 const updateCommands = () => {
     // Updates list of commands, adds event listeners to command elements
-    commandInp.focus();
-    taita.listen(commandInp.value);
-    commandIndex = 0;
-    if (commandList && commandsChanged) {
+    input.focus();
+    taita.listen(input.value);
+    taitaIndex = 0;
+    if (list && commandsChanged) {
         clearCommands();
     } else {
-        commandList = buildElement('div', '', {
+        list = buildElement('div', '', {
             className: 'kestrel-commands-container',
         });
 
-        kestrel.appendChild(commandList);
+        kestrel.appendChild(list);
     }
 
     taita.matchedCommands.commands.forEach((item) => {
@@ -108,64 +108,56 @@ const updateCommands = () => {
 
         commandItem.addEventListener('mouseover', () => {
             // adds focus class
-            Object.values(commandList.children).forEach((child) =>
-                child.classList.remove('kestrel-command-item-focused')
-            );
+            Object.values(list.children).forEach((child) => child.classList.remove('kestrel-command-item-focused'));
             commandItem.classList.add('kestrel-command-item-focused');
 
-            commandIndex = Object.values(commandList.children).findIndex((child) =>
+            taitaIndex = Object.values(list.children).findIndex((child) =>
                 child.classList.contains('kestrel-command-item-focused')
             );
         });
 
-        commandList.appendChild(commandItem);
+        list.appendChild(commandItem);
     });
 
-    if (commandList.firstChild) {
-        commandList.firstChild.classList.add('kestrel-command-item-focused');
+    if (list.firstChild) {
+        list.firstChild.classList.add('kestrel-command-item-focused');
     }
 };
 
 // updates command list html
 function listen(event) {
-    if (event.keyCode == 13 && commandList) {
-        Object.values(commandList.children).forEach((child) => {
+    if (event.keyCode == 13 && list) {
+        Object.values(list.children).forEach((child) => {
             if (child.classList.contains('kestrel-command-item-focused')) {
                 let c = taita.execute(child.innerText, cmdFunctions);
                 if (c != false) sendFnEvent({ inject: taita._commandContains(child.innerText) });
             }
         });
-        commandInp.value = '';
+        input.value = '';
         updateCommands();
     } else if (event.keyCode == 38) {
         // up arrow key
-        Object.values(commandList.children).forEach((child) => child.classList.remove('kestrel-command-item-focused'));
-        if (commandIndex <= 0) {
-            commandList.children[commandList.children.length - 1].classList.add('kestrel-command-item-focused');
-            commandIndex = commandList.children.length - 1;
-            commandList.scrollTo(0, commandList.clientHeight);
+        Object.values(list.children).forEach((child) => child.classList.remove('kestrel-command-item-focused'));
+        if (taitaIndex <= 0) {
+            list.children[list.children.length - 1].classList.add('kestrel-command-item-focused');
+            taitaIndex = list.children.length - 1;
+            list.scrollTo(0, list.clientHeight);
         } else {
-            commandIndex -= 1;
-            commandList.children[commandIndex].classList.add('kestrel-command-item-focused');
-            commandList.scrollTo(
-                0,
-                parseInt(getComputedStyle(commandList.children[commandIndex]).height) * commandIndex
-            );
+            taitaIndex -= 1;
+            list.children[taitaIndex].classList.add('kestrel-command-item-focused');
+            list.scrollTo(0, parseInt(getComputedStyle(list.children[taitaIndex]).height) * taitaIndex);
         }
     } else if (event.keyCode == 40) {
         // down arrow key
-        Object.values(commandList.children).forEach((child) => child.classList.remove('kestrel-command-item-focused'));
-        if (commandIndex >= commandList.children.length - 1) {
-            commandList.children[0].classList.add('kestrel-command-item-focused');
-            commandIndex = 0;
-            commandList.scrollTo(0, 0);
+        Object.values(list.children).forEach((child) => child.classList.remove('kestrel-command-item-focused'));
+        if (taitaIndex >= list.children.length - 1) {
+            list.children[0].classList.add('kestrel-command-item-focused');
+            taitaIndex = 0;
+            list.scrollTo(0, 0);
         } else {
-            commandIndex += 1;
-            commandList.children[commandIndex].classList.add('kestrel-command-item-focused');
-            commandList.scrollTo(
-                0,
-                parseInt(getComputedStyle(commandList.children[commandIndex]).height) * commandIndex
-            );
+            taitaIndex += 1;
+            list.children[taitaIndex].classList.add('kestrel-command-item-focused');
+            list.scrollTo(0, parseInt(getComputedStyle(list.children[taitaIndex]).height) * taitaIndex);
         }
     }
 }
@@ -178,23 +170,22 @@ const sendFnEvent = (msg) => {
 
 // hides kestrel ui
 const hideKestrel = () => {
-    kestrel.classList.add('kestrel-hidden');
-    kestrel.remove();
+    list.classList.add('kestrel-hidden');
 };
 
 // shows kestrel ui
 const showKestrel = () => {
     document.body.insertBefore(kestrel, document.body.firstChild);
-    kestrel.classList.remove('kestrel-hidden');
+    list.classList.remove('kestrel-hidden');
 };
 
 // removes all command html
 function clearCommands() {
-    if (commandList) {
-        Object.values(commandList.children).forEach((child) => child.remove());
+    if (list) {
+        Object.values(list.children).forEach((child) => child.remove());
     }
 }
 
 buildUI();
 
-export { sendFnEvent };
+export { sendFnEvent, kestrel, hideKestrel, showKestrel, input, list, listen, updateCommands };
