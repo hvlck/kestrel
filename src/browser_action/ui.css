@@ -124,6 +124,11 @@ input[type='text'].kestrel-command-input {
     transition: var(--transition-primary);
 }
 
+p {
+    padding: 5px 10px;
+    color: var(--kestrel-secondary);
+}
+
 /*
 	Hides item from view
 	In practice this is used in the main container (`kestrel` class)

@@ -46,7 +46,6 @@ const commands = {
     setTimer: {
         name: 'Set timer',
         callback: 'setTimer',
-        on: true,
     },
     toggleAnimations: {
         name: 'Toggle animations: off',
@@ -78,6 +77,10 @@ const commands = {
         name: 'Toggle page theme',
         callback: 'togglePageTheme',
         on: false,
+    },
+    viewTimers: {
+        name: 'View timers',
+        callback: 'viewTimers',
     },
 };
 

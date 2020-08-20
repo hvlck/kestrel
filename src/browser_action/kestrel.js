@@ -1,13 +1,17 @@
 // Command Callbacks
 
-import { sendFnEvent, input, hideKestrel, showKestrel, updateCommands, listen } from './ui.js';
+import { sendFnEvent, input, hideKestrel, showKestrel, updateCommands, listen, kestrel } from './ui.js';
+import buildElement from '../libs/utils.js';
 
 const parseAlarm = (v) => {
     return new Promise((resolve, reject) => {
         if (!v.includes(':')) {
             let d = new Date();
-            d.setMinutes(v);
-            resolve(d);
+            resolve(
+                resolve(
+                    new Date(d.getFullYear(), d.getMonth(), d.getDate(), v > 60 ? d.getHours() + 1 : d.getHours(), v)
+                )
+            );
         } else if (v.includes(':') && v.split(':').length == 2) {
             let d = new Date();
             resolve(
@@ -73,11 +77,13 @@ let cmdFunctions = {
                     input.pattern = /[a-z]/i;
                     input.placeholder = 'What do you want to name this alarm?';
                 } else {
+                    console.log(time);
                     browser.alarms.create(input.value, {
                         when: time.getTime(),
                     });
 
                     input.removeEventListener('keydown', addAlarm);
+                    input.addEventListener('keydown', listen);
 
                     input.value = '';
                     input.placeholder = 'Search commands';
@@ -91,6 +97,34 @@ let cmdFunctions = {
         };
 
         input.addEventListener('keydown', addAlarm);
+        return false;
+    },
+
+    viewTimers: async function (ref) {
+        let started = new Date();
+
+        const format = (t) => {
+            //            let diff = Math.floor((t.getTime() - started.getTime()) / 1000);
+            //            console.log(diff);
+            return `diff`;
+            //return `${h > 10 ? h : `0${h}`}:${m > 10 ? m : `0${m}`}:${s > 10 ? s : `0${s}`}`;
+        };
+
+        hideKestrel();
+        input.classList.add('kestrel-hidden');
+        let alarms = await browser.alarms.getAll();
+        if (alarms.length == 0) kestrel.appendChild(buildElement('p', 'No alarms set.'));
+
+        let timers = [];
+        alarms.forEach((alarm) => {
+            let t = new Date(alarm.scheduledTime);
+            timers.push(t);
+            let newAlarm = buildElement('p', `${alarm.name} - ${format(t)} remaining`, {
+                className: `timer-info`,
+            });
+            kestrel.appendChild(newAlarm);
+        });
+
         return false;
     },
 };
