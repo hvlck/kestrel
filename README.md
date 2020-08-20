@@ -122,32 +122,38 @@ license - MIT
         /background - background scripts
             main.js - primary background script, controls injection logic
             scriptApi.js - userscript API
-        /cs - content scripts
-            /automatic - automatic content scripts, injected at page load
+        /browser_action - extension browser action
+            index.html - popup shell
             kestrel.js - logic for commands
             ui.css - styling for command palette
-            ui.js - logic for command palette
+            ui.js - logic for command palette interaction
         /icons - kestrel icons
         /injections - files for commands that require injections
+            /automatic - scripts injected into every page (if enabled) using UserScript API (see /background/scriptApi.js)
+            /commands - individual command scripts
             /minimap - injection files for minimap command
+            info.js - page scraping for the page action
         /libs - libraries and files used across multiple folders
+            /themes - various themes
             commands.js - list of commands, aliases, and callbacks
             index.css - base stylesheet for all pages
             taita.js - command palette logic processor
             utils.js - utility
-            /themes - various themes
+            webUtils - utilities for webextension APIs
+        /page_action - extension page action
+            index.css - styling
+            index.html - shell
+            index.js - display
         /pages
+            /guide - kestrel guide
+            /media - images
+            /reference - kestrel reference
             /settings - extension settings page
                 index.html - settings page
                 settings.css - form styling, some stlying specific to /settings
                 settings.js - object with settings, descriptions, etc.
                 update.js - settings page logic
-            /media - images
-            /guide - kestrel guide
-            /reference - kestrel reference
-        /themes - reusable themes
-            dark.css - dark theme variables
-            light.css - light theme variables
+            changelog.js - generates a version number from the manifest (and a link to the changelog)
 ```
 
 Messaging between extension parts
@@ -174,13 +180,32 @@ graph LR
 Extension storage (all are customised in the options page)
 
 ```plaintext
-automatic - automatic tasks, and whether they're enabled
+automatic - automatic tasks, and whether they're enabled [Object]
+{
+    scriptName: Boolean // script name corresponds to a file in /injections/automatic
+}
 
-automaticsettings - settings for automatic tasks
+automaticsettings - settings for automatic tasks [Object]
+{
+    scriptName: {
+        ...settings: value // not all scripts have settings
+    }
+}
 
-commands - all commands, and whether they're enabled
+browseraction - status of browser action (enabled/disabled) [Boolean]
+browseraction: Boolean
 
-theme - string - kestrel's theme (light, dark, or operating-system-default, which uses the (prefers-color-scheme) media query)
+commands - all commands, and whether they're enabled [Object]
+{
+    "name": {
+        on: Boolean, // enabled/disabled
+        callback: String, // internal callback, injection file name
+        name: String // text displayed in command palette
+    } // these correspond to taita commands
+      // see https://github.com/EthanJustice/taita/#setup
+}
+
+theme - kestrel's theme (light, dark, or operating-system-default, which uses the (prefers-color-scheme) media query) [String]
 ```
 
 ## Motivation
