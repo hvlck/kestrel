@@ -88,12 +88,10 @@ TODO: Finish section
 + Homepage [meta] {in-progress}
 + Doc updates [meta]
 + Logical ordering of variables and whatnot [meta]
-+ Possible migration of the `reference` to the `wiki`
-+ Tests
++ Migration of the `reference` to the `wiki` [meta]
++ Tests [meta]
 
 ### Low
-
-+ Customisation of highlight colour [feature]
 
 ### Abandoned/Ultra-Low Priority
 

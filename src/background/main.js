@@ -59,6 +59,7 @@ const utils = {
 
 // opens settings page once user has installed extension
 browser.runtime.onInstalled.addListener(() => {
+    utils.hidePageAction();
     browser.runtime.openOptionsPage();
 });
 
@@ -70,6 +71,7 @@ browser.runtime.onStartup.addListener(async () => {
     }
 });
 
+// listens for updates to the extension's storage
 browser.storage.onChanged.addListener((e) => {
     let items = Object.keys(e);
     if (items.includes('browseraction') && e.browseraction.newValue == true) {

@@ -160,7 +160,7 @@ const settings = [
     },
     {
         name: 'Page Information',
-        description: 'Settings for the page information popup.',
+        description: 'Settings for the <a href="">page information popup</a>.',
         type: 'divider',
     },
     {

@@ -32,9 +32,11 @@ const build = () => {
 
         div.appendChild(title);
 
-        let description = buildElement('p', item.description, {
+        let description = buildElement('p', '', {
             className: 'settings-item-description',
         });
+
+        description.innerHTML = item.description;
 
         div.appendChild(description);
 
