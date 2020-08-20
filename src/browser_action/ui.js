@@ -1,10 +1,6 @@
-// Command palette UI and control
+// Command palette UI and control for browser action
 
-/* OVERVIEW OF HTML STRUCTURE
-
-All class names begin with kestrel- to prevent conflict with existing class names.
-
-Structure
+/* Structure
 
 <body>
 	// container
@@ -32,32 +28,24 @@ let commandIndex = 0;
 
 let commandsChanged = taita.matchedCommands.changed();
 
-let port;
-
-let settings;
-
 // generates command palette and logic
-function buildUI() {
-    importSettings().then((data) => {
-        settings = data;
+async function buildUI() {
+    let settings = await importSettings();
 
-        if (settings.theme && settings.theme != 'operating-system-default') {
-            document.head.appendChild(
-                buildElement('link', '', {
-                    rel: 'stylesheet',
-                    type: 'text/css',
-                    href: `../libs/themes/${settings.theme}.css`,
-                })
-            );
+    if (settings.theme && settings.theme != 'operating-system-default') {
+        document.head.appendChild(
+            buildElement('link', '', {
+                rel: 'stylesheet',
+                type: 'text/css',
+                href: `../libs/themes/${settings.theme}.css`,
+            })
+        );
+    }
+
+    Object.entries(settings.commands).forEach((item) => {
+        if (item[1].on === false) {
+            taita.removeCommands(item[0]);
         }
-
-        Object.entries(settings.commands).forEach((item) => {
-            if (item[1].on === false) {
-                taita.removeCommands(item[0]);
-            }
-        });
-
-        updateCommands();
     });
 
     kestrel = buildElement('div', '', {
@@ -71,14 +59,13 @@ function buildUI() {
     });
 
     commandInp.addEventListener('input', updateCommands);
-
     commandInp.addEventListener('focus', updateCommands);
-
     commandInp.addEventListener('keydown', listen);
 
-    connectPort();
-
     kestrel.appendChild(commandInp);
+
+    updateCommands();
+
     showKestrel();
 
     commandInp.focus();
@@ -107,17 +94,20 @@ const updateCommands = () => {
     }
 
     taita.matchedCommands.commands.forEach((item) => {
+        // generates html for new (matching) commands
         let commandItem = buildElement('p', item, {
             className: 'kestrel-command-item',
         });
 
         commandItem.addEventListener('click', () => {
+            // executes specified command if clicked
             let c = taita.execute(commandItem.innerText, cmdFunctions);
             if (c != false) sendFnEvent({ inject: taita._commandContains(commandItem.innerText) });
             updateCommands();
         });
 
         commandItem.addEventListener('mouseover', () => {
+            // adds focus class
             Object.values(commandList.children).forEach((child) =>
                 child.classList.remove('kestrel-command-item-focused')
             );
@@ -179,30 +169,6 @@ function listen(event) {
         }
     }
 }
-
-const connectPort = () => {
-    port = browser.runtime.connect({
-        // Establish initial connection to background script (background/main.js)
-        name: 'kestrel',
-    });
-
-    port.onMessage.addListener((msg) => {
-        // Messages from background script
-        if (msg.kestrel == 'hide') {
-            hideKestrel();
-        } else if (msg.kestrel == 'show') {
-            connectPort();
-            showKestrel();
-            commandInp.focus();
-        }
-    });
-
-    port.onDisconnect.addListener((msg) => {
-        port = null;
-    });
-};
-
-let messager;
 
 // sends a message to the background script
 // this is for commands that require an API that can only be accessed in a background script
