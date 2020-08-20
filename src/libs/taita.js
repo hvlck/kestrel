@@ -1,4 +1,5 @@
 // See https://github.com/EthanJustice/taita/
+// taita powers the command palette
 
 class Taita {
     constructor(source, options) {

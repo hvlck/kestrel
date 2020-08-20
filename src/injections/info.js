@@ -1,3 +1,4 @@
+// scrapes information from the current page for the page-action
 (function () {
     const data = {
         rss: () => {

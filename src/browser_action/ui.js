@@ -23,14 +23,14 @@ Structure
 */
 
 import buildElement from '../libs/utils.js';
-import { cpal } from '../libs/commands.js';
+import { taita } from '../libs/commands.js';
 import { cmdFunctions } from './kestrel.js';
 
 let kestrel;
 let commandInp;
 let commandIndex = 0;
 
-let commandsChanged = cpal.matchedCommands.changed();
+let commandsChanged = taita.matchedCommands.changed();
 
 let port;
 
@@ -53,7 +53,7 @@ function buildUI() {
 
         Object.entries(settings.commands).forEach((item) => {
             if (item[1].on === false) {
-                cpal.removeCommands(item[0]);
+                taita.removeCommands(item[0]);
             }
         });
 
@@ -94,7 +94,7 @@ let commandList;
 const updateCommands = () => {
     // Updates list of commands, adds event listeners to command elements
     commandInp.focus();
-    cpal.listen(commandInp.value);
+    taita.listen(commandInp.value);
     commandIndex = 0;
     if (commandList && commandsChanged) {
         clearCommands();
@@ -106,14 +106,14 @@ const updateCommands = () => {
         kestrel.appendChild(commandList);
     }
 
-    cpal.matchedCommands.commands.forEach((item) => {
+    taita.matchedCommands.commands.forEach((item) => {
         let commandItem = buildElement('p', item, {
             className: 'kestrel-command-item',
         });
 
         commandItem.addEventListener('click', () => {
-            let c = cpal.execute(commandItem.innerText, cmdFunctions);
-            if (c != false) sendFnEvent({ inject: cpal._commandContains(commandItem.innerText) });
+            let c = taita.execute(commandItem.innerText, cmdFunctions);
+            if (c != false) sendFnEvent({ inject: taita._commandContains(commandItem.innerText) });
             updateCommands();
         });
 
@@ -141,8 +141,8 @@ function listen(event) {
     if (event.keyCode == 13 && commandList) {
         Object.values(commandList.children).forEach((child) => {
             if (child.classList.contains('kestrel-command-item-focused')) {
-                let c = cpal.execute(child.innerText, cmdFunctions);
-                if (c != false) sendFnEvent({ inject: cpal._commandContains(child.innerText) });
+                let c = taita.execute(child.innerText, cmdFunctions);
+                if (c != false) sendFnEvent({ inject: taita._commandContains(child.innerText) });
             }
         });
         commandInp.value = '';

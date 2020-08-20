@@ -1,7 +1,7 @@
 // Command Callbacks
 
 import { sendFnEvent } from './ui.js';
-import { cpal } from '../libs/commands.js';
+import { taita } from '../libs/commands.js';
 
 // command callbacks, not listed in window object for organization and for preventing conflict
 // note: explicit returns of false denote that the function doesn't need access to the window (through injections)

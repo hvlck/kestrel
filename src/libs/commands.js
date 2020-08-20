@@ -97,8 +97,8 @@ const automaticSettings = {
 };
 
 // taita instance
-const cpal = new Taita(commands, {
+const taita = new Taita(commands, {
     sort: 'alphabetical',
 });
 
-export { commands, cpal, automaticCommandsList, automaticSettings };
+export { commands, taita, automaticCommandsList, automaticSettings };

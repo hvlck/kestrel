@@ -1,3 +1,4 @@
+// switches page theme by toggling media query rules
 (function () {
     if (!document.body.dataset.theme)
         document.body.dataset.theme =

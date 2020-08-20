@@ -1,3 +1,5 @@
+// control for the page-action
+
 import { getActiveTab, execute, activeTab } from '../libs/webUtils.js';
 import buildElement from '../libs/utils.js';
 

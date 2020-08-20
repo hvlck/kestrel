@@ -1,3 +1,5 @@
+// utils that require webextension api access
+
 // utils that require elevated permissions
 const getActiveTab = () => {
     return browser.tabs
@@ -18,6 +20,7 @@ const execute = (file) => {
     });
 };
 
+// gets the currently active tab
 const activeTab = () => {
     return browser.tabs.query({
         currentWindow: true,

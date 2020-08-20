@@ -1,6 +1,6 @@
+// generates a changelog link in the first nav
 import buildElement from '../libs/utils.js';
 
-// generates a changelog link in the first nav
 browser.runtime
     .sendMessage({
         meta: 'get-manifest',

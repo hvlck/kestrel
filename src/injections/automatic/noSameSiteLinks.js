@@ -1,3 +1,4 @@
+// disables all links that go to the current page
 (function () {
     document.body.querySelectorAll('a[href]').forEach((item) => {
         if (item.href.includes('#') || item.href.includes('?')) return;

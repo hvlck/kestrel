@@ -1,3 +1,5 @@
+/* page-action specific styling */
+
 html {
     border: none;
 }
@@ -15,18 +17,22 @@ body {
     animation: none;
 }
 
+/* status notification */
 .banner {
     width: 100%;
 }
 
+/* failure notification */
 .f {
     background: crimson;
 }
 
+/* success notification */
 .s {
     background: var(--highlight);
 }
 
+/* */
 .special {
     color: var(--highlight);
     cursor: pointer;
