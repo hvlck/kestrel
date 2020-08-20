@@ -20,6 +20,7 @@ const commands = {
         name: 'Refresh all tabs: soft',
         callback: 'refreshTabs',
         aliases: ['Refresh all tabs: hard'],
+        on: false,
     },
     scrollToTop: {
         name: 'Scroll to top of the page',
