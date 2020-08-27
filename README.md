@@ -12,11 +12,19 @@ The extension hasn't been submitted to FireFox addons just yet, but once some of
 
 + [Features](#features)
 + [FAQ](#faq)
+  + [How Are Permissions Used?](#how-are-permissions-used)
+  + [How Do I Change Kestrel's Default Activation Command?](#how-do-i-change-kestrels-default-activation-command)
 + [Usage](#usage)
+  + [Development](#development)
 + [Screenshots](#screenshots)
 + [Roadmap](#roadmap)
+  + [High](#high)
+  + [Medium](#medium)
+  + [Low](#low)
 + [Changelog](#changelog)
+  + [v1.0](#v1.0)
 + [Docs](#docs)
+  + [Kestrel Query Language](#kestrel-query-language)
 + [Motivation](#motivation)
 + [License](#license)
 
@@ -109,7 +117,9 @@ I also have a list of other features I'm working on that I'll port over when I c
 
 ## Docs
 
-File structure
+Internal docs are commented within the relevant file.
+
+File structure:
 
 ```plaintext
 readme.md - meta information
@@ -207,6 +217,10 @@ commands - all commands, and whether they're enabled [Object]
 
 theme - kestrel's theme (light, dark, or operating-system-default, which uses the (prefers-color-scheme) media query) [String]
 ```
+
+### Kestrel Query Language
+
+Spec for KQL, which will be used for searching for information across tabs.
 
 ## Motivation
 
