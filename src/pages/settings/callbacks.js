@@ -85,12 +85,16 @@ const callbacks = {
     },
 
     updateBrowserAction: function (item) {
-        browser.permissions.request({
-            permissions: ['history'],
-        });
-        browser.runtime.sendMessage({ settings: `popup-${item.checked}` }).then(() => {
-            updateSettings('browserAction', item.checked, 'popup');
-        });
+        browser.permissions
+            .request({
+                permissions: ['history'],
+            })
+            .then((resp) => {
+                if (resp == false) item.checked == false;
+                browser.runtime.sendMessage({ settings: `popup-${item.checked}` }).then(() => {
+                    updateSettings('browserAction', item.checked, 'popup');
+                });
+            });
     },
 
     // required keys that the config uploaded must have
