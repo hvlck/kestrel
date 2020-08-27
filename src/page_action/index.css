@@ -9,12 +9,34 @@ body {
     padding: 0;
     font-size: 12pt;
     min-height: 100px;
-    min-width: 200px;
+
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 1;
+    justify-content: flex-start;
+    align-content: center;
 }
 
 * {
     margin: 0;
     animation: none;
+}
+
+.menu {
+    padding: 5px 10px;
+    width: 46%;
+    margin: 0;
+    border-left: 2px solid var(--tertiary);
+}
+
+.menu:first-child {
+    border: none;
+}
+
+#breadcrumbs > * {
+    margin: 0.75% 0;
+    padding: 0;
+    display: block;
 }
 
 /* status notification */

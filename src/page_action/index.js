@@ -94,6 +94,22 @@ const buildFromInfo = () => {
 };
 
 getActiveTab().then(async (t) => {
+    let crumbs = t.url.split(/\/+/).filter((i) => i.length > 0);
+    let root = buildElement('a', '', { href: t.url });
+
+    let path = '';
+    let crumbContainer = buildElement('div', '', { className: 'menu', id: 'breadcrumbs' });
+    crumbs.forEach((item) => {
+        if (item.includes('http')) return;
+        if (root.hostname != item) path += `/${item}`;
+        crumbContainer.appendChild(
+            buildElement('a', root.hostname != item ? path : item, {
+                href: `${root.protocol}//${root.hostname}${root.hostname == item ? '' : path}`,
+            })
+        );
+    });
+    document.body.insertBefore(crumbContainer, document.body.firstChild);
+
     let title = t.title;
     let c = buildElement('p', title, {
         className: 'special',
@@ -120,6 +136,7 @@ getActiveTab().then(async (t) => {
                     startTime: new Date().setMonth(new Date().getMonth() - 1),
                 })
                 .then(async (data) => {
+                    const hContainer = buildElement('div', '', { className: 'menu ' });
                     let pageDailyRaw = await browser.history.search({
                         text: root,
                     });
@@ -136,7 +153,7 @@ getActiveTab().then(async (t) => {
 
                     let domainTotal = Array.from(data).reduce((p, n) => (p += n.visitCount), 0);
 
-                    main.appendChild(
+                    hContainer.appendChild(
                         buildElement(
                             'p',
                             `Visited page ${pageTotal} time${
@@ -145,7 +162,7 @@ getActiveTab().then(async (t) => {
                         )
                     );
 
-                    main.appendChild(
+                    hContainer.appendChild(
                         buildElement(
                             'p',
                             `Visited domain ${domainTotal} time${
@@ -153,22 +170,10 @@ getActiveTab().then(async (t) => {
                             } in the last month (${domainDaily} time${domainDaily > 1 ? 's' : ''} today)`
                         )
                     );
+
+                    document.body.appendChild(hContainer);
                 });
         }
-    });
-
-    let crumbs = t.url.split(/\/+/).filter((i) => i.length > 0);
-    let root = buildElement('a', '', { href: t.url });
-
-    let path = '';
-    crumbs.forEach((item, index) => {
-        if (item.includes('http')) return;
-        if (root.hostname != item) path += `/${item}`;
-        document.body.appendChild(
-            buildElement('a', root.hostname != item ? path : item, {
-                href: `${root.protocol}//${root.hostname}${root.hostname == item ? '' : path}`,
-            })
-        );
     });
 
     let siteDataLoader = buildElement('p', 'Loading...');
