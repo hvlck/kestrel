@@ -24,7 +24,6 @@ body {
 
 .menu {
     padding: 5px 10px;
-    width: 46%;
     margin: 0;
     border-left: 2px solid var(--tertiary);
 }
@@ -34,9 +33,12 @@ body {
 }
 
 #breadcrumbs > * {
+    white-space: nowrap;
+    text-overflow: ellipsis;
     margin: 0.75% 0;
     padding: 0;
     display: block;
+    overflow: hidden;
 }
 
 /* status notification */
@@ -61,5 +63,5 @@ body {
 }
 
 .special:hover {
-    text-decoration: underline;
+    border-bottom: underline;
 }

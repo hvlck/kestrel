@@ -99,11 +99,11 @@ getActiveTab().then(async (t) => {
 
     let path = '';
     let crumbContainer = buildElement('div', '', { className: 'menu', id: 'breadcrumbs' });
-    crumbs.forEach((item) => {
+    crumbs.forEach((item, index) => {
         if (item.includes('http')) return;
         if (root.hostname != item) path += `/${item}`;
         crumbContainer.appendChild(
-            buildElement('a', root.hostname != item ? path : item, {
+            buildElement('a', `${new String('\xa0').repeat(index * 2)}${root.hostname != item ? path : item}`, {
                 href: `${root.protocol}//${root.hostname}${root.hostname == item ? '' : path}`,
             })
         );
