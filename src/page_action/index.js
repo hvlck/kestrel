@@ -91,6 +91,14 @@ const buildFromInfo = () => {
     if (info.pwa == true) {
         main.appendChild(buildElement('p', 'PWA'));
     }
+
+    if (info.headings) {
+        const headings = buildElement('div', '', { className: 'menu', id: 'headings' });
+        Object.entries(info.headings).forEach((item) => {
+            headings.appendChild(buildElement('p', item[0]));
+        });
+        document.body.appendChild(headings);
+    }
 };
 
 getActiveTab().then(async (t) => {

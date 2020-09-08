@@ -1,4 +1,4 @@
-// scrapes information from the current page for the page-action
+// scrapes information from the current page for the page-action (/src/page_action)
 (function () {
     const data = {
         rss: () => {
@@ -29,6 +29,15 @@
         pwa: () => {
             if (document.head.querySelector(`link[rel="manifest"][href$=".webmanifest"]`)) return true;
             else return false;
+        },
+
+        headings: () => {
+            let headings = {};
+            document.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach((item) => {
+                headings[item.innerText] = item.nodeName;
+            });
+
+            return headings;
         },
     };
 
