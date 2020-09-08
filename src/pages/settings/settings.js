@@ -82,7 +82,7 @@ const settings = [
     {
         name: 'Loader Bar Colour',
         description:
-            "Customise the loader bar's colour.  Note: this may not work on all websites.  See the Reference for more.",
+            "Customise the loader bar's colour.  Note: this may not work on all websites.  See the Wiki for more.",
         type: 'text',
 
         dependsOnKey: 'automatic',
@@ -104,7 +104,7 @@ const settings = [
     {
         name: 'Loader Bar Height',
         description:
-            "Customise the loader bar's height.  Note: this may not work on all websites.  See the Reference for more.",
+            "Customise the loader bar's height.  Note: this may not work on all websites.  See the Wiki for more.",
         type: 'number',
 
         dependsOnKey: 'automatic',
@@ -125,7 +125,7 @@ const settings = [
     {
         name: 'Loader Bar Persistence',
         description:
-            "Decides whether the loader is removed from view after it's finished.  If it is checked, it will stay; if not, it will be removed.  Note: this may not work on all websites.  See the Reference for more.",
+            "Decides whether the loader is removed from view after it's finished.  If it is checked, it will stay; if not, it will be removed.  Note: this may not work on all websites.  See the Wiki for more.",
         type: 'single-toggle',
 
         dependsOnKey: 'automatic',

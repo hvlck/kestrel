@@ -104,7 +104,6 @@ TODO: Finish section
 + Homepage [meta] {in-progress}
 + Doc updates [meta]
 + Logical ordering of variables and whatnot [meta]
-+ Migration of the `reference` to the `wiki` [meta]
 + Tests [meta]
 
 ### Low
@@ -162,7 +161,6 @@ license - MIT
         /pages
             /guide - kestrel guide
             /media - images
-            /reference - kestrel reference
             /settings - extension settings page
                 index.html - settings page
                 settings.css - form styling, some stlying specific to /settings
