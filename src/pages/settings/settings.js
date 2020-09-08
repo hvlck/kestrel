@@ -160,13 +160,15 @@ const settings = [
     },
     {
         name: 'Page Information',
-        description: 'Settings for the <a href="">page information popup</a>.',
+        description:
+            'Settings for the <a href="https://github.com/EthanJustice/kestrel/wiki/Page-Information">page information popup</a>.',
         type: 'divider',
     },
     {
         name: 'Popup Enabled',
         type: 'single-toggle',
-        description: 'Enables the <a href="">page information popup</a>.',
+        description:
+            'Enables the <a href="https://github.com/EthanJustice/kestrel/wiki/Page-Information">page information popup</a>.',
 
         dependsOnKey: 'browseraction',
         callback: 'updateBrowserAction',
