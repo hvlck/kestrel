@@ -1,4 +1,5 @@
 const includeKeywords = ['tabs', 'domain'];
+const specialIncludeKeywords = ['current', 'pinned', 'window', 'all'];
 
 class KestrelQuery {
     constructor(query) {
@@ -9,12 +10,16 @@ class KestrelQuery {
     }
 
     static parse(query) {
+        const matchSpecialIncludeKeywords = () => {};
+
         const matchincludeKeywords = () => {
             let matches = includeKeywords.map((item) =>
                 query.match(new RegExp(`${item}:{${item == 'domain' ? 1 : 3}}`, 'g'))
             );
             console.warn(matches);
         };
+
+        matchSpecialIncludeKeywords();
 
         matchincludeKeywords();
 

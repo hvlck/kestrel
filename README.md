@@ -6,7 +6,7 @@ General browser utilities.
 
 There's not much implemented right now, and what is is somewhat simplistic.  More complicated features are coming.
 
-The extension hasn't been submitted to FireFox addons just yet, but once some of the markers in the roadmap are hit and a lot more commands/features are added, it will be.  Stability also needs to be improved before I'll submit it.
+The extension hasn't been submitted to FireFox addons just yet, but you can track it [from the AMO project](https://github.com/EthanJustice/kestrel/projects/1).
 
 ## Table of Contents
 
@@ -58,11 +58,17 @@ TODO: instances of permission usage, e.g. [https://github.com/EthanJustice/kestr
 
 See [this article](https://support.mozilla.org/en-US/kb/manage-extension-shortcuts-firefox) from Mozilla.
 
+### Does Kestrel Collect Analytics or Data of Any Kind
+
+No, not now and not ever.
+
+### I Don't Understand Something
+
+Your best bet is the [wiki](https://github.com/EthanJustice/kestrel/wiki).
+
 ## Usage
 
-Kestrel is currently not listed on any addons store, and it will stay that way until **at least** 1.0.  The current version can be found in the `version` key of the [manifest](https://github.com/EthanJustice/kestrel/blob/master/src/manifest.json).
-
-There's not much to see right now.  The main part is activated with `Alt+Shift+Q`.  Why Q?  All the keys can be hit with one hand.
+There's not much to see right now.  The main part is activated with `Alt+Shift+Q`.  Why `Alt+Shift+Q`?  All the keys can be hit with one hand.
 
 ### Development
 
@@ -74,6 +80,8 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+Q
 6. You're good to go!
 
 ## Screenshots
+
+![A screenshot of Kestrel's command palette](src/pages/media/command-palette.png)
 
 TODO: Finish section
 
@@ -104,9 +112,6 @@ TODO: Finish section
 ### Abandoned/Ultra-Low Priority
 
 + ~~User-set activation/close command [feature]~~ [abandoned - see [](https://github.com/EthanJustice/kestrel/)]
-+ Dynamic permission requests [feature] (see [here](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions) for all permissions that can be requested dynamically - of these, only a few are not needed automatically)
-
-I also have a list of other features I'm working on that I'll port over when I can.
 
 ## Changelog
 
