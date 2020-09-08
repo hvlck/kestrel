@@ -67,10 +67,14 @@ let cmdFunctions = {
             if (event.keyCode == 13 && input.value) {
                 let kql = new KestrelQuery(input.value);
                 let container = buildElement('div');
-                kql.parsed.getResults().forEach((item) => {
-                    let result = buildElement('p', item);
-                    container.appendChild(result);
-                });
+                KestrelQuery.parse(kql.query);
+                /*
+                .getResults()
+                    .forEach((item) => {
+                        let result = buildElement('p', item);
+                        container.appendChild(result);
+                    });
+*/
                 kestrel.appendChild(container);
             }
         };
