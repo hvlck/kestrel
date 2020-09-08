@@ -94,9 +94,14 @@ const buildFromInfo = () => {
 
     if (info.headings) {
         const headings = buildElement('div', '', { className: 'menu', id: 'headings' });
-        Object.entries(info.headings).forEach((item) => {
-            headings.appendChild(buildElement('p', item[0]));
+        Object.entries(info.headings).forEach((item, i, arr) => {
+            const heading = (i) => arr[i][1].slice(1);
+
+            headings.appendChild(
+                buildElement('p', item[0], { style: `font-size: ${Math.abs(item[1].slice(1) - 6) * 4}pt` })
+            );
         });
+
         document.body.appendChild(headings);
     }
 };
