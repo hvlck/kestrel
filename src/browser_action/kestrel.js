@@ -1,6 +1,7 @@
 // Command Callbacks
-
-import { sendFnEvent, input, hideKestrel, showKestrel, updateCommands, listen } from './ui.js';
+import buildElement from '../libs/utils.js';
+import KestrelQuery from '../libs/kql.js';
+import { kestrel, sendFnEvent, input, hideKestrel, showKestrel, updateCommands, listen } from './ui.js';
 
 const parseAlarm = (v) => {
     return new Promise((resolve, reject) => {
@@ -54,6 +55,29 @@ let cmdFunctions = {
             sendFnEvent({ injectSheet: 'minimap' });
             this.injectedMiniMap = true;
         }
+    },
+
+    search: function () {
+        hideKestrel();
+
+        input.placeholder = 'Search...';
+        input.removeEventListener('keydown', listen);
+
+        const search = async (event) => {
+            if (event.keyCode == 13 && input.value) {
+                let kql = new KestrelQuery(input.value);
+                let container = buildElement('div');
+                kql.parsed.getResults().forEach((item) => {
+                    let result = buildElement('p', item);
+                    container.appendChild(result);
+                });
+                kestrel.appendChild(container);
+            }
+        };
+
+        input.addEventListener('keydown', search);
+
+        return false;
     },
 
     setTimer: function (ref) {

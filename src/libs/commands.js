@@ -44,6 +44,11 @@ const commands = {
         callback: 'scrollToThreeFourths',
         on: false,
     },
+    search: {
+        name: 'Search',
+        callback: 'search',
+        on: true,
+    },
     setTimer: {
         name: 'Set timer',
         callback: 'setTimer',
