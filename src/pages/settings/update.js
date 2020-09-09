@@ -10,9 +10,11 @@ import { toggleTheme } from './settings.js';
     browser.storage.local
         .get(null)
         .then((data) => {
+            // fresh install
             if (Object.keys(data).length === 0 && !window.location.hash) {
                 initStorage().then(() => window.location.assign('../guide/index.html'));
             } else if (window.location.hash == '#reset') {
+                // settings being reset
                 history.replaceState('', 'Kestrel | Settings', window.location.href.split(window.location.hash)[0]);
                 initStorage().then(() => window.location.reload());
             } else {
