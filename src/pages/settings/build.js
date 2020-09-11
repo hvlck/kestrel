@@ -32,11 +32,9 @@ const build = () => {
 
         div.appendChild(title);
 
-        let description = buildElement('p', '', {
+        let description = buildElement('p', item.description, {
             className: 'settings-item-description',
         });
-
-        description.innerHTML = item.description;
 
         div.appendChild(description);
 
@@ -183,8 +181,7 @@ const build = () => {
             });
 
             div.appendChild(text);
-            let matchDescElem = buildElement('p');
-            matchDescElem.innerHTML = item.matchDescription;
+            let matchDescElem = buildElement('p', item.matchDescription);
             div.appendChild(matchDescElem);
         } else if (item.type == 'file' && item.fn) {
             let label = buildElement('label', item.name, {

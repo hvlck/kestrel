@@ -93,8 +93,7 @@ const settings = [
         placeholder: '#',
 
         matches: '^#\\S{6}',
-        matchDescription:
-            "Enter a valid <a href='https://en.wikipedia.org/wiki/Web_colors'>HEX</a> colour code, consisting of 6 characters and starting with a '#.'  If you need assistance choosing a colour, <a href='https://github.com/EthanJustice/links#designcolours'>this</a> is a list of websites that can help.",
+        matchDescription: "Enter a valid HEX colour code, consisting of 6 characters and starting with a '#.'",
         min: 7,
         max: 7,
 
@@ -150,8 +149,7 @@ const settings = [
         placeholder: '#',
 
         matches: '^#\\S{6}',
-        matchDescription:
-            "Enter a valid <a href='https://en.wikipedia.org/wiki/Web_colors'>HEX</a> colour code, consisting of 6 characters and starting with a '#.'  If you need assistance choosing a colour, <a href='https://github.com/EthanJustice/links#designcolours'>this</a> is a list of websites that can help.",
+        matchDescription: "Enter a valid HEX colour code, consisting of 6 characters and starting with a '#.'",
         min: 7,
         max: 7,
 
@@ -160,15 +158,13 @@ const settings = [
     },
     {
         name: 'Page Information',
-        description:
-            'Settings for the <a href="https://github.com/EthanJustice/kestrel/wiki/Page-Information">page information popup</a>.',
+        description: 'Settings for the page information popup.',
         type: 'divider',
     },
     {
         name: 'Popup Enabled',
         type: 'single-toggle',
-        description:
-            'Enables the <a href="https://github.com/EthanJustice/kestrel/wiki/Page-Information">page information popup</a>.',
+        description: 'Enables the page information popup.',
 
         dependsOnKey: 'browseraction',
         callback: 'updateBrowserAction',

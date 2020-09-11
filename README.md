@@ -79,6 +79,8 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+A
 5. Navigate to wherever you downloaded Kestrel and open `src/manifest.json` in the prompt
 6. You're good to go!
 
+Please use [`web-ext`](https://github.com/mozilla/web-ext) for linting.
+
 ## Screenshots
 
 ![A screenshot of Kestrel's command palette](src/pages/media/command-palette.png)
