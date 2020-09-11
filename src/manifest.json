@@ -18,13 +18,13 @@
     "commands": {
         "_execute_browser_action": {
             "suggested_key": {
-                "default": "Alt+Shift+Q"
+                "default": "Alt+Shift+A"
             },
             "description": "Open Kestrel command interface"
         },
         "open_kestrel_page_action": {
             "suggested_key": {
-                "default": "Alt+Q"
+                "default": "Alt+A"
             },
             "description": "Open page information."
         }

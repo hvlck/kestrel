@@ -68,7 +68,7 @@ Your best bet is the [wiki](https://github.com/EthanJustice/kestrel/wiki).
 
 ## Usage
 
-There's not much to see right now.  The main part is activated with `Alt+Shift+Q`.  Why `Alt+Shift+Q`?  All the keys can be hit with one hand.
+There's not much to see right now.  The main part is activated with `Alt+Shift+A`.  Why `Alt+Shift+A`?  All the keys can be hit with one hand.
 
 ### Development
 
