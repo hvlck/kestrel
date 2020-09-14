@@ -3,27 +3,24 @@
 import { getActiveTab, execute, activeTab } from '../libs/webUtils.js';
 import buildElement from '../libs/utils.js';
 
-const dispatch = (event, status) => {
-    main.appendChild(
-        buildElement('p', event, {
-            className: `banner ${status}`,
-        })
-    );
-};
+const toggles = buildElement('div', '', {
+    className: 'toggle-container',
+});
+
+document.body.appendChild(toggles);
+
+const menusContainer = buildElement('div', '', {
+    className: 'menus',
+});
+
+document.body.appendChild(menusContainer);
 
 const main = buildElement('div', '', {
     id: 'main',
-    className: 'menu',
+    className: 'menu hidden',
 });
 
-document.body.appendChild(main);
-
-const home = buildElement('a', 'Back', {
-    style: 'display: none;',
-});
-
-home.addEventListener('click', () => menus.showMain());
-document.body.appendChild(home);
+menusContainer.appendChild(main);
 
 const menus = {
     hideMenus: () => {
@@ -32,52 +29,53 @@ const menus = {
         });
     },
 
-    showMain: function () {
-        this.hideMenus();
-        main.style.display = '';
+    addToggle: (name) => {
+        let t = buildElement('p', `${name} +`, {
+            className: 'toggle',
+            data_toggled: false,
+            id: `toggle-${name.toLowerCase()}`,
+        });
+        t.addEventListener('click', () => {
+            t.dataset.toggled ? menus.showMenu(name) : menus.hideMenu(name);
+            t.dataset.toggled = !t.dataset.toggled;
+        });
+        toggles.appendChild(t);
     },
 
-    showHome: function () {
-        this.hideMenus();
-        home.style.display = '';
+    showMenu: (name) => {
+        document.querySelectorAll('.menus > *').forEach((item) => item.classList.add('hidden'));
+        document.querySelector(`.menus > #${name.toLowerCase()}`).classList.remove('hidden');
     },
 
-    showFeeds: (feeds) => {
-        let container =
-            document.querySelector('#feeds') ||
-            buildElement('div', '', {
-                className: 'menu',
-                id: 'feeds',
-            });
-
-        menus.showHome();
-        menus.hideMenus();
-
-        if (!document.querySelector('#feeds')) {
-            feeds.forEach((item) => {
-                container.appendChild(
-                    buildElement('a', item, {
-                        href: item,
-                    })
-                );
-            });
-            document.body.appendChild(container);
-        } else {
-            menus.hideMenus();
-            container.style.display = '';
-        }
+    hideMenu: (name) => {
+        document.querySelector(`.menus > #${name.toLowerCase()}`).classList.add('hidden');
     },
 };
+
+menus.addToggle('Main');
 
 let info = {};
 
 const buildFromInfo = () => {
     console.log(info);
     if (info.rss.length != 0) {
-        let rss = buildElement('a', 'RSS Feeds Available', { className: 'special' });
-        rss.addEventListener('click', () => {
-            menus.showFeeds(info.rss);
+        let rss = buildElement('h4', 'RSS');
+
+        let container =
+            document.querySelector('#feeds') ||
+            buildElement('div', '', {
+                className: 'menu hidden',
+                id: 'feeds',
+            });
+        info.rss.forEach((item) => {
+            container.appendChild(
+                buildElement('a', item, {
+                    href: item,
+                })
+            );
         });
+
+        menusContainer.appendChild(container);
 
         main.appendChild(rss);
     }
@@ -93,16 +91,15 @@ const buildFromInfo = () => {
     }
 
     if (info.headings) {
-        const headings = buildElement('div', '', { className: 'menu', id: 'headings' });
+        menus.addToggle('Headings');
+        const headings = buildElement('div', '', { className: 'menu hidden', id: 'headings' });
         Object.entries(info.headings).forEach((item, i, arr) => {
-            const heading = (i) => arr[i][1].slice(1);
-
             headings.appendChild(
                 buildElement('p', item[0], { style: `font-size: ${Math.abs(item[1].slice(1) - 6) * 4}pt` })
             );
         });
 
-        document.body.appendChild(headings);
+        menusContainer.appendChild(headings);
     }
 };
 
@@ -111,7 +108,8 @@ getActiveTab().then(async (t) => {
     let root = buildElement('a', '', { href: t.url });
 
     let path = '';
-    let crumbContainer = buildElement('div', '', { className: 'menu', id: 'breadcrumbs' });
+    menus.addToggle('Breadcrumbs');
+    let crumbContainer = buildElement('div', '', { className: 'menu hidden', id: 'breadcrumbs' });
     crumbs.forEach((item, index) => {
         if (item.includes('http')) return;
         if (root.hostname != item) path += `/${item}`;
@@ -121,24 +119,7 @@ getActiveTab().then(async (t) => {
             })
         );
     });
-    document.body.insertBefore(crumbContainer, document.body.firstChild);
-
-    let title = t.title;
-    let c = buildElement('p', title, {
-        className: 'special',
-        title: 'Copy',
-    });
-    c.addEventListener('click', () => {
-        navigator.clipboard
-            .writeText(title)
-            .then(() => {
-                dispatch('Copied!', 's');
-            })
-            .catch((err) => {
-                dispatch('Failed to copy!', 'f');
-            });
-    });
-    main.appendChild(c);
+    menusContainer.appendChild(crumbContainer);
 
     browser.permissions.contains({ permissions: ['history'] }).then((has) => {
         if (has == true) {
@@ -149,7 +130,8 @@ getActiveTab().then(async (t) => {
                     startTime: new Date().setMonth(new Date().getMonth() - 1),
                 })
                 .then(async (data) => {
-                    const hContainer = buildElement('div', '', { className: 'menu ' });
+                    menus.addToggle('History');
+                    const hContainer = buildElement('div', '', { className: 'menu hidden', id: 'history' });
                     let pageDailyRaw = await browser.history.search({
                         text: root,
                     });
@@ -184,30 +166,25 @@ getActiveTab().then(async (t) => {
                         )
                     );
 
-                    document.body.appendChild(hContainer);
+                    menusContainer.appendChild(hContainer);
                 });
         }
     });
 
     let siteDataLoader = buildElement('p', 'Loading...');
 
-    let registered = execute('../injections/info.js')
-        .then(async () => {
-            let t = await activeTab();
-            main.appendChild(siteDataLoader);
-            browser.runtime.onMessage.addListener((msg, sender) => {
-                if (sender.id !== browser.runtime.id) return;
-                if (msg.info && Object.keys(info).length == 0) {
-                    siteDataLoader.remove();
-                    info = msg.info;
-                    buildFromInfo();
-                }
-            });
-
-            browser.tabs.sendMessage(t[0].id, { start: true });
-        })
-        .catch((err) => {
-            console.error(`Failed to inject info: ${err}`);
-            dispatch('Failed to get page information.', 'f');
+    let registered = execute('../injections/info.js').then(async () => {
+        let t = await activeTab();
+        main.appendChild(siteDataLoader);
+        browser.runtime.onMessage.addListener((msg, sender) => {
+            if (sender.id !== browser.runtime.id) return;
+            if (msg.info && Object.keys(info).length == 0) {
+                siteDataLoader.remove();
+                info = msg.info;
+                buildFromInfo();
+            }
         });
+
+        browser.tabs.sendMessage(t[0].id, { start: true });
+    });
 });

@@ -9,12 +9,18 @@ body {
     padding: 0;
     font-size: 12pt;
     min-height: 100px;
+    min-width: 300px;
+}
 
+.toggle-container,
+.menus {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     flex: 1;
     justify-content: center;
     align-content: center;
+
+    min-width: 300px;
 }
 
 * {
@@ -23,10 +29,8 @@ body {
 }
 
 .menu {
-    max-width: 25%;
     padding: 5px;
     margin: 0;
-    border-left: 2px solid var(--tertiary);
 }
 
 .menu:first-child {
@@ -54,14 +58,4 @@ body {
 /* success notification */
 .s {
     background: var(--highlight);
-}
-
-/* */
-.special {
-    color: var(--highlight);
-    cursor: pointer;
-}
-
-.special:hover {
-    border-bottom: underline;
 }
