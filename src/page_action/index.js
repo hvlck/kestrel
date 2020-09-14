@@ -114,9 +114,13 @@ getActiveTab().then(async (t) => {
         if (item.includes('http')) return;
         if (root.hostname != item) path += `/${item}`;
         crumbContainer.appendChild(
-            buildElement('a', `${new String('\xa0').repeat(index * 2)}${root.hostname != item ? path : item}`, {
-                href: `${root.protocol}//${root.hostname}${root.hostname == item ? '' : path}`,
-            })
+            buildElement(
+                'a',
+                `${new String('\xa0').repeat(index != 1 ? index * 2 : 0)}${root.hostname != item ? path : item}`,
+                {
+                    href: `${root.protocol}//${root.hostname}${root.hostname == item ? '' : path}`,
+                }
+            )
         );
     });
     menusContainer.appendChild(crumbContainer);
