@@ -27,6 +27,11 @@ body {
     font-size: 14pt;
 }
 
+.toggle-container {
+    padding: 5px;
+    border-bottom: 2px solid var(--tertiary);
+}
+
 * {
     margin: 0;
     animation: none;
@@ -49,17 +54,7 @@ body {
     overflow: hidden;
 }
 
-/* status notification */
-.banner {
-    width: 100%;
-}
-
-/* failure notification */
-.f {
-    background: crimson;
-}
-
-/* success notification */
-.s {
-    background: var(--highlight);
+.section {
+    display: inline-block;
+    border-bottom: 2px solid var(--secondary);
 }

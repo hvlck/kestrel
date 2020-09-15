@@ -52,15 +52,17 @@ let info = {};
 
 const buildFromInfo = () => {
     console.log(info);
-    if (info.rss.length != 0) {
-        let rss = buildElement('h4', 'RSS');
 
-        let container =
-            document.querySelector('#feeds') ||
-            buildElement('div', '', {
-                className: 'menu hidden',
-                id: 'feeds',
-            });
+    if (info.readingTime) {
+        main.appendChild(
+            buildElement('p', `Reading time: ${info.readingTime} minute${info.readingTime != 1 ? 's' : ''}.`)
+        );
+    }
+
+    if (info.rss.length != 0) {
+        let rss = buildElement('h4', 'RSS', { className: 'section' });
+
+        let container = buildElement('div');
         info.rss.forEach((item) => {
             container.appendChild(
                 buildElement('a', item, {
@@ -69,15 +71,8 @@ const buildFromInfo = () => {
             );
         });
 
-        menusContainer.appendChild(container);
-
         main.appendChild(rss);
-    }
-
-    if (info.readingTime) {
-        main.appendChild(
-            buildElement('p', `Reading time: ${info.readingTime} minute${info.readingTime != 1 ? 's' : ''}.`)
-        );
+        main.appendChild(container);
     }
 
     if (info.pwa == true) {
