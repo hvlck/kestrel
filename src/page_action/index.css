@@ -9,7 +9,7 @@ body {
     padding: 0;
     font-size: 12pt;
     min-height: 100px;
-    min-width: 300px;
+    min-width: 500px;
 }
 
 .toggle-container,
@@ -21,6 +21,10 @@ body {
     align-content: center;
 
     min-width: 300px;
+}
+
+.toggle-container > * {
+    font-size: 14pt;
 }
 
 * {

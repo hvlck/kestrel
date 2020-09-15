@@ -23,12 +23,6 @@ const main = buildElement('div', '', {
 menusContainer.appendChild(main);
 
 const menus = {
-    hideMenus: () => {
-        document.querySelectorAll('.menu').forEach((item) => {
-            item.style.display = 'none';
-        });
-    },
-
     addToggle: (name) => {
         let t = buildElement('p', `${name} +`, {
             className: 'toggle',
