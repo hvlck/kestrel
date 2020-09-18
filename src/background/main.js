@@ -12,7 +12,17 @@ const meta = {
     },
 
     matches: {
-        imageControls: ['https://*/*/*.png', 'https://*/*/*.jpeg', 'https://*/*/*.jpg'],
+        imageControls: [
+            'https://*/*/*.png',
+            'https://*/*/*.jpeg',
+            'https://*/*/*.jpg',
+            'http://*/*/*.png',
+            'http://*/*/*.jpeg',
+            'http://*/*/*.jpg',
+            'file://*/*/*.png',
+            'file://*/*/*.jpeg',
+            'file://*/*/*.jpg',
+        ],
     },
 };
 
