@@ -3,9 +3,16 @@
 // organisation wrapper for meta-information
 const meta = {
     runtimes: {
+        hover: 'document_idle',
+        imageControls: 'document_end',
         loader: 'document_start',
         minimap: 'document_idle',
         linksInSameTab: 'document_end',
+        noSameSiteLinks: 'document_idle',
+    },
+
+    matches: {
+        imageControls: ['https://*/*/*.png', 'https://*/*/*.jpeg', 'https://*/*/*.jpg'],
     },
 };
 
@@ -110,7 +117,7 @@ async function updateUserScripts() {
                             file: `../injections/automatic/${item[0]}.js`,
                         },
                     ],
-                    matches: ['file://*/*', 'https://*/*', 'http://*/*'],
+                    matches: meta.matches[item[0]] || ['file://*/*', 'https://*/*', 'http://*/*'],
                     runAt: meta.runtimes[item[0]],
                     scriptMetadata: { name: item[0] },
                 })
