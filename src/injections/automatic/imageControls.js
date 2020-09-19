@@ -128,6 +128,21 @@
         toolbar.appendChild(range);
     });
 
+    const reset = buildElement('input', '', {
+        type: 'reset',
+        value: 'Clear filters',
+    });
+    reset.addEventListener('click', () => {
+        ctx.filter = 'none';
+        ctx.drawImage(img, 0, 0);
+        document.querySelectorAll('.toolbar input[type="range"]').forEach((item) => {
+            let filter = filters.filter((i) => i.name.replace(new RegExp(' ', 'g'), '-').toLowerCase() == item.id)[0];
+            item.value = filter.value;
+            item.previousElementSibling.innerText = `${filter.name}: ${filter.value}${filter.unit}`;
+        });
+    });
+    toolbar.appendChild(reset);
+
     const exportImg = buildElement('a', 'Export', {
         href: '',
         download: `image-${new Date().getTime()}.${fileType}`,
