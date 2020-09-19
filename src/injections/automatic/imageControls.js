@@ -36,4 +36,15 @@
     document.body.appendChild(container);
 
     const toolbar = buildElement('div');
+
+    const exportImg = buildElement('a', 'Export', {
+        href: '',
+        download: 'image.png',
+    });
+    exportImg.addEventListener('click', () => {
+        exportImg.href = canvas.toDataURL('image/png', 1.0);
+    });
+
+    toolbar.appendChild(exportImg);
+    document.body.appendChild(toolbar);
 })();
