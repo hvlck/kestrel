@@ -39,14 +39,6 @@
 
     const toolbar = buildElement('div');
 
-    const exportImg = buildElement('a', 'Export', {
-        href: '',
-        download: `image-${new Date().getTime()}.${fileType}`,
-    });
-    exportImg.addEventListener('click', () => {
-        exportImg.href = canvas.toDataURL(`image/${fileType == 'jpeg' ? 'jpeg' : 'png'}`, 1.0);
-    });
-
     const contrastLabel = buildElement('label', 'Contrast: 50%', {
         for: 'contrast',
     });
@@ -64,6 +56,32 @@
 
     toolbar.appendChild(contrastLabel);
     toolbar.appendChild(contrast);
+
+    const grayscaleLabel = buildElement('label', 'Grayscale: 50%', {
+        for: 'contrast',
+    });
+    const grayscale = buildElement('input', '', {
+        type: 'range',
+        min: 0,
+        max: 100,
+        id: 'grayscale',
+    });
+    grayscale.addEventListener('change', () => {
+        grayscaleLabel.innerText = `Grayscale: ${grayscale.value}%`;
+        ctx.filter = `grayscale(${grayscale.value}%)`;
+        ctx.drawImage(img, 0, 0);
+    });
+
+    toolbar.appendChild(grayscaleLabel);
+    toolbar.appendChild(grayscale);
+
+    const exportImg = buildElement('a', 'Export', {
+        href: '',
+        download: `image-${new Date().getTime()}.${fileType}`,
+    });
+    exportImg.addEventListener('click', () => {
+        exportImg.href = canvas.toDataURL(`image/${fileType == 'jpeg' ? 'jpeg' : 'png'}`, 1.0);
+    });
 
     toolbar.appendChild(exportImg);
     document.body.appendChild(toolbar);
