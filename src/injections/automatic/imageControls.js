@@ -89,6 +89,13 @@
             max: 500,
             value: 0,
         },
+        {
+            name: 'Sepia',
+            unit: '%',
+            min: 0,
+            max: 100,
+            value: 0,
+        },
     ];
 
     const redrawFilters = () => {
