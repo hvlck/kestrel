@@ -14,6 +14,8 @@
         return element;
     };
 
+    const fileType = window.location.href.split('.')[window.location.href.split('.').length - 1];
+
     const container = buildElement('div', '', { style: 'margin:auto;text-align:center' });
 
     const img = new Image();
@@ -39,7 +41,7 @@
 
     const exportImg = buildElement('a', 'Export', {
         href: '',
-        download: 'image.png',
+        download: `image-${new Date().getTime()}.${fileType}`,
     });
     exportImg.addEventListener('click', () => {
         exportImg.href = canvas.toDataURL('image/png', 1.0);
