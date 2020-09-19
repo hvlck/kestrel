@@ -47,6 +47,24 @@
         exportImg.href = canvas.toDataURL(`image/${fileType == 'jpeg' ? 'jpeg' : 'png'}`, 1.0);
     });
 
+    const contrastLabel = buildElement('label', 'Contrast: 50%', {
+        for: 'contrast',
+    });
+    const contrast = buildElement('input', '', {
+        type: 'range',
+        min: 0,
+        max: 100,
+        id: 'contrast',
+    });
+    contrast.addEventListener('change', () => {
+        contrastLabel.innerText = `Contrast: ${contrast.value}%`;
+        ctx.filter = `contrast(${contrast.value}%)`;
+        ctx.drawImage(img, 0, 0);
+    });
+
+    toolbar.appendChild(contrastLabel);
+    toolbar.appendChild(contrast);
+
     toolbar.appendChild(exportImg);
     document.body.appendChild(toolbar);
 })();
