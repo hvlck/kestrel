@@ -82,6 +82,13 @@
             max: 100,
             value: 0,
         },
+        {
+            name: 'Saturate',
+            unit: '%',
+            min: 0,
+            max: 500,
+            value: 0,
+        },
     ];
 
     const redrawFilters = () => {
