@@ -45,7 +45,8 @@
     const contrast = buildElement('input', '', {
         type: 'range',
         min: 0,
-        max: 100,
+        max: 500,
+        value: 100,
         id: 'contrast',
     });
     contrast.addEventListener('change', () => {
@@ -58,7 +59,7 @@
     toolbar.appendChild(contrast);
 
     const grayscaleLabel = buildElement('label', 'Grayscale: 50%', {
-        for: 'contrast',
+        for: 'grayscale',
     });
     const grayscale = buildElement('input', '', {
         type: 'range',
@@ -74,6 +75,24 @@
 
     toolbar.appendChild(grayscaleLabel);
     toolbar.appendChild(grayscale);
+
+    const blurLabel = buildElement('label', 'Blur: 50px', {
+        for: 'blur',
+    });
+    const blur = buildElement('input', '', {
+        type: 'range',
+        min: 0,
+        max: 500,
+        id: 'blur',
+    });
+    blur.addEventListener('change', () => {
+        blurLabel.innerText = `Blur: ${blur.value}px`;
+        ctx.filter = `blur(${blur.value}px)`;
+        ctx.drawImage(img, 0, 0);
+    });
+
+    toolbar.appendChild(blurLabel);
+    toolbar.appendChild(blur);
 
     const exportImg = buildElement('a', 'Export', {
         href: '',
