@@ -150,15 +150,23 @@
     toolbar.appendChild(reset);
 
     // image export button
-    const exportImg = buildElement('a', 'Export', {
-        href: '',
-        download: `image-${new Date().getTime()}.${fileType}`,
+    const exportLabel = buildElement('label', 'Export image as...', {
+        for: 'export-img',
     });
-    exportImg.addEventListener('click', () => {
-        exportImg.download = `image-${new Date().getTime()}.${fileType}`;
-        exportImg.href = canvas.toDataURL(`image/${fileType == 'jpeg' ? 'jpeg' : 'png'}`, 1.0);
+    const exportImg = buildElement('select', '', { id: 'export-img' });
+    const formats = ['PNG', 'JPEG'];
+    formats.forEach((item) =>
+        exportImg.appendChild(buildElement('option', item, { value: `image/${item.toLowerCase()}` }))
+    );
+    exportImg.addEventListener('input', () => {
+        let l = buildElement('a', '', {
+            href: canvas.toDataURL(`${exportImg.value}`, 1.0),
+            download: `image-${new Date().getTime()}.${exportImg.value.split('/')[1]}`,
+        });
+        l.click();
     });
 
+    toolbar.appendChild(exportLabel);
     toolbar.appendChild(exportImg);
     document.body.appendChild(toolbar);
 })();
