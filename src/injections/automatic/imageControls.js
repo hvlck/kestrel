@@ -61,12 +61,19 @@
             max: 500,
             value: 0,
         },
+        {
+            name: 'Hue Rotate',
+            unit: 'deg',
+            min: -360,
+            max: 360,
+            value: 0,
+        },
     ];
 
     const redrawFilters = () => {
         let allFilters = '';
         document.querySelectorAll('.toolbar input[type="range"]').forEach((item) => {
-            let unit = filters.filter((i) => i.name.toLowerCase() == item.id)[0];
+            let unit = filters.filter((i) => i.name.replace(new RegExp(' ', 'g'), '-').toLowerCase() == item.id)[0];
             allFilters += `${item.id}(${item.value}${unit.unit}) `;
         });
         ctx.filter = allFilters;
@@ -75,14 +82,14 @@
 
     filters.forEach((item) => {
         let label = buildElement('label', `${item.name}: ${item.value}${item.unit}`, {
-            for: item.name.toLowerCase(),
+            for: item.name.replace(new RegExp(' ', 'g'), '-').toLowerCase(),
         });
         let range = buildElement('input', '', {
             type: 'range',
             min: item.min,
             max: item.max,
             value: item.value,
-            id: item.name.toLowerCase(),
+            id: item.name.replace(new RegExp(' ', 'g'), '-').toLowerCase(),
         });
         range.addEventListener('change', () => {
             label.innerText = `${item.name}: ${range.value}${item.unit}`;
