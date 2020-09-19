@@ -44,7 +44,7 @@
         download: `image-${new Date().getTime()}.${fileType}`,
     });
     exportImg.addEventListener('click', () => {
-        exportImg.href = canvas.toDataURL('image/png', 1.0);
+        exportImg.href = canvas.toDataURL(`image/${fileType == 'jpeg' ? 'jpeg' : 'png'}`, 1.0);
     });
 
     toolbar.appendChild(exportImg);
