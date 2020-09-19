@@ -68,6 +68,13 @@
             max: 360,
             value: 0,
         },
+        {
+            name: 'Brightness',
+            unit: '%',
+            min: 0,
+            max: 500,
+            value: 100,
+        },
     ];
 
     const redrawFilters = () => {
