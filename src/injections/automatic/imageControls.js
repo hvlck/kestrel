@@ -75,6 +75,13 @@
             max: 500,
             value: 100,
         },
+        {
+            name: 'Invert',
+            unit: '%',
+            min: 0,
+            max: 100,
+            value: 0,
+        },
     ];
 
     const redrawFilters = () => {
