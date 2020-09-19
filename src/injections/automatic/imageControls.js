@@ -37,62 +37,61 @@
     document.body.querySelector('img').remove();
     document.body.appendChild(container);
 
-    const toolbar = buildElement('div');
+    const toolbar = buildElement('div', '', { className: 'toolbar' });
 
-    const contrastLabel = buildElement('label', 'Contrast: 50%', {
-        for: 'contrast',
-    });
-    const contrast = buildElement('input', '', {
-        type: 'range',
-        min: 0,
-        max: 500,
-        value: 100,
-        id: 'contrast',
-    });
-    contrast.addEventListener('change', () => {
-        contrastLabel.innerText = `Contrast: ${contrast.value}%`;
-        ctx.filter = `contrast(${contrast.value}%)`;
+    const filters = [
+        {
+            name: 'Contrast',
+            unit: '%',
+            min: 0,
+            max: 500,
+            value: 100,
+        },
+        {
+            name: 'Grayscale',
+            unit: '%',
+            min: 0,
+            max: 100,
+            value: 0,
+        },
+        {
+            name: 'Blur',
+            unit: 'px',
+            min: 0,
+            max: 500,
+            value: 0,
+        },
+    ];
+
+    const redrawFilters = () => {
+        let allFilters = '';
+        document.querySelectorAll('.toolbar input[type="range"]').forEach((item) => {
+            let unit = filters.filter((i) => i.name.toLowerCase() == item.id)[0];
+            allFilters += `${item.id}(${item.value}${unit.unit}) `;
+        });
+        ctx.filter = allFilters;
         ctx.drawImage(img, 0, 0);
-    });
+    };
 
-    toolbar.appendChild(contrastLabel);
-    toolbar.appendChild(contrast);
+    filters.forEach((item) => {
+        let label = buildElement('label', `${item.name}: ${item.value}${item.unit}`, {
+            for: item.name.toLowerCase(),
+        });
+        let range = buildElement('input', '', {
+            type: 'range',
+            min: item.min,
+            max: item.max,
+            value: item.value,
+            id: item.name.toLowerCase(),
+        });
+        range.addEventListener('change', () => {
+            label.innerText = `${item.name}: ${range.value}${item.unit}`;
+            redrawFilters();
+        });
 
-    const grayscaleLabel = buildElement('label', 'Grayscale: 50%', {
-        for: 'grayscale',
+        toolbar.appendChild(label);
+        toolbar.appendChild(range);
     });
-    const grayscale = buildElement('input', '', {
-        type: 'range',
-        min: 0,
-        max: 100,
-        id: 'grayscale',
-    });
-    grayscale.addEventListener('change', () => {
-        grayscaleLabel.innerText = `Grayscale: ${grayscale.value}%`;
-        ctx.filter = `grayscale(${grayscale.value}%)`;
-        ctx.drawImage(img, 0, 0);
-    });
-
-    toolbar.appendChild(grayscaleLabel);
-    toolbar.appendChild(grayscale);
-
-    const blurLabel = buildElement('label', 'Blur: 50px', {
-        for: 'blur',
-    });
-    const blur = buildElement('input', '', {
-        type: 'range',
-        min: 0,
-        max: 500,
-        id: 'blur',
-    });
-    blur.addEventListener('change', () => {
-        blurLabel.innerText = `Blur: ${blur.value}px`;
-        ctx.filter = `blur(${blur.value}px)`;
-        ctx.drawImage(img, 0, 0);
-    });
-
-    toolbar.appendChild(blurLabel);
-    toolbar.appendChild(blur);
 
     const exportImg = buildElement('a', 'Export', {
         href: '',
