@@ -18,6 +18,7 @@
 
     const container = buildElement('div', '', { style: 'margin:auto;text-align:center' });
 
+    // redraws original image into canvas
     const img = new Image();
     img.src = document.body.querySelector('img').src;
 
@@ -37,8 +38,10 @@
     document.body.querySelector('img').remove();
     document.body.appendChild(container);
 
+    // container for tools (filters, reset, export, etc.)
     const toolbar = buildElement('div', '', { className: 'toolbar' });
 
+    // available filters
     const filters = [
         {
             name: 'Contrast',
@@ -98,6 +101,7 @@
         },
     ];
 
+    // updates image, uses all existing filters
     const redrawFilters = () => {
         let allFilters = '';
         document.querySelectorAll('.toolbar input[type="range"]').forEach((item) => {
@@ -108,6 +112,7 @@
         ctx.drawImage(img, 0, 0);
     };
 
+    // generates range elements for filter manipulation
     filters.forEach((item) => {
         let label = buildElement('label', `${item.name}: ${item.value}${item.unit}`, {
             for: item.name.replace(new RegExp(' ', 'g'), '-').toLowerCase(),
@@ -128,6 +133,7 @@
         toolbar.appendChild(range);
     });
 
+    // generates a button to reset filters
     const reset = buildElement('input', '', {
         type: 'reset',
         value: 'Clear filters',
@@ -143,6 +149,7 @@
     });
     toolbar.appendChild(reset);
 
+    // image export button
     const exportImg = buildElement('a', 'Export', {
         href: '',
         download: `image-${new Date().getTime()}.${fileType}`,
