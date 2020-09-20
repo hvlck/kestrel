@@ -41,6 +41,7 @@ TODO: Update
 + Toggle animations [none]
 + Edit page [none] {in-progress}
 + Mini-map [none] {in-progress}
++ Image manipulation utilities on `.png`, `.jpeg`, and `.jpg` images [none] {in-progress} 
 
 ## FAQ
 
@@ -90,27 +91,34 @@ TODO: Finish section
 ## Roadmap
 
 + Performance Testing with **about:performance** [meta]
-+ Better docs (diagrams, etc.) [meta]
 
-### High
+### General
+
+#### High
 
 + Security [bug] {in-progress}
 + Anti-fingerprinting
-
-### Medium
-
-+ Update features [meta]
-+ Page action styling
-+ Refactoring [meta]
-+ Better onboarding/user-friendly docs [meta] {in-progress}
-+ Homepage [meta] {in-progress}
-+ Doc updates [meta]
-+ Logical ordering of variables and whatnot [meta]
 + Tests [meta]
 
-### Low
+#### Medium
 
-### Abandoned/Ultra-Low Priority
++ Finish timer integration ([timer-dev](https://github.com/EthanJustice/kestrel/tree/timer-dev))
++ Rename KQL
++ Update features [meta]
++ Finish image filtering utilities
+  + Cropping
+  + Rotation
+  + Toolbar styling
++ Refactoring [meta]
++ Better onboarding/user-friendly docs [meta] {in-progress}
+
+#### Low
+
++ Better docs (diagrams, etc.) [meta]
++ Logical ordering of variables and whatnot [meta]
++ Homepage [meta] {in-progress}
+
+#### Abandoned/Ultra-Low Priority
 
 + ~~User-set activation/close command [feature]~~ [abandoned - see [](https://github.com/EthanJustice/kestrel/)]
 
