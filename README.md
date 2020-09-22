@@ -30,8 +30,9 @@ The extension hasn't been submitted to FireFox addons just yet, but you can trac
 ## Features
 
 TODO: Update
+[x] represents APIs utilised to make the feature work.
 
-+ Disable all links [none]
++ Disable all links, to prevent yourself from going down an internet rabbit hole [none]
 + Hide media (images/video) [none]
 + Open all links in the same tab [none]
 + Refresh tabs [tabs]
@@ -120,6 +121,7 @@ TODO: Finish section
 
 #### Planned Features
 
++ Add hide media into background task [background]
 + Arrange tabs by title and url (maybe others, e.g. `most text`?) [browser-action]
 + Timers ([alarms - Mozilla | MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/alarms)) [browser-action] {in-progress}
 + Minimal mode - basic stylesheet (customisable), table of contents, small amount of site metadata (similar to reader mode, but will open automatically in all sites) [check browser settings API to disable CSS on load?] [browser-action]
