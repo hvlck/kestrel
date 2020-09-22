@@ -4,8 +4,6 @@ General browser utilities.
 
 ![Kestrel's Icon](https://raw.githubusercontent.com/EthanJustice/kestrel/master/src/icons/icon.png)
 
-There's not much implemented right now, and what is is somewhat simplistic.  More complicated features are coming.
-
 The extension hasn't been submitted to FireFox addons just yet, but you can track it [from the AMO project](https://github.com/EthanJustice/kestrel/projects/1).
 
 ## Table of Contents
@@ -18,9 +16,10 @@ The extension hasn't been submitted to FireFox addons just yet, but you can trac
   + [Development](#development)
 + [Screenshots](#screenshots)
 + [Roadmap](#roadmap)
-  + [High](#high)
-  + [Medium](#medium)
-  + [Low](#low)
+  + [High Priority](#high)
+  + [Medium Priority](#medium)
+  + [Low Priority](#low)
+  + [Planned Features](#planned-features)
 + [Changelog](#changelog)
   + [v1.0](#v1.0)
 + [Docs](#docs)
@@ -99,6 +98,7 @@ TODO: Finish section
 + Security [bug] {in-progress}
 + Anti-fingerprinting
 + Tests [meta]
++ AMO meta [meta]
 
 #### Medium
 
@@ -117,6 +117,28 @@ TODO: Finish section
 + Better docs (diagrams, etc.) [meta]
 + Logical ordering of variables and whatnot [meta]
 + Homepage [meta] {in-progress}
+
+#### Planned Features
+
++ Arrange tabs by title and url (maybe others, e.g. `most text`?) [browser-action]
++ Timers ([alarms - Mozilla | MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/alarms)) [browser-action] {in-progress}
++ Minimal mode - basic stylesheet (customisable), table of contents, small amount of site metadata (similar to reader mode, but will open automatically in all sites) [check browser settings API to disable CSS on load?] [browser-action]
++ Page size [page-action]
++ Tab history traversing (show older history visually, e.g. URLs or title, commands to go back and forward easily) [browser-action]
++ Tab splitting (open half in a new window, or split by title/url/other) [browser-action]
++ Save current tabs (sessions, restorable, also as markdown/text) [browser-action]
++ Page rich editing (e.g. create elements, customize them)/downloading [browser-action] {in-progress}
++ Tab workspaces (launch multiple preset tabs or windows, save multiple window configurations; these aren't containers, but used for opening sites related to something, such as GitHub and MDN for a workspace called "Programming") [browser-action]
++ KQL [browser-action]
+  + Things on the [Searching · EthanJustice/kestrel Wiki · GitHub](https://github.com/EthanJustice/kestrel/wiki/Searching) page
+  + Workspace searching
+  + Search hidden text content [browser action]
+  + Search within a portion of the page (highlighted, viewport, etc.) [browser-action]
+  + Search within viewport, section (current heading to next), and selected/highlighted text [browser-action]
++ User-set aliases for commands [settings]
++ Standard video controls (and ability to change playback speed) [background]
++ Automatic unit conversion (time, metric-imperial, etc.) in website text [background]
++ View individual workspace history (e.g. history for workspace, "Generic Research Project") [browser-action]
 
 #### Abandoned/Ultra-Low Priority
 
