@@ -26,6 +26,12 @@
                 "default": "Alt+A"
             },
             "description": "Open page information."
+        },
+        "stop_background_injects_for_five_minutes": {
+            "suggested_key": {
+                "default": "Alt+Shift+O"
+            },
+            "description": "Stops injecting background tasks into pages for five minutes."
         }
     },
     "browser_action": {
