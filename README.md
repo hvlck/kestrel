@@ -93,6 +93,7 @@ TODO: Finish section
 + Performance Testing with **about:performance** [meta]
 + Possible WASM porting
 + Things for AMO release (user docs, copy, etc.)
++ Update version
 
 ### General
 
@@ -102,6 +103,7 @@ TODO: Finish section
 + Anti-fingerprinting
 + Tests [meta]
 + AMO meta [meta]
++ Project meta [meta]
 
 #### Medium
 
@@ -120,6 +122,8 @@ TODO: Finish section
 + Better docs (diagrams, etc.) [meta]
 + Logical ordering of variables and whatnot [meta]
 + Homepage [meta] {in-progress}
++ Better icons
+  + Different icons for `page-action` and `browser-action`
 
 #### Planned Features
 
@@ -131,6 +135,9 @@ TODO: Finish section
 + Tab history traversing (show older history visually, e.g. URLs or title, commands to go back and forward easily) [browser-action]
 + Tab splitting (open half in a new window, or split by title/url/other) [browser-action]
 + Save current tabs (sessions, restorable, also as markdown/text) [browser-action]
+  + complete sessions, with everything the `tabs` API can give
+  + simplfied sessions that only contain urls and tab order
+  + Save sessions to extension, so you can open them with `Open Session` command
 + Page rich editing (e.g. create elements, customize them)/downloading [browser-action] {in-progress}
 + Tab workspaces (launch multiple preset tabs or windows, save multiple window configurations; these aren't containers, but used for opening sites related to something, such as GitHub and MDN for a workspace called "Programming") [browser-action]
 + KQL [browser-action]

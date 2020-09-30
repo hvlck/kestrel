@@ -22,6 +22,10 @@ const commands = {
         aliases: ['Refresh all tabs: hard'],
         on: false,
     },
+    saveSession: {
+        name: 'Export complete session',
+        callback: 'saveSession',
+    },
     scrollToTop: {
         name: 'Scroll to top of the page',
         callback: 'scrollToTop',

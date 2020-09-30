@@ -57,6 +57,21 @@ let cmdFunctions = {
         }
     },
 
+    saveSession: async () => {
+        let tabs = await browser.tabs.query({
+            currentWindow: true,
+        });
+
+        return browser.downloads
+            .download({
+                url: URL.createObjectURL(new Blob([JSON.stringify(tabs)], { type: 'text/json;charset=utf-8' })),
+                filename: 'session.json',
+            })
+            .then(() => {
+                return false;
+            });
+    },
+
     search: function () {
         hideKestrel();
 
