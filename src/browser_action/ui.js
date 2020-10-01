@@ -102,7 +102,7 @@ const updateCommands = () => {
         commandItem.addEventListener('click', () => {
             // executes specified command if clicked
             let c = taita.execute(commandItem.innerText, cmdFunctions);
-            if (c != false) sendFnEvent({ inject: taita._commandContains(commandItem.innerText) });
+            if (c != false || (c && !c.then)) sendFnEvent({ inject: taita._commandContains(commandItem.innerText) });
             updateCommands();
         });
 
@@ -130,7 +130,7 @@ function listen(event) {
         Object.values(list.children).forEach((child) => {
             if (child.classList.contains('kestrel-command-item-focused')) {
                 let c = taita.execute(child.innerText, cmdFunctions);
-                if (c != false) sendFnEvent({ inject: taita._commandContains(child.innerText) });
+                if (c != false || (c && !c.then)) sendFnEvent({ inject: taita._commandContains(child.innerText) });
             }
         });
         input.value = '';

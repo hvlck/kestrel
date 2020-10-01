@@ -23,8 +23,9 @@ const commands = {
         on: false,
     },
     saveSession: {
-        name: 'Export complete session',
+        name: 'Export complete session to JSON',
         callback: 'saveSession',
+        aliases: ['Export minimal session to JSON'],
     },
     scrollToTop: {
         name: 'Scroll to top of the page',
