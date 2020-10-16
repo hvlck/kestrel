@@ -57,42 +57,6 @@ let cmdFunctions = {
         }
     },
 
-    saveSession: async (ref) => {
-        let tabs = await browser.tabs.query({
-            currentWindow: true,
-        });
-
-        if (ref.includes('minimal')) {
-            let t = [];
-            Object.values(tabs).forEach((item) => {
-                let tabItem = {};
-                Object.keys(item).forEach((key) => {
-                    if (key != 'url' && key != 'index') return;
-                    tabItem[key] = item[key];
-                });
-                t.push(tabItem);
-            });
-            tabs = t;
-        }
-
-        return browser.downloads
-            .download({
-                url: URL.createObjectURL(
-                    new Blob([JSON.stringify(tabs)], {
-                        type: 'text/json;charset=utf-8',
-                    })
-                ),
-                filename: 'session.json',
-            })
-            .then(() => {
-                return false;
-            })
-            .catch((err) => {
-                console.error(`Failed to download session: ${err}`);
-                return false;
-            });
-    },
-
     search: function () {
         hideKestrel();
 
