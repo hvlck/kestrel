@@ -6,7 +6,7 @@
     "icons": {
         "48": "icons/icon.png"
     },
-    "permissions": ["storage", "tabs", "activeTab", "alarms", "file://*/*", "https://*/*", "http://*/*"],
+    "permissions": ["storage", "tabs", "activeTab", "file://*/*", "https://*/*", "http://*/*"],
     "optional_permissions": ["history"],
     "background": {
         "scripts": ["background/main.js"]

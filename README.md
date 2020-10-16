@@ -129,7 +129,6 @@ TODO: Finish section
 
 + Add hide media into background task [background]
 + Arrange tabs by title and url (maybe others, e.g. `most text`?) [browser-action]
-+ Timers ([alarms - Mozilla | MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/alarms)) [browser-action] {in-progress}
 + Minimal mode - basic stylesheet (customisable), table of contents, small amount of site metadata (similar to reader mode, but will open automatically in all sites) [check browser settings API to disable CSS on load?] [browser-action]
 + Page size [page-action]
 + Tab history traversing (show older history visually, e.g. URLs or title, commands to go back and forward easily) [browser-action]

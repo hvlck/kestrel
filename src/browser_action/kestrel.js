@@ -83,44 +83,6 @@ let cmdFunctions = {
 
         return false;
     },
-
-    setTimer: function (ref) {
-        hideKestrel();
-        let time;
-
-        input.placeholder = 'For how long?';
-        input.pattern = /\d/;
-        input.removeEventListener('keydown', listen);
-
-        const addAlarm = async (event) => {
-            if (event.keyCode == 13 && input.value) {
-                if (!time) {
-                    time = await parseAlarm(input.value).catch((e) => console.error(`Failed to parse date: ${e}`));
-                    input.value = '';
-
-                    input.pattern = /[a-z]/i;
-                    input.placeholder = 'What do you want to name this alarm?';
-                } else {
-                    browser.alarms.create(input.value, {
-                        when: time.getTime(),
-                    });
-
-                    input.removeEventListener('keydown', addAlarm);
-
-                    input.value = '';
-                    input.placeholder = 'Search commands';
-                    input.removeAttribute('pattern');
-
-                    updateCommands();
-                    showKestrel();
-                    input.focus();
-                }
-            }
-        };
-
-        input.addEventListener('keydown', addAlarm);
-        return false;
-    },
 };
 
 export { cmdFunctions };
