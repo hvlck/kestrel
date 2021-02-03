@@ -9,10 +9,10 @@
     "permissions": ["storage", "tabs", "activeTab", "file://*/*", "https://*/*", "http://*/*"],
     "optional_permissions": ["history"],
     "background": {
-        "scripts": ["background/main.js"]
+        "scripts": ["src/background/main.js"]
     },
     "user_scripts": {
-        "api_script": "background/scriptApi.js"
+        "api_script": "src/background/scriptApi.js"
     },
     "commands": {
         "_execute_browser_action": {
@@ -39,19 +39,19 @@
             "19": "icons/icon.png"
         },
         "default_title": "Kestrel - Search Commands",
-        "default_popup": "browser_action/index.html"
+        "default_popup": "src/browser_action/index.html"
     },
     "page_action": {
         "default_icon": {
             "19": "icons/icon.png"
         },
         "default_title": "Kestrel",
-        "default_popup": "page_action/index.html",
+        "default_popup": "src/page_action/index.html",
         "browser_style": true,
         "show_matches": ["file://*/*", "https://*/*", "http://*/*"]
     },
     "options_ui": {
-        "page": "pages/settings/index.html",
+        "page": "src/pages/settings/index.html",
         "browser_style": true,
         "open_in_tab": true
     }

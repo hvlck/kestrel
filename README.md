@@ -190,7 +190,6 @@ license - MIT
             /themes - various themes
             commands.js - list of commands, aliases, and callbacks
             index.css - base stylesheet for all pages
-            taita.js - command palette logic processor
             utils.js - utility
             webUtils - utilities for webextension APIs
         /page_action - extension page action

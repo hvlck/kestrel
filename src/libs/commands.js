@@ -1,4 +1,4 @@
-import Taita from './taita.js';
+import Taita from "taita.js";
 
 // Command palette variables
 const commands = {
