@@ -73,12 +73,14 @@ There's not much to see right now.  The main part is activated with `Alt+Shift+A
 
 ### Development
 
-1. Download Kestrel
-2. Go to `about:debugging`
-3. Click on `This Firefox`
-4. Click on `Load Temporary Add-on...`
-5. Navigate to wherever you downloaded Kestrel and open `src/manifest.json` in the prompt
-6. You're good to go!
+#### Requirements
+
++ `npm`
+
+1. Download Kestrel's source
+2. Run `yarn install`
+3. Run `yarn run start`
+4. You're good to go!
 
 Please use [`web-ext`](https://github.com/mozilla/web-ext) for linting.
 
@@ -91,7 +93,6 @@ TODO: Finish section
 ## Roadmap
 
 + Performance Testing with **about:performance** [meta]
-+ Possible WASM porting
 + Things for AMO release (user docs, copy, etc.)
 + Update version
 
@@ -99,6 +100,7 @@ TODO: Finish section
 
 #### High
 
++ Typescript rewrite [meta] {in-progress}
 + Security [bug] {in-progress}
 + Anti-fingerprinting
 + Tests [meta]
@@ -107,7 +109,6 @@ TODO: Finish section
 
 #### Medium
 
-+ Finish timer integration ([timer-dev](https://github.com/EthanJustice/kestrel/tree/timer-dev))
 + Rename KQL
 + Update features [meta]
 + Finish image filtering utilities

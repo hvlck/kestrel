@@ -1,0 +1,26 @@
+{
+    "name": "kestrel",
+    "version": "1.6.0",
+    "description": "general browser utilities",
+    "main": "index.js",
+    "repository": "https://github.com/EthanJustice/kestrel.git",
+    "author": "EthanJustice <47954690+EthanJustice@users.noreply.github.com>",
+    "license": "MIT",
+    "scripts": {
+        "start": "web-ext run",
+        "bundle": "webpack --mode=development",
+        "bundle:release": "webpack --mode=production",
+        "test": "mocha tests/**/*.ts",
+        "pack": "web-ext build -i src",
+        "release": "npm run bundle:release && npm run pack"
+    },
+    "devDependencies": {
+        "clean-webpack-plugin": "^3.0.0",
+        "typescript": "^4.1.3",
+        "web-ext": "^5.5.0",
+        "webextension-polyfill-ts": "^0.24.0",
+        "webpack": "^4.42.1",
+        "webpack-cli": "^3.3.11",
+        "awesome-typescript-loader": "^5.2.1"
+    }
+}
