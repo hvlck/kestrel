@@ -1,32 +1,9 @@
 import { browser } from 'webextension-polyfill-ts';
+import { backgroundMetaInformation as meta } from '../libs/constants';
+import { RegisteredUserScript, RegisteredUserScriptList } from '../libs/types/firefox';
+import { Storage } from '../libs/types/storage';
 
-// primary background script
-
-// organisation wrapper for meta-information
-const meta = {
-    runtimes: {
-        hover: 'document_idle',
-        imageControls: 'document_end',
-        loader: 'document_start',
-        minimap: 'document_idle',
-        linksInSameTab: 'document_end',
-        noSameSiteLinks: 'document_idle',
-    },
-
-    matches: {
-        imageControls: [
-            'https://*/*/*.png',
-            'https://*/*/*.jpeg',
-            'https://*/*/*.jpg',
-            'http://*/*/*.png',
-            'http://*/*/*.jpeg',
-            'http://*/*/*.jpg',
-            'file://*/*/*.png',
-            'file://*/*/*.jpeg',
-            'file://*/*/*.jpg',
-        ],
-    },
-};
+// primary background script for running the extension
 
 // can't use es6 modules in background scripts without specifiying an (unneccessary) background page
 // these functions are contained within utils for organisation
@@ -35,7 +12,9 @@ const utils = {
     hidePageAction: () => {
         browser.tabs.query({}).then((tabs) => {
             tabs.forEach((item) => {
-                browser.pageAction.hide(item.id);
+                if (item.id) {
+                    browser.pageAction.hide(item.id);
+                }
             });
         });
     },
@@ -44,19 +23,21 @@ const utils = {
     showPageAction: () => {
         browser.tabs.query({}).then((tabs) => {
             tabs.forEach((item) => {
-                browser.pageAction.show(item.id);
+                if (item.id) {
+                    browser.pageAction.show(item.id);
+                }
             });
         });
     },
 
     // injects a script into the active tab
-    injectScript: (script) => {
+    injectScript: (script: string) => {
         return browser.tabs.executeScript({ file: script });
     },
 
     // injects stylesheet into  current tab
-    injectStylesheet: (sheet) => {
-        if (!sheet || injections[sheet]) {
+    injectStylesheet: (sheet: string) => {
+        if (!sheet || injections.indexOf(sheet) != -1) {
             return;
         }
         injections.push(sheet);
@@ -86,7 +67,7 @@ browser.runtime.onInstalled.addListener(() => {
 browser.runtime.onStartup.addListener(async () => {
     let s = await utils.getSettings();
     if (s.browseraction == true) {
-        showPageAction();
+        utils.showPageAction();
     }
 });
 
@@ -108,45 +89,44 @@ browser.commands.onCommand.addListener(async (command) => {
 });
 
 // storage
-let settings;
+let settings = new Storage.StorageManager();
 
 // keeps track of injected stylesheets [note: NEEDS TO BE SCOPED TO EACH ACTIVE TAB]
-let injections = [];
+let injections: string[] = [];
 
 // registered userscripts
-let registeredScripts = {};
+let registeredScripts: RegisteredUserScriptList;
 
 // updates all active userscripts from user settings (browser.storage api)
 async function updateUserScripts() {
     let settings = await utils.getSettings();
 
-    Object.entries(settings.automatic).forEach((item) => {
-        if (item[1] == true) {
-            browser.userScripts
-                .register({
-                    js: [
-                        {
-                            file: `../injections/automatic/${item[0]}.js`,
-                        },
-                    ],
-                    matches: meta.matches[item[0]] || ['file://*/*', 'https://*/*', 'http://*/*'],
-                    runAt: meta.runtimes[item[0]],
-                    scriptMetadata: { name: item[0] },
-                })
-                .then((data) => {
-                    registeredScripts[item[0]] = data;
-                });
-        } else if (item[1] == false && registeredScripts[item[0]]) {
-            registeredScripts[item[0]].unregister();
+    for (const item in Storage.AutomaticFunctions) {
+        if (settings.automatic.enabled.hasOwnFunction(item) == true) {
+            // find fix for this
+            // @ts-expect-error
+            registeredScripts[item] = await browser.userScripts.register({
+                js: [
+                    {
+                        file: `../injections/automatic/${item[0]}.js`,
+                    },
+                ],
+                matches: meta.matches[item[0]] || ['file://*/*', 'https://*/*', 'http://*/*'],
+                runAt: meta.runtimes[item[0]],
+                scriptMetadata: { name: item[0] },
+            });
+        } else {
+            registeredScripts[item].unregister();
         }
-    });
+    }
 }
 
 // executes functions that require background script apis
-browser.runtime.onMessage.addListener((msg, sender, response) => {
-    if (sender.id.startsWith(browser.runtime.id) !== true) {
+browser.runtime.onMessage.addListener((msg, sender) => {
+    if (sender.id?.startsWith(browser.runtime.id) !== true) {
         return;
     }
+
     if (msg.fn) {
         if (msg.fn === 'tabs') {
             browser.tabs.query({}).then((tabs) => tabs.forEach((tab) => browser.tabs.reload(tab.id, msg.args)));
