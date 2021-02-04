@@ -1,5 +1,5 @@
 import { automaticCommandsList } from '../../libs/commands.js';
-import buildElement from '../../libs/utils.js';
+import b from '../../libs/utils.js';
 import { settings, toggleTheme, automaticDescriptions } from './settings.js';
 import callbacks from './callbacks.js';
 import { updateAutomaticFunctions, updateCommands, updateSettings } from './update.js';
@@ -7,32 +7,32 @@ import { updateAutomaticFunctions, updateCommands, updateSettings } from './upda
 // generates html for settings
 
 // nav bar
-const nav = buildElement('nav');
+const nav = b('nav');
 
 // prevent content flashing
 document.body.querySelector('.hidden').appendChild(nav);
 
 // generates settings html
 const build = () => {
-    const main = buildElement('div', '', {
+    const main = b(ElementTag.Div, '', {
         className: 'main',
     });
 
     document.body.querySelector('.hidden').appendChild(main);
 
     settings.forEach((item) => {
-        let div = buildElement('div', '', {
+        let div = b(ElementTag.Div, '', {
             className: 'settings-item-container',
         });
 
-        let title = buildElement(`${item.type == 'divider' ? 'h2' : 'h3'}`, item.name, {
+        let title = b(`${item.type == 'divider' ? 'h2' : 'h3'}`, item.name, {
             className: 'settings-item-header',
             id: `${item.type == 'divider' ? item.name.replace(new RegExp(' ', 'g'), '-').toLowerCase() : ''}`,
         });
 
         div.appendChild(title);
 
-        let description = buildElement('p', item.description, {
+        let description = b('p', item.description, {
             className: 'settings-item-description',
         });
 
@@ -40,19 +40,19 @@ const build = () => {
 
         if (item.type == 'divider') {
             nav.appendChild(
-                buildElement('a', item.name, {
+                b('a', item.name, {
                     href: `#${item.name.replace(' ', '-').toLowerCase()}`,
                 })
             );
-            if (item.rule != false) div.prepend(buildElement('hr'));
+            if (item.rule != false) div.prepend(b('hr'));
         } else if (item.type == 'select') {
             // select element
-            let select = buildElement('select', '', {
+            let select = b('select', '', {
                 className: 'settings-item-select',
             });
 
             item.options.forEach((option) => {
-                let element = buildElement('option', option, {
+                let element = b('option', option, {
                     className: 'setting-item-select-option',
                 });
 
@@ -81,7 +81,7 @@ const build = () => {
             div.appendChild(select);
         } else if (item.type == 'toggle') {
             // checkbox elements
-            let container = buildElement('table', '', {
+            let container = b('table', '', {
                 className: 'settings-item-toggle-container',
             });
 
@@ -95,11 +95,11 @@ const build = () => {
 
             div.appendChild(container);
         } else if (item.type == 'single-toggle') {
-            let container = buildElement('div', '', {
+            let container = b(ElementTag.Div, '', {
                 className: 'checkbox-parent',
             });
 
-            let toggle = buildElement('input', '', {
+            let toggle = b('input', '', {
                 type: 'checkbox',
                 checked: item.default || false,
             });
@@ -131,7 +131,7 @@ const build = () => {
             div.appendChild(container);
         } else if (item.type == 'special') {
             // various special resets/buttons
-            let btn = buildElement('input', '', {
+            let btn = b('input', '', {
                 type: 'reset',
                 value: item.name,
             });
@@ -141,7 +141,7 @@ const build = () => {
             div.appendChild(btn);
         } else if (item.type == 'text' || item.type == 'number') {
             // text/number input
-            let text = buildElement('input', '', {
+            let text = b('input', '', {
                 type: item.type,
                 placeholder: item.placeholder,
                 [item.type == 'text' ? 'maxLength' : 'max']: item.max || '9999999',
@@ -181,15 +181,15 @@ const build = () => {
             });
 
             div.appendChild(text);
-            let matchDescElem = buildElement('p', item.matchDescription);
+            let matchDescElem = b('p', item.matchDescription);
             div.appendChild(matchDescElem);
         } else if (item.type == 'file' && item.fn) {
-            let label = buildElement('label', item.name, {
+            let label = b('label', item.name, {
                 className: 'file-label',
             });
             label.setAttribute('for', `file-${item.name.toLowerCase().replace(new RegExp(' ', 'g'), '-')}`);
 
-            let inp = buildElement('input', '', {
+            let inp = b('input', '', {
                 type: 'file',
                 id: `file-${item.name.toLowerCase().replace(new RegExp(' ', 'g'), '-')}`,
             });
@@ -210,10 +210,10 @@ const build = () => {
 
 // toggle type html structure
 function buildToggle(item, customData, container) {
-    let head = buildElement('thead');
-    let headerRow = buildElement('tr');
+    let head = b('thead');
+    let headerRow = b('tr');
     item.headers.forEach((header) => {
-        let headerCell = buildElement('th', header);
+        let headerCell = b('th', header);
         headerRow.appendChild(headerCell);
     });
 
@@ -239,12 +239,12 @@ function buildToggle(item, customData, container) {
 // toggle type content html
 function buildToggleHtml(iter, container, original, ref) {
     iter.forEach((option, index) => {
-        let row = buildElement('tr');
+        let row = b('tr');
 
-        let toggleCell = buildElement('td');
+        let toggleCell = b('td');
 
         if (ref == 'commands') {
-            let toggle = buildElement('input', '', {
+            let toggle = b('input', '', {
                 type: 'checkbox',
                 checked: option.on,
                 data_command: Object.entries(original)[index][0],
@@ -258,7 +258,7 @@ function buildToggleHtml(iter, container, original, ref) {
         } else if (ref == 'background') {
             browser.storage.local.get('automatic').then((status) => {
                 status = status.automatic;
-                let toggle = buildElement('input', '', {
+                let toggle = b('input', '', {
                     type: 'checkbox',
                     checked: status[option] || false,
                     data_background: Object.keys(automaticCommandsList)[index],
@@ -275,12 +275,12 @@ function buildToggleHtml(iter, container, original, ref) {
             });
         }
 
-        let descriptionCell = buildElement('td');
+        let descriptionCell = b('td');
         if (ref == 'commands') {
-            let description = buildElement('p', option.name.split(':')[0]);
+            let description = b('p', option.name.split(':')[0]);
             descriptionCell.appendChild(description);
         } else if (ref == 'background') {
-            let description = buildElement('p', automaticDescriptions[option]);
+            let description = b('p', automaticDescriptions[option]);
             descriptionCell.appendChild(description);
         }
 

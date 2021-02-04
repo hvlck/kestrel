@@ -1,3 +1,5 @@
+import Taita from 'taita';
+
 // constant values
 
 /**

@@ -1,21 +1,21 @@
 // control for the page-action
 
 import { getActiveTab, execute, activeTab } from '../libs/webUtils.js';
-import buildElement from '../libs/utils.js';
+import b from '../libs/utils.js';
 
-const toggles = buildElement('div', '', {
+const toggles = b(ElementTag.Div, '', {
     className: 'toggle-container',
 });
 
 document.body.appendChild(toggles);
 
-const menusContainer = buildElement('div', '', {
+const menusContainer = b(ElementTag.Div, '', {
     className: 'menus',
 });
 
 document.body.appendChild(menusContainer);
 
-const main = buildElement('div', '', {
+const main = b(ElementTag.Div, '', {
     id: 'main',
     className: 'menu hidden',
 });
@@ -24,7 +24,7 @@ menusContainer.appendChild(main);
 
 const menus = {
     addToggle: (name) => {
-        let t = buildElement('p', `${name} +`, {
+        let t = b('p', `${name} +`, {
             className: 'toggle',
             data_toggled: false,
             id: `toggle-${name.toLowerCase()}`,
@@ -54,18 +54,16 @@ const buildFromInfo = () => {
     console.log(info);
 
     if (info.readingTime) {
-        main.appendChild(
-            buildElement('p', `Reading time: ${info.readingTime} minute${info.readingTime != 1 ? 's' : ''}.`)
-        );
+        main.appendChild(b('p', `Reading time: ${info.readingTime} minute${info.readingTime != 1 ? 's' : ''}.`));
     }
 
     if (info.rss.length != 0) {
-        let rss = buildElement('h4', 'RSS', { className: 'section' });
+        let rss = b('h4', 'RSS', { className: 'section' });
 
-        let container = buildElement('div');
+        let container = b(ElementTag.Div);
         info.rss.forEach((item) => {
             container.appendChild(
-                buildElement('a', item, {
+                b('a', item, {
                     href: item,
                 })
             );
@@ -76,16 +74,14 @@ const buildFromInfo = () => {
     }
 
     if (info.pwa == true) {
-        main.appendChild(buildElement('p', 'PWA'));
+        main.appendChild(b('p', 'PWA'));
     }
 
     if (info.headings) {
         menus.addToggle('Headings');
-        const headings = buildElement('div', '', { className: 'menu hidden', id: 'headings' });
+        const headings = b(ElementTag.Div, '', { className: 'menu hidden', id: 'headings' });
         Object.entries(info.headings).forEach((item, i, arr) => {
-            headings.appendChild(
-                buildElement('p', item[0], { style: `font-size: ${Math.abs(item[1].slice(1) - 6) * 4}pt` })
-            );
+            headings.appendChild(b('p', item[0], { style: `font-size: ${Math.abs(item[1].slice(1) - 6) * 4}pt` }));
         });
 
         menusContainer.appendChild(headings);
@@ -94,16 +90,16 @@ const buildFromInfo = () => {
 
 getActiveTab().then(async (t) => {
     let crumbs = t.url.split(/\/+/).filter((i) => i.length > 0);
-    let root = buildElement('a', '', { href: t.url });
+    let root = b('a', '', { href: t.url });
 
     let path = '';
     menus.addToggle('Breadcrumbs');
-    let crumbContainer = buildElement('div', '', { className: 'menu hidden', id: 'breadcrumbs' });
+    let crumbContainer = b(ElementTag.Div, '', { className: 'menu hidden', id: 'breadcrumbs' });
     crumbs.forEach((item, index) => {
         if (item.includes('http')) return;
         if (root.hostname != item) path += `/${item}`;
         crumbContainer.appendChild(
-            buildElement('a', root.hostname != item ? path : item, {
+            b('a', root.hostname != item ? path : item, {
                 href: `${root.protocol}//${root.hostname}${root.hostname == item ? '' : path}`,
                 style: `margin: auto ${index != 1 ? index * 2 : 0}%;`,
             })
@@ -113,7 +109,7 @@ getActiveTab().then(async (t) => {
 
     browser.permissions.contains({ permissions: ['history'] }).then((has) => {
         if (has == true) {
-            let root = buildElement('a', '', { href: t.url }).hostname;
+            let root = b('a', '', { href: t.url }).hostname;
             browser.history
                 .search({
                     text: root,
@@ -121,7 +117,7 @@ getActiveTab().then(async (t) => {
                 })
                 .then(async (data) => {
                     menus.addToggle('History');
-                    const hContainer = buildElement('div', '', { className: 'menu hidden', id: 'history' });
+                    const hContainer = b(ElementTag.Div, '', { className: 'menu hidden', id: 'history' });
                     let pageDailyRaw = await browser.history.search({
                         text: root,
                     });
@@ -139,7 +135,7 @@ getActiveTab().then(async (t) => {
                     let domainTotal = Array.from(data).reduce((p, n) => (p += n.visitCount), 0);
 
                     hContainer.appendChild(
-                        buildElement(
+                        b(
                             'p',
                             `Visited page ${pageTotal} time${
                                 pageTotal > 1 ? 's' : ''
@@ -148,7 +144,7 @@ getActiveTab().then(async (t) => {
                     );
 
                     hContainer.appendChild(
-                        buildElement(
+                        b(
                             'p',
                             `Visited domain ${domainTotal} time${
                                 domainTotal > 1 ? 's' : ''
@@ -161,7 +157,7 @@ getActiveTab().then(async (t) => {
         }
     });
 
-    let siteDataLoader = buildElement('p', 'Loading...');
+    let siteDataLoader = b('p', 'Loading...');
 
     let registered = execute('../injections/info.js').then(async () => {
         let t = await activeTab();

@@ -1,5 +1,5 @@
 (function () {
-    const buildElement = (type, text, attributes) => {
+    const b = (type, text, attributes) => {
         let element = document.createElement(type);
         element.innerText = text || '';
         if (attributes) {
@@ -16,13 +16,13 @@
 
     const fileType = window.location.href.split('.')[window.location.href.split('.').length - 1];
 
-    const container = buildElement('div', '', { style: 'margin:auto;text-align:center' });
+    const container = b('div', '', { style: 'margin:auto;text-align:center' });
 
     // redraws original image into canvas
     const img = new Image();
     img.src = document.body.querySelector('img').src;
 
-    const canvas = buildElement('canvas', '', {
+    const canvas = b('canvas', '', {
         style: `max-width:80%;margin:auto;text-align:center;`,
     });
     const ctx = canvas.getContext('2d');
@@ -39,7 +39,7 @@
     document.body.appendChild(container);
 
     // container for tools (filters, reset, export, etc.)
-    const toolbar = buildElement('div', '', { className: 'toolbar' });
+    const toolbar = b('div', '', { className: 'toolbar' });
 
     // available filters
     const filters = [
@@ -114,10 +114,10 @@
 
     // generates range elements for filter manipulation
     filters.forEach((item) => {
-        let label = buildElement('label', `${item.name}: ${item.value}${item.unit}`, {
+        let label = b('label', `${item.name}: ${item.value}${item.unit}`, {
             for: item.name.replace(new RegExp(' ', 'g'), '-').toLowerCase(),
         });
-        let range = buildElement('input', '', {
+        let range = b('input', '', {
             type: 'range',
             min: item.min,
             max: item.max,
@@ -134,7 +134,7 @@
     });
 
     // generates a button to reset filters
-    const reset = buildElement('input', '', {
+    const reset = b('input', '', {
         type: 'reset',
         value: 'Clear filters',
     });
@@ -150,16 +150,14 @@
     toolbar.appendChild(reset);
 
     // image export button
-    const exportLabel = buildElement('label', 'Export image as...', {
+    const exportLabel = b('label', 'Export image as...', {
         for: 'export-img',
     });
-    const exportImg = buildElement('select', '', { id: 'export-img' });
+    const exportImg = b('select', '', { id: 'export-img' });
     const formats = ['PNG', 'JPEG'];
-    formats.forEach((item) =>
-        exportImg.appendChild(buildElement('option', item, { value: `image/${item.toLowerCase()}` }))
-    );
+    formats.forEach((item) => exportImg.appendChild(b('option', item, { value: `image/${item.toLowerCase()}` })));
     exportImg.addEventListener('input', () => {
-        let l = buildElement('a', '', {
+        let l = b('a', '', {
             href: canvas.toDataURL(`${exportImg.value}`, 1.0),
             download: `image-${new Date().getTime()}.${exportImg.value.split('/')[1]}`,
         });

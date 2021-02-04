@@ -14,9 +14,9 @@ browser.userScripts.onBeforeScript.addListener(
     }) => {
         script.defineGlobals({
             async GM_getSettings() {
-                const request = await browser.storage.local.get('automaticsettings');
+                const { settings } = await browser.storage.local.get('automatic');
                 return script.export({
-                    settings: request,
+                    settings,
                 });
             },
             async GM_getSiteData(url: string) {

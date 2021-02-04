@@ -1,4 +1,4 @@
-import buildElement from '../../libs/utils.js';
+import b from '../../libs/utils.js';
 import { automaticSettings } from '../../libs/commands.js';
 import { updateSettings } from './update.js';
 
@@ -9,16 +9,16 @@ const callbacks = {
     reset: function () {
         document.querySelector(`input[value="Reset settings"]`).setAttribute('disabled', 'true');
 
-        let container = buildElement('nav', '', { className: 'confirm-reset' });
+        let container = b('nav', '', { className: 'confirm-reset' });
 
-        let confirmBtn = buildElement('input', '', {
+        let confirmBtn = b('input', '', {
             type: 'button',
             value: 'Confirm',
         });
 
         confirmBtn.addEventListener('click', () => this.resetAll());
 
-        let cancelBtn = buildElement('input', '', {
+        let cancelBtn = b('input', '', {
             type: 'button',
             value: 'Cancel',
         });
@@ -72,7 +72,7 @@ const callbacks = {
     // download kestrel config as a .json file
     downloadConfig: function () {
         browser.storage.local.get(null).then((data) => {
-            let link = buildElement('a', '', {
+            let link = b('a', '', {
                 className: 'hidden',
                 href: `data:octet/stream;charset=utf-8,${encodeURIComponent(JSON.stringify(data))}`,
                 download: `kestrel` + `.json`,
@@ -146,7 +146,7 @@ const callbacks = {
         if (previous) {
             previous.remove();
         }
-        let preview = buildElement('span', '', {
+        let preview = b('span', '', {
             style: `
 			background: ${item.value};
 			content: '';

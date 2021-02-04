@@ -1,7 +1,7 @@
 // automatically injects a minimapi into the active page
 // see the minimap command in /src/browser_action/kestrel.js for more
 (function () {
-    const buildElement = (type, text, attributes) => {
+    const b = (type, text, attributes) => {
         let element = document.createElement(type);
         element.innerText = text || '';
         if (attributes) {
@@ -17,7 +17,7 @@
     };
 
     GM_sendMessage({ injectSheet: 'minimap' }).then(() => {
-        let container = buildElement('div', '', {
+        let container = b('div', '', {
             id: 'kestrel-mini-map-container',
         });
 
@@ -29,13 +29,13 @@
 
         document.body.appendChild(container);
 
-        let minimap = buildElement('div', '', {
+        let minimap = b('div', '', {
             data_kestrel_mini_map: true,
             id: 'kestrel-mini-map',
             class: 'kestrel-mini-map',
         });
 
-        let selection = buildElement('input', '', {
+        let selection = b('input', '', {
             type: 'range',
             id: 'kestrel-mini-map-slider',
             max: 100,

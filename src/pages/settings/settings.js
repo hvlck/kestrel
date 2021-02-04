@@ -1,4 +1,4 @@
-import buildElement from '../../libs/utils.js';
+import b from '../../libs/utils.js';
 
 // available settings, converted into html
 /*  KEYS
@@ -191,7 +191,7 @@ const toggleTheme = (data) => {
     data = data.replace(new RegExp(' ', 'g'), '-').toLowerCase();
     if (data != 'operating-system-default') {
         document.head.appendChild(
-            buildElement('link', '', {
+            b('link', '', {
                 href: `../../libs/themes/${data.toLowerCase()}.css`,
                 rel: 'stylesheet',
                 type: 'text/css',

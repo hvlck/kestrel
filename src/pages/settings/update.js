@@ -1,5 +1,5 @@
 import { automaticCommandsList, automaticSettings, commands } from '../../libs/commands.js';
-import buildElement from '../../libs/utils.js';
+import b from '../../libs/utils.js';
 import build from './build.js';
 import { toggleTheme } from './settings.js';
 
@@ -52,7 +52,7 @@ const success = (key) => {
         document.querySelectorAll('.success').forEach((item) => item.remove());
     }
 
-    let notification = buildElement('p', `Successfully updated ${key}.`, {
+    let notification = b('p', `Successfully updated ${key}.`, {
         className: 'success',
     });
 
@@ -69,7 +69,7 @@ const failure = (key) => {
         document.querySelectorAll('.failure').forEach((item) => item.remove());
     }
 
-    let notification = buildElement('p', `Failed to update ${key}.  Check the console for more details.`, {
+    let notification = b('p', `Failed to update ${key}.  Check the console for more details.`, {
         className: 'failure',
     });
 

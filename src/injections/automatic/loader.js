@@ -1,6 +1,6 @@
 // generates a loading bar
 (function () {
-    const buildElement = (type, text, attributes) => {
+    const b = (type, text, attributes) => {
         let element = document.createElement(type);
         element.innerText = text || '';
         if (attributes) {
@@ -29,7 +29,7 @@
             return;
         }
 
-        let loader = buildElement('div', '', {
+        let loader = b('div', '', {
             id: `kestrel-loading-bar`,
             style: `
 			width: 0;

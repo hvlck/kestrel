@@ -18,15 +18,14 @@
 </body>
 */
 
-import buildElement from '../libs/utils.js';
-import { taita } from '../libs/commands.js';
-import { cmdFunctions } from './kestrel.js';
+import b, { ElementTag } from '../libs/utils.js';
+import { functions, state, taita } from './kestrel.js';
 
-let kestrel;
-let input;
+let kestrel: HTMLElement;
+let input: HTMLElement;
 let taitaIndex = 0;
 
-let commandsChanged = taita.matchedCommands.changed();
+let commandsChanged = taita.matched.changed();
 
 // generates command palette and logic
 async function buildUI() {
@@ -34,7 +33,7 @@ async function buildUI() {
 
     if (settings.theme && settings.theme != 'operating-system-default') {
         document.head.appendChild(
-            buildElement('link', '', {
+            b(ElementTag.Link, '', {
                 rel: 'stylesheet',
                 type: 'text/css',
                 href: `../libs/themes/${settings.theme}.css`,
@@ -48,11 +47,11 @@ async function buildUI() {
         }
     });
 
-    kestrel = buildElement('div', '', {
+    kestrel = b(ElementTag.Div, '', {
         className: 'kestrel',
     });
 
-    input = buildElement('input', '', {
+    input = b('input', '', {
         type: 'text',
         placeholder: 'Search commands...',
         className: 'kestrel-command-input',
@@ -86,22 +85,22 @@ const updateCommands = () => {
     if (list && commandsChanged) {
         clearCommands();
     } else {
-        list = buildElement('div', '', {
+        list = b(ElementTag.Div, '', {
             className: 'kestrel-commands-container',
         });
 
         kestrel.appendChild(list);
     }
 
-    taita.matchedCommands.commands.forEach((item) => {
+    taita.matched.commands.forEach((item: string) => {
         // generates html for new (matching) commands
-        let commandItem = buildElement('p', item, {
+        let commandItem = b('p', item, {
             className: 'kestrel-command-item',
         });
 
         commandItem.addEventListener('click', () => {
             // executes specified command if clicked
-            let c = taita.execute(commandItem.innerText, cmdFunctions);
+            let c = taita.execute(commandItem.innerText, state, [input]);
             if (c != false || (c && !c.then)) sendFnEvent({ inject: taita._commandContains(commandItem.innerText) });
             updateCommands();
         });
@@ -129,7 +128,7 @@ function listen(event) {
     if (event.keyCode == 13 && list) {
         Object.values(list.children).forEach((child) => {
             if (child.classList.contains('kestrel-command-item-focused')) {
-                let c = taita.execute(child.innerText, cmdFunctions);
+                let c = taita.execute(child.innerText, state, [input]);
                 if (c != false || (c && !c.then)) sendFnEvent({ inject: taita._commandContains(child.innerText) });
             }
         });
