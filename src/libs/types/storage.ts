@@ -4,7 +4,6 @@ export namespace Storage {
     export enum AutomaticFunctions {
         Loader = 'loader',
         Image = 'image',
-        Hover = 'hover',
         Minimap = 'minimap',
         LinksInSameTab = 'linksInSameTab',
         NoSameSiteLinks = 'noSameSiteLinks',

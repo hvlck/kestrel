@@ -206,8 +206,7 @@ const toggleTheme = (data) => {
 // descriptions of automatic functions
 const automaticDescriptions = {
     loader: 'Enable a loading bar.',
-    hover: 'Enable a small popup of a link appearing on hover.',
-    imageControls: 'Enable image manipulation tools.',
+    img: 'Enable image manipulation tools.',
     minimap: 'Enable a minimap of a page.',
     linksInSameTab: 'Open all links in the same tab.',
     noSameSiteLinks: 'Disable links that link to the current page',

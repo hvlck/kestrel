@@ -42,7 +42,7 @@ export enum ElementTag {
  * @param text Optional text of the HTML element
  * @param attributes - Attributes to apply to the HTML element
  */
-export default function b(type: ElementTag, text?: string, attributes?: { [key: string]: string }) {
+export default function b(type: ElementTag, text?: string, attributes?: { [key: string]: string }, children?: HTMLElement[]) {
     let element = document.createElement(type.toString());
     element.innerText = text || '';
     if (attributes) {
@@ -55,6 +55,9 @@ export default function b(type: ElementTag, text?: string, attributes?: { [key: 
                 }
             }
         });
+    }
+    if (children) {
+        children.forEach(i => element.appendChild(i))
     }
     return element;
 }

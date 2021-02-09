@@ -7,8 +7,7 @@ import Taita from 'taita';
  */
 export const backgroundMetaInformation: { [key: string]: any } = {
     runtimes: {
-        hover: 'document_idle',
-        imageControls: 'document_end',
+        img: 'document_end',
         loader: 'document_start',
         minimap: 'document_idle',
         linksInSameTab: 'document_end',
@@ -16,7 +15,7 @@ export const backgroundMetaInformation: { [key: string]: any } = {
     },
 
     matches: {
-        imageControls: [
+        img: [
             'https://*/*/*.png',
             'https://*/*/*.jpeg',
             'https://*/*/*.jpg',

@@ -1,7 +1,8 @@
 // control for the page-action
 
 import { getActiveTab, execute, activeTab } from '../libs/webUtils.js';
-import b from '../libs/utils.js';
+import b, { ElementTag } from '../libs/utils.js';
+import { browser } from 'webextension-polyfill-ts';
 
 const toggles = b(ElementTag.Div, '', {
     className: 'toggle-container',
@@ -23,47 +24,58 @@ const main = b(ElementTag.Div, '', {
 menusContainer.appendChild(main);
 
 const menus = {
-    addToggle: (name) => {
-        let t = b('p', `${name} +`, {
+    addToggle: (name: string) => {
+        let t = b(ElementTag.P, `${name} +`, {
             className: 'toggle',
-            data_toggled: false,
+            data_toggled: 'false',
             id: `toggle-${name.toLowerCase()}`,
         });
         t.addEventListener('click', () => {
             t.dataset.toggled ? menus.showMenu(name) : menus.hideMenu(name);
-            t.dataset.toggled = !t.dataset.toggled;
+            t.dataset.toggled = String(!t.dataset.toggled);
         });
         toggles.appendChild(t);
     },
 
-    showMenu: (name) => {
+    showMenu: (name: string) => {
         document.querySelectorAll('.menus > *').forEach((item) => item.classList.add('hidden'));
-        document.querySelector(`.menus > #${name.toLowerCase()}`).classList.remove('hidden');
+        document.querySelector(`.menus > #${name.toLowerCase()}`)?.classList.remove('hidden');
     },
 
-    hideMenu: (name) => {
-        document.querySelector(`.menus > #${name.toLowerCase()}`).classList.add('hidden');
+    hideMenu: (name: string) => {
+        document.querySelector(`.menus > #${name.toLowerCase()}`)?.classList.add('hidden');
     },
 };
 
 menus.addToggle('Main');
 
-let info = {};
+interface Info {
+    readingTime?: number;
+    rss?: string[];
+    pwa?: boolean;
+    headings?: {
+        [index: string]: string;
+    };
+}
+
+let info: Info;
 
 const buildFromInfo = () => {
     console.log(info);
 
     if (info.readingTime) {
-        main.appendChild(b('p', `Reading time: ${info.readingTime} minute${info.readingTime != 1 ? 's' : ''}.`));
+        main.appendChild(
+            b(ElementTag.P, `Reading time: ${info.readingTime} minute${info.readingTime != 1 ? 's' : ''}.`)
+        );
     }
 
-    if (info.rss.length != 0) {
-        let rss = b('h4', 'RSS', { className: 'section' });
+    if (info.rss?.length != 0) {
+        let rss = b(ElementTag.H4, 'RSS', { className: 'section' });
 
         let container = b(ElementTag.Div);
-        info.rss.forEach((item) => {
+        info.rss?.forEach((item) => {
             container.appendChild(
-                b('a', item, {
+                b(ElementTag.A, item, {
                     href: item,
                 })
             );
@@ -74,14 +86,16 @@ const buildFromInfo = () => {
     }
 
     if (info.pwa == true) {
-        main.appendChild(b('p', 'PWA'));
+        main.appendChild(b(ElementTag.P, 'PWA'));
     }
 
     if (info.headings) {
         menus.addToggle('Headings');
         const headings = b(ElementTag.Div, '', { className: 'menu hidden', id: 'headings' });
         Object.entries(info.headings).forEach((item, i, arr) => {
-            headings.appendChild(b('p', item[0], { style: `font-size: ${Math.abs(item[1].slice(1) - 6) * 4}pt` }));
+            headings.appendChild(
+                b(ElementTag.P, item[0], { style: `font-size: ${Math.abs(item[1].slice(1) - 6) * 4}pt` })
+            );
         });
 
         menusContainer.appendChild(headings);
@@ -90,7 +104,7 @@ const buildFromInfo = () => {
 
 getActiveTab().then(async (t) => {
     let crumbs = t.url.split(/\/+/).filter((i) => i.length > 0);
-    let root = b('a', '', { href: t.url });
+    let root = b(ElementTag.A, '', { href: t.url });
 
     let path = '';
     menus.addToggle('Breadcrumbs');
@@ -99,7 +113,7 @@ getActiveTab().then(async (t) => {
         if (item.includes('http')) return;
         if (root.hostname != item) path += `/${item}`;
         crumbContainer.appendChild(
-            b('a', root.hostname != item ? path : item, {
+            b(ElementTag.A, root.hostname != item ? path : item, {
                 href: `${root.protocol}//${root.hostname}${root.hostname == item ? '' : path}`,
                 style: `margin: auto ${index != 1 ? index * 2 : 0}%;`,
             })
@@ -109,7 +123,7 @@ getActiveTab().then(async (t) => {
 
     browser.permissions.contains({ permissions: ['history'] }).then((has) => {
         if (has == true) {
-            let root = b('a', '', { href: t.url }).hostname;
+            let root = b(ElementTag.A, '', { href: t.url }).hostname;
             browser.history
                 .search({
                     text: root,
@@ -136,7 +150,7 @@ getActiveTab().then(async (t) => {
 
                     hContainer.appendChild(
                         b(
-                            'p',
+                            ElementTag.P,
                             `Visited page ${pageTotal} time${
                                 pageTotal > 1 ? 's' : ''
                             } in the last month (${pageDaily} time${pageDaily > 1 ? 's' : ''} today)`
@@ -145,7 +159,7 @@ getActiveTab().then(async (t) => {
 
                     hContainer.appendChild(
                         b(
-                            'p',
+                            ElementTag.P,
                             `Visited domain ${domainTotal} time${
                                 domainTotal > 1 ? 's' : ''
                             } in the last month (${domainDaily} time${domainDaily > 1 ? 's' : ''} today)`
@@ -157,7 +171,7 @@ getActiveTab().then(async (t) => {
         }
     });
 
-    let siteDataLoader = b('p', 'Loading...');
+    let siteDataLoader = b(ElementTag.P, 'Loading...');
 
     let registered = execute('../injections/info.js').then(async () => {
         let t = await activeTab();
