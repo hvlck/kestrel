@@ -1,16 +1,19 @@
-import { automaticCommandsList } from '../../libs/commands.js';
-import b from '../../libs/utils.js';
-import { settings, toggleTheme, automaticDescriptions } from './settings.js';
-import callbacks from './callbacks.js';
+import { functions } from '../../browser_action/kestrel';
+import b, { ElementTag } from '../../libs/utils';
+import { settings, toggleTheme, automaticDescriptions } from './settings';
+import { settings as callbacks } from './settings';
 import { updateAutomaticFunctions, updateCommands, updateSettings } from './update.js';
+import { browser } from 'webextension-polyfill-ts';
+
+const headerRegex = new RegExp(' ', 'g');
 
 // generates html for settings
 
 // nav bar
-const nav = b('nav');
+const nav = b(ElementTag.Nav);
 
 // prevent content flashing
-document.body.querySelector('.hidden').appendChild(nav);
+document.body.querySelector('.hidden')?.appendChild(nav);
 
 // generates settings html
 const build = () => {
@@ -18,21 +21,21 @@ const build = () => {
         className: 'main',
     });
 
-    document.body.querySelector('.hidden').appendChild(main);
+    document.body.querySelector('.hidden')?.appendChild(main);
 
     settings.forEach((item) => {
         let div = b(ElementTag.Div, '', {
             className: 'settings-item-container',
         });
 
-        let title = b(`${item.type == 'divider' ? 'h2' : 'h3'}`, item.name, {
+        let title = b(item.type == 'divider' ? ElementTag.H2 : ElementTag.H3, item.name, {
             className: 'settings-item-header',
-            id: `${item.type == 'divider' ? item.name.replace(new RegExp(' ', 'g'), '-').toLowerCase() : ''}`,
+            id: `${item.type == 'divider' ? item.name.replace(headerRegex, '-').toLowerCase() : ''}`,
         });
 
         div.appendChild(title);
 
-        let description = b('p', item.description, {
+        let description = b(ElementTag.P, item.description, {
             className: 'settings-item-description',
         });
 
@@ -40,33 +43,33 @@ const build = () => {
 
         if (item.type == 'divider') {
             nav.appendChild(
-                b('a', item.name, {
+                b(ElementTag.A, item.name, {
                     href: `#${item.name.replace(' ', '-').toLowerCase()}`,
                 })
             );
-            if (item.rule != false) div.prepend(b('hr'));
+            if (item.rule != false) div.prepend(b(ElementTag.Hr));
         } else if (item.type == 'select') {
             // select element
-            let select = b('select', '', {
+            let select = b(ElementTag.Select, '', {
                 className: 'settings-item-select',
             });
 
-            item.options.forEach((option) => {
-                let element = b('option', option, {
-                    className: 'setting-item-select-option',
-                });
+            if (item.options) {
+                item.options.forEach((option) => {
+                    let element = b(ElementTag.Option, option, {
+                        className: 'setting-item-select-option',
+                    });
 
-                select.appendChild(element);
-            });
+                    select.appendChild(element);
+                });
+            }
 
             item.default.then((data) => {
                 if (Object.keys(data).length != 0)
-                    data =
-                        Object.values(data)[0].replace(new RegExp(' ', 'g'), '-').toLowerCase() ||
-                        'operating-system-default';
+                    data = Object.values(data)[0].replace(headerRegex, '-').toLowerCase() || 'operating-system-default';
 
                 let matches = Object.values(select.querySelectorAll('option')).filter(
-                    (child) => child.innerText.replace(new RegExp(' ', 'g'), '-').toLowerCase() == data
+                    (child) => child.innerText.replace(headerRegex, '-').toLowerCase() == data
                 )[0];
                 if (matches) matches.setAttribute('selected', 'true');
 
@@ -81,7 +84,7 @@ const build = () => {
             div.appendChild(select);
         } else if (item.type == 'toggle') {
             // checkbox elements
-            let container = b('table', '', {
+            let container = b(ElementTag.Table, '', {
                 className: 'settings-item-toggle-container',
             });
 
@@ -99,7 +102,7 @@ const build = () => {
                 className: 'checkbox-parent',
             });
 
-            let toggle = b('input', '', {
+            let toggle = b(ElementTag.Input, '', {
                 type: 'checkbox',
                 checked: item.default || false,
             });
@@ -121,8 +124,8 @@ const build = () => {
             });
 
             toggle.addEventListener('change', () => {
-                if (item.callback) {
-                    callbacks[item.callback](toggle);
+                if (item.fn) {
+                    item.fn.apply(toggle);
                 }
             });
 
@@ -131,7 +134,7 @@ const build = () => {
             div.appendChild(container);
         } else if (item.type == 'special') {
             // various special resets/buttons
-            let btn = b('input', '', {
+            let btn = b(ElementTag.Input, '', {
                 type: 'reset',
                 value: item.name,
             });
@@ -141,7 +144,7 @@ const build = () => {
             div.appendChild(btn);
         } else if (item.type == 'text' || item.type == 'number') {
             // text/number input
-            let text = b('input', '', {
+            let text = b(ElementTag.Input, '', {
                 type: item.type,
                 placeholder: item.placeholder,
                 [item.type == 'text' ? 'maxLength' : 'max']: item.max || '9999999',
@@ -155,7 +158,7 @@ const build = () => {
 
             browser.storage.local.get(item.setting).then((data) => {
                 text.value = data[item.setting][item.dependsOn][item.keyName] || item.default;
-                item.callback ? callbacks[item.callback](text) : '';
+                item.fn ? callbacks[item.fn](text) : '';
             });
 
             browser.storage.local.get(item.dependsOnKey).then((data) => {
@@ -164,38 +167,38 @@ const build = () => {
 
             text.addEventListener('input', () => {
                 if (item.type == 'number') {
-                    if (new RegExp(item.matches).test(text.value)) {
+                    if (item.matches?.test(text.value)) {
                         if (text.value <= item.max && text.value >= item.min) {
                             callbacks.updateAutomaticSettings();
-                            item.callback ? callbacks[item.callback](text) : '';
+                            item.fn ? callbacks[item.fn](text) : '';
                         }
                     }
                 } else {
-                    if (new RegExp(item.matches).test(text.value)) {
+                    if (item.matches?.test(text.value)) {
                         if (text.value.length <= item.max && text.value.length >= item.min) {
                             callbacks.updateAutomaticSettings();
-                            item.callback ? callbacks[item.callback](text) : '';
+                            item.fn ? item.fn?.apply(text) : '';
                         }
                     }
                 }
             });
 
             div.appendChild(text);
-            let matchDescElem = b('p', item.matchDescription);
+            let matchDescElem = b(ElementTag.P, item.matchDescription);
             div.appendChild(matchDescElem);
         } else if (item.type == 'file' && item.fn) {
-            let label = b('label', item.name, {
+            let label = b(ElementTag.Label, item.name, {
                 className: 'file-label',
             });
-            label.setAttribute('for', `file-${item.name.toLowerCase().replace(new RegExp(' ', 'g'), '-')}`);
+            label.setAttribute('for', `file-${item.name.toLowerCase().replace(headerRegex, '-')}`);
 
-            let inp = b('input', '', {
+            let inp = b(ElementTag.Input, '', {
                 type: 'file',
-                id: `file-${item.name.toLowerCase().replace(new RegExp(' ', 'g'), '-')}`,
+                id: `file-${item.name.toLowerCase().replace(headerRegex, '-')}`,
             });
 
             inp.addEventListener('change', function () {
-                callbacks[item.fn](this);
+                item.fn?.apply(this);
             });
 
             div.appendChild(label);
@@ -205,15 +208,15 @@ const build = () => {
         main.appendChild(div);
     });
 
-    document.body.querySelector('.hidden').classList.remove('hidden');
+    document.body.querySelector('.hidden')?.classList.remove('hidden');
 };
 
 // toggle type html structure
 function buildToggle(item, customData, container) {
-    let head = b('thead');
-    let headerRow = b('tr');
+    let head = b(ElementTag.Thead);
+    let headerRow = b(ElementTag.Tr);
     item.headers.forEach((header) => {
-        let headerCell = b('th', header);
+        let headerCell = b(ElementTag.Th, header);
         headerRow.appendChild(headerCell);
     });
 
@@ -239,12 +242,12 @@ function buildToggle(item, customData, container) {
 // toggle type content html
 function buildToggleHtml(iter, container, original, ref) {
     iter.forEach((option, index) => {
-        let row = b('tr');
+        let row = b(ElementTag.Tr);
 
-        let toggleCell = b('td');
+        let toggleCell = b(ElementTag.Td);
 
         if (ref == 'commands') {
-            let toggle = b('input', '', {
+            let toggle = b(ElementTag.Input, '', {
                 type: 'checkbox',
                 checked: option.on,
                 data_command: Object.entries(original)[index][0],
@@ -258,16 +261,16 @@ function buildToggleHtml(iter, container, original, ref) {
         } else if (ref == 'background') {
             browser.storage.local.get('automatic').then((status) => {
                 status = status.automatic;
-                let toggle = b('input', '', {
+                let toggle = b(ElementTag.Input, '', {
                     type: 'checkbox',
                     checked: status[option] || false,
-                    data_background: Object.keys(automaticCommandsList)[index],
-                });
+                    data_background: Object.keys(functions)[index],
+                }) as HTMLInputElement;
 
                 toggle.addEventListener('change', () => {
                     updateAutomaticFunctions();
                     document
-                        .querySelectorAll(`*[data-automatic-setting="${toggle.dataset.background}"]`)
+                        .querySelectorAll<HTMLInputElement>(`*[data-automatic-setting="${toggle.dataset.background}"]`)
                         .forEach((item) => (item.disabled = !toggle.checked));
                 });
 
@@ -275,12 +278,12 @@ function buildToggleHtml(iter, container, original, ref) {
             });
         }
 
-        let descriptionCell = b('td');
+        let descriptionCell = b(ElementTag.Td);
         if (ref == 'commands') {
-            let description = b('p', option.name.split(':')[0]);
+            let description = b(ElementTag.P, option.name.split(':')[0]);
             descriptionCell.appendChild(description);
         } else if (ref == 'background') {
-            let description = b('p', automaticDescriptions[option]);
+            let description = b(ElementTag.P, automaticDescriptions[option]);
             descriptionCell.appendChild(description);
         }
 

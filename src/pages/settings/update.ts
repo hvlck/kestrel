@@ -1,7 +1,8 @@
-import { automaticCommandsList, automaticSettings, commands } from '../../libs/commands.js';
-import b from '../../libs/utils.js';
-import build from './build.js';
-import { toggleTheme } from './settings.js';
+import { automaticCommandsList, automaticSettings, commands } from '../../libs/commands';
+import b, { ElementTag } from '../../libs/utils';
+import build from './build';
+import { toggleTheme } from './settings';
+import { browser } from 'webextension-polyfill-ts';
 
 // handles updating storage, some visual (confirm/fail) notifcations, etc.
 
@@ -28,7 +29,7 @@ import { toggleTheme } from './settings.js';
 })();
 
 // updates settings
-function updateSettings(key, value, original) {
+function updateSettings(key: string, value: any, original?: string) {
     let originalKey = original || key;
     if (key && typeof key !== 'object')
         key = key.replace(new RegExp(' ', 'g'), '_').replace(new RegExp('-', 'g'), '_').toLowerCase();
@@ -47,12 +48,12 @@ function updateSettings(key, value, original) {
 }
 
 // generates success notification
-const success = (key) => {
+const success = (key: string) => {
     if (document.querySelector('.success')) {
         document.querySelectorAll('.success').forEach((item) => item.remove());
     }
 
-    let notification = b('p', `Successfully updated ${key}.`, {
+    let notification = b(ElementTag.P, `Successfully updated ${key}.`, {
         className: 'success',
     });
 
@@ -64,12 +65,12 @@ const success = (key) => {
 };
 
 // generates failure notification
-const failure = (key) => {
+export const failure = (key: string) => {
     if (document.querySelector('.failure')) {
         document.querySelectorAll('.failure').forEach((item) => item.remove());
     }
 
-    let notification = b('p', `Failed to update ${key}.  Check the console for more details.`, {
+    let notification = b(ElementTag.P, `Failed to update ${key}.  Check the console for more details.`, {
         className: 'failure',
     });
 
@@ -83,7 +84,7 @@ const failure = (key) => {
 // updates all commands in storage, based on all configurable settings
 const updateCommands = () => {
     let name;
-    document.querySelectorAll('input[data-command]').forEach((item) => {
+    document.querySelectorAll<HTMLInputElement>('input[data-command]').forEach((item) => {
         name = item.dataset.command;
         commands[name] = Object.assign(commands[name], { on: item.checked });
     });
@@ -94,7 +95,7 @@ const updateCommands = () => {
 // updates all automatic functions, in memory and storage
 const updateAutomaticFunctions = () => {
     let name;
-    document.querySelectorAll('input[data-background]').forEach((item) => {
+    document.querySelectorAll<HTMLInputElement>('input[data-background]').forEach((item) => {
         name = item.dataset.background;
         automaticCommandsList[name] = item.checked;
     });
