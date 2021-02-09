@@ -5,7 +5,11 @@
             window.matchMedia('(prefers-color-scheme:dark)').matches == true ? 'dark' : 'light';
 
     const currentThemeColour = () => {
-        return document.body.dataset.theme;
+        if (document.body.dataset.theme != null) {
+            return document.body.dataset.theme;
+        } else {
+            return false;
+        }
     };
 
     const oppositeColour = () => {
@@ -21,7 +25,10 @@
         Array.from(sheet.cssRules).forEach((rule, index) => {
             if (rule.cssText.startsWith('@media') == true && rule.cssText.includes('color') == true) {
                 sheet.removeRule(index);
-                sheet.insertRule(rule.cssText.replace(currentThemeColour(), oppositeColour()), index);
+                const t = currentThemeColour();
+                if (t != false) {
+                    sheet.insertRule(rule.cssText.replace(t, oppositeColour()), index);
+                }
                 document.body.dataset.theme = oppositeColour();
             }
         });
