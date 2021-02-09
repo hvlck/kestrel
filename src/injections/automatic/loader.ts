@@ -1,26 +1,37 @@
 // generates a loading bar
 (function () {
-    const b = (type, text, attributes) => {
-        let element = document.createElement(type);
+    // slightly modified version of the util function
+    function b(type: string, text?: string, attributes?: { [key: string]: string }, children?: HTMLElement[]) {
+        let element = document.createElement(type.toString());
         element.innerText = text || '';
         if (attributes) {
             Object.keys(attributes).forEach((item) => {
-                if (item.includes('data_')) {
-                    element.setAttribute(item.replace(new RegExp('_', 'g'), '-'), attributes[item]);
-                } else {
-                    element[item] = attributes[item];
+                if (element.hasAttribute(item)) {
+                    if (item.includes('data_')) {
+                        element.setAttribute(item.replace(new RegExp('_', 'g'), '-'), attributes[item]);
+                    } else {
+                        element.setAttribute(item, attributes[item]);
+                    }
                 }
             });
         }
+        if (children) {
+            children.forEach((i) => element.appendChild(i));
+        }
         return element;
-    };
+    }
 
+    // @ts-expect-error
     GM_getSettings()
+        // @ts-expect-error
+        // todo: add `data` param type
         .then((data) => {
             build(data);
         })
-        .catch((err) => console.error(`Failed to build Kestrel loader: ${err}`));
+        .catch((err: string) => console.error(`Failed to build Kestrel loader: ${err}`));
 
+    // @ts-expect-error
+    // todo: add `settings` param type
     const build = (settings) => {
         let lastWidth = 0;
         settings = settings.settings.automaticsettings.loader;
@@ -93,7 +104,7 @@
 
         if (
             document.documentElement.clientWidth > lastWidth &&
-            parseInt(loader.style.width) == '0' &&
+            parseInt(loader.style.width) == 0 &&
             !document.querySelector(`#kestrel-loading-bar`) &&
             document.readyState == 'complete'
         ) {

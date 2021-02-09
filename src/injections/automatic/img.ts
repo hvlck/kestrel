@@ -1,18 +1,24 @@
 (function () {
-    const b = (type, text, attributes) => {
-        let element = document.createElement(type);
+    // slightly modified version of the util function
+    function b(type: string, text?: string, attributes?: { [key: string]: string }, children?: HTMLElement[]) {
+        let element = document.createElement(type.toString());
         element.innerText = text || '';
         if (attributes) {
             Object.keys(attributes).forEach((item) => {
-                if (item.includes('data_')) {
-                    element.setAttribute(item.replace(new RegExp('_', 'g'), '-'), attributes[item]);
-                } else {
-                    element[item] = attributes[item];
+                if (element.hasAttribute(item)) {
+                    if (item.includes('data_')) {
+                        element.setAttribute(item.replace(new RegExp('_', 'g'), '-'), attributes[item]);
+                    } else {
+                        element.setAttribute(item, attributes[item]);
+                    }
                 }
             });
         }
+        if (children) {
+            children.forEach((i) => element.appendChild(i));
+        }
         return element;
-    };
+    }
 
     const fileType = window.location.href.split('.')[window.location.href.split('.').length - 1];
 
@@ -20,11 +26,15 @@
 
     // redraws original image into canvas
     const img = new Image();
-    img.src = document.body.querySelector('img').src;
+    let i = document.body.querySelector('img');
+    if (i != null) {
+        img.src = i.src;
+    }
 
-    const canvas = b('canvas', '', {
-        style: `max-width:80%;margin:auto;text-align:center;`,
-    });
+    // todo: reconvert to b() form after coercion added
+    const canvas = document.createElement('canvas');
+    canvas.setAttribute('style', 'max-width:80%;margin:auto;text-align:center;');
+
     const ctx = canvas.getContext('2d');
     container.appendChild(canvas);
 
@@ -32,10 +42,10 @@
         canvas.height = this.naturalHeight;
         canvas.width = this.naturalWidth;
 
-        ctx.drawImage(this, 0, 0);
+        ctx?.drawImage(this, 0, 0);
     });
 
-    document.body.querySelector('img').remove();
+    document.body.querySelector('img')?.remove();
     document.body.appendChild(container);
 
     // container for tools (filters, reset, export, etc.)
@@ -104,12 +114,14 @@
     // updates image, uses all existing filters
     const redrawFilters = () => {
         let allFilters = '';
-        document.querySelectorAll('.toolbar input[type="range"]').forEach((item) => {
+        document.querySelectorAll<HTMLElement>('.toolbar input[type="range"]').forEach((item) => {
             let unit = filters.filter((i) => i.name.replace(new RegExp(' ', 'g'), '-').toLowerCase() == item.id)[0];
-            allFilters += `${item.id}(${item.value}${unit.unit}) `;
+            allFilters += `${item.id}(${item.getAttribute('value')}${unit.unit}) `;
         });
-        ctx.filter = allFilters;
-        ctx.drawImage(img, 0, 0);
+        if (ctx != null) {
+            ctx.filter = allFilters;
+            ctx.drawImage(img, 0, 0);
+        }
     };
 
     // generates range elements for filter manipulation
@@ -119,13 +131,13 @@
         });
         let range = b('input', '', {
             type: 'range',
-            min: item.min,
-            max: item.max,
-            value: item.value,
+            min: item.min.toString(),
+            max: item.max.toString(),
+            value: item.value.toString(),
             id: item.name.replace(new RegExp(' ', 'g'), '-').toLowerCase(),
         });
         range.addEventListener('change', () => {
-            label.innerText = `${item.name}: ${range.value}${item.unit}`;
+            label.innerText = `${item.name}: ${range.getAttribute('value')}${item.unit}`;
             redrawFilters();
         });
 
@@ -139,12 +151,20 @@
         value: 'Clear filters',
     });
     reset.addEventListener('click', () => {
-        ctx.filter = 'none';
-        ctx.drawImage(img, 0, 0);
-        document.querySelectorAll('.toolbar input[type="range"]').forEach((item) => {
+        if (ctx != null) {
+            ctx.filter = 'none';
+            ctx.drawImage(img, 0, 0);
+        }
+
+        document.querySelectorAll<HTMLElement>('.toolbar input[type="range"]').forEach((item) => {
             let filter = filters.filter((i) => i.name.replace(new RegExp(' ', 'g'), '-').toLowerCase() == item.id)[0];
-            item.value = filter.value;
-            item.previousElementSibling.innerText = `${filter.name}: ${filter.value}${filter.unit}`;
+            item.setAttribute('value', filter.value.toString());
+            const p = item.previousElementSibling;
+            if (p != null) {
+                // @ts-expect-error
+                // todo: fix error
+                p.innerText = `${filter.name}: ${filter.value}${filter.unit}`;
+            }
         });
     });
     toolbar.appendChild(reset);
@@ -153,7 +173,7 @@
     const exportLabel = b('label', 'Export image as...', {
         for: 'export-img',
     });
-    const exportImg = b('select', '', { id: 'export-img' });
+    const exportImg = b('select', '', { id: 'export-img' }) as HTMLInputElement;
     const formats = ['PNG', 'JPEG'];
     formats.forEach((item) => exportImg.appendChild(b('option', item, { value: `image/${item.toLowerCase()}` })));
     exportImg.addEventListener('input', () => {
