@@ -3,8 +3,8 @@
     "version": "1.6.0",
     "description": "general browser utilities",
     "main": "index.js",
-    "repository": "https://github.com/EthanJustice/kestrel.git",
-    "author": "EthanJustice <47954690+EthanJustice@users.noreply.github.com>",
+    "repository": "https://github.com/hvlck/kestrel.git",
+    "author": "hvlck <47954690+hvlck@users.noreply.github.com>",
     "license": "MIT",
     "scripts": {
         "start": "web-ext run",

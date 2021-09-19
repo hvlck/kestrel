@@ -11,7 +11,7 @@ browser.runtime
         if (nav) {
             nav.appendChild(
                 b(ElementTag.A, `Changelog (${resp.version.slice(0, resp.version.lastIndexOf('.'))})`, {
-                    href: `https://github.com/EthanJustice/kestrel#v${
+                    href: `https://github.com/hvlck/kestrel#v${
                         resp.version.split('.')[0] + resp.version.split('.')[1]
                     }`,
                 })

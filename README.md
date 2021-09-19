@@ -2,9 +2,9 @@
 
 General browser utilities.
 
-![Kestrel's Icon](https://raw.githubusercontent.com/EthanJustice/kestrel/master/src/icons/icon.png)
+![Kestrel's Icon](https://raw.githubusercontent.com/hvlck/kestrel/master/src/icons/icon.png)
 
-The extension hasn't been submitted to FireFox addons just yet, but you can track it [from the AMO project](https://github.com/EthanJustice/kestrel/projects/1).
+The extension hasn't been submitted to FireFox addons just yet, but you can track it [from the AMO project](https://github.com/hvlck/kestrel/projects/1).
 
 ## Table of Contents
 
@@ -53,7 +53,7 @@ The [features](#features) section lists the permissions that each feature uses.
 
 TODO: General overview of how permissions are used
 
-TODO: instances of permission usage, e.g. [https://github.com/EthanJustice/kestrel/search?q=browser.tabs.&unscoped_q=browser.tabs.](https://github.com/EthanJustice/kestrel/search?q=browser.tabs.&unscoped_q=browser.tabs.)
+TODO: instances of permission usage, e.g. [https://github.com/hvlck/kestrel/search?q=browser.tabs.&unscoped_q=browser.tabs.](https://github.com/hvlck/kestrel/search?q=browser.tabs.&unscoped_q=browser.tabs.)
 
 ### How Do I Change Kestrel's Default Activation Command
 
@@ -65,7 +65,7 @@ No, not now and not ever.
 
 ### I Don't Understand Something
 
-Your best bet is the [wiki](https://github.com/EthanJustice/kestrel/wiki).
+Your best bet is the [wiki](https://github.com/hvlck/kestrel/wiki).
 
 ## Usage
 
@@ -109,7 +109,8 @@ TODO: Finish section
 
 #### Medium
 
-+ Rename KQL
++ Rename KQL, functioning KQL
++ Jump to X in page, similar to VSCode's
 + Update features [meta]
 + Finish image filtering utilities
   + Cropping
@@ -117,6 +118,8 @@ TODO: Finish section
   + Toolbar styling
 + Refactoring [meta]
 + Better onboarding/user-friendly docs [meta] {in-progress}
++ Dropdown functions
+  + Copy page `<title>` to clipboard
 
 #### Low
 
@@ -125,6 +128,9 @@ TODO: Finish section
 + Homepage [meta] {in-progress}
 + Better icons
   + Different icons for `page-action` and `browser-action`
++ open link in new tab [context-menu]
++ copy/paste format conversion [context-menu]
+  + highlight, right click, copy text into selected format
 
 #### Planned Features
 
@@ -137,7 +143,7 @@ TODO: Finish section
 + Page rich editing (e.g. create elements, customize them)/downloading [browser-action] {in-progress}
 + Tab workspaces (launch multiple preset tabs or windows, save multiple window configurations; these aren't containers, but used for opening sites related to something, such as GitHub and MDN for a workspace called "Programming") [browser-action]
 + KQL [browser-action]
-  + Things on the [Searching · EthanJustice/kestrel Wiki · GitHub](https://github.com/EthanJustice/kestrel/wiki/Searching) page
+  + Things on the [Searching · hvlck/kestrel Wiki · GitHub](https://github.com/hvlck/kestrel/wiki/Searching) page
   + Workspace searching
   + Search hidden text content [browser action]
   + Search within a portion of the page (highlighted, viewport, etc.) [browser-action]
@@ -149,7 +155,7 @@ TODO: Finish section
 
 #### Abandoned/Ultra-Low Priority
 
-+ ~~User-set activation/close command [feature]~~ [abandoned - see [](https://github.com/EthanJustice/kestrel/)]
++ ~~User-set activation/close command [feature]~~ [abandoned - see [](https://github.com/hvlck/kestrel/)]
 
 ## Changelog
 
@@ -253,7 +259,7 @@ commands - all commands, and whether they're enabled [Object]
         callback: String, // internal callback, injection file name
         name: String // text displayed in command palette
     } // these correspond to taita commands
-      // see https://github.com/EthanJustice/taita/#setup
+      // see https://github.com/hvlck/taita/#setup
 }
 
 theme - kestrel's theme (light, dark, or operating-system-default, which uses the (prefers-color-scheme) media query) [String]
